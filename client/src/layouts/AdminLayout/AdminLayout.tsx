@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, FileText, LogOut, ShieldCheck, Menu, X, AlertTriangle } from "lucide-react";
+import { LayoutDashboard, Users, FileText, LogOut, ShieldCheck, Menu, X } from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore";
 
 const AdminLayout = () => {
