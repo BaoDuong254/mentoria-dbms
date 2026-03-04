@@ -1,0 +1,2573 @@
+{
+	"info": {
+		"_postman_id": "8c7e7d1b-fdad-456d-96ab-864c33ab56d2",
+		"name": "Mentoria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41961051",
+		"_collection_link": "https://mentoria-7549.postman.co/workspace/Mentoria~f3a7e870-327a-42de-adaa-8d9badaca01c/collection/49766515-8c7e7d1b-fdad-456d-96ab-864c33ab56d2?action=share&source=collection_link&creator=41961051"
+	},
+	"item": [
+		{
+			"name": "module auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "firstName",
+									"value": "duong",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "bao",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "duonggiabao254@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "otp",
+									"value": "596457",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/auth/verify-otp",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"verify-otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@mentoria.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password123!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{host}}/api/auth/logout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "duonggiabao254@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/auth/forgot-password",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "newPassword",
+									"value": "123456",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/auth/reset-password/d8857764-8d99-4db6-8fad-041b03cdee0e",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"reset-password",
+								"d8857764-8d99-4db6-8fad-041b03cdee0e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with google",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/auth/google",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"google"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/auth/me",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mentor register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstName",
+									"value": "bao",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "duong",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "duonggiabaod251453122@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "cv",
+									"type": "file",
+									"src": "/C:/Users/Admin/Downloads/SE251__ProjectDesc__Tutor_v1 (3) (2).pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/auth/mentor-register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"mentor-register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resend OTP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "test@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/auth/resend-otp",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"resend-otp"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module mentors",
+			"item": [
+				{
+					"name": "Mentor profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/mentors/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentors",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update mentor profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Kien\",\r\n    \"lastName\": \"Nguyen\",\r\n    \"sex\": \"Female\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/mentors/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mentors list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/mentors?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentors"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a stats of mentor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/mentors/25/stats",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentors",
+								"25",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all plans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/mentors/1/plans",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentors",
+								"1",
+								"plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get detail plan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/mentors/2/plans/5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentors",
+								"2",
+								"plans",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a plan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/mentors/2/plans/5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentors",
+								"2",
+								"plans",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a plan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\r\n//   \"planDescription\": \"45-minute career coaching session\",\r\n//   \"planCharge\": 75,\r\n//   \"planType\": \"Extreme\",\r\n//   \"sessionsDuration\": 45\r\n// }\r\n{\r\n  \"planDescription\": \"Standard mentorship - 4 calls per month\",\r\n  \"planCharge\": 349,\r\n  \"planType\": \"Standard\",\r\n  \"callsPerMonth\": 4,\r\n  \"minutesPerCall\": 60,\r\n  \"benefits\": [\r\n    \"4 calls per month (60min/call)\",\r\n    \"Unlimited chat support\",\r\n    \"Code review\",\r\n    \"Career guidance\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/mentors/1/plans",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentors",
+								"1",
+								"plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a plan",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\r\n//   \"planDescription\": \"45-minute career coaching session\",\r\n//   \"planCharge\": 75,\r\n//   \"planType\": \"Extreme\",\r\n//   \"sessionsDuration\": 45\r\n// }\r\n{\r\n  \"planDescription\": \"Standard mentorship - 4 calls per month\",\r\n  \"planCharge\": 349,\r\n  \"planType\": \"Standard\",\r\n  \"callsPerMonth\": 5,\r\n  \"minutesPerCall\": 60,\r\n  \"benefits\": [\r\n    \"5 calls per month (60min/call)\",\r\n    \"Unlimited chat support\",\r\n    \"Code review\",\r\n    \"Career guidance\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/mentors/1/plans/82",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentors",
+								"1",
+								"plans",
+								"82"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module users",
+			"item": [
+				{
+					"name": "Upload avatar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/users/avatar",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "oldPassword",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "1234567890",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "1234567890",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/users/change-password",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get mentee's invoice stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/users/mentee/invoice-stats?year=2025&month=12",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"mentee",
+								"invoice-stats"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2025"
+								},
+								{
+									"key": "month",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get mentor's invoice stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/users/mentor/invoice-stats?month=12&year=2025",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"mentor",
+								"invoice-stats"
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "12"
+								},
+								{
+									"key": "year",
+									"value": "2025"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module mentees",
+			"item": [
+				{
+					"name": "Mentee profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/mentees/162",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentees",
+								"162"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mentee list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/mentees?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentees"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update mentee profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"goal\": \"Learn React and Node.js to become a full-stack developer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/mentees/162",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"mentees",
+								"162"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module search",
+			"item": [
+				{
+					"name": "Search keywords",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/search/mentors?keyword=google%20senior%20javascript&page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"search",
+								"mentors"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "google%20senior%20javascript"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search skills",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/search/skills?keyword=TypeScript",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"search",
+								"skills"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "TypeScript"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search companies",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/search/companies?keyword=google",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"search",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "keyword",
+									"value": "google"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search job titles",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/search/jobtitles?keyword=software%20engineer",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"search",
+								"jobtitles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "keyword",
+									"value": "software%20engineer"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module catalog",
+			"item": [
+				{
+					"name": "Get categories list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/catalog/supercategories?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"catalog",
+								"supercategories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get skills list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/catalog/skills?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"catalog",
+								"skills"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get companies list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/catalog/companies?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"catalog",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get job title list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/catalog/jobtitles?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"catalog",
+								"jobtitles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get countries list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/catalog/countries?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"catalog",
+								"countries"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get languages list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/catalog/languages?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"catalog",
+								"languages"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module filter",
+			"item": [
+				{
+					"name": "Filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/filter/mentors?page=1&limit=5&skillIds=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"filter",
+								"mentors"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "skillIds",
+									"value": "1"
+								},
+								{
+									"key": "companyIds",
+									"value": "29",
+									"disabled": true
+								},
+								{
+									"key": "jobTitleIds",
+									"value": "33",
+									"disabled": true
+								},
+								{
+									"key": "countries",
+									"value": "South Korea",
+									"disabled": true
+								},
+								{
+									"key": "languages",
+									"value": "English",
+									"disabled": true
+								},
+								{
+									"key": "minPrice",
+									"value": "70",
+									"disabled": true
+								},
+								{
+									"key": "maxPrice",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "minRating",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get available filter options",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/filter/available",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"filter",
+								"available"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module slot",
+			"item": [
+				{
+					"name": "Get all slots for a specific plan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/slots/plans/1?page=1&limit=10&status=Available",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"slots",
+								"plans",
+								"1"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "status",
+									"value": "Available"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a specific slot for a plan",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/slots/plans/1/slot?startTime=2025-11-20T02:00:00.000Z&endTime=2025-11-20T03:00:00.000Z&date=2025-11-20T00:00:00.000Z",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"slots",
+								"plans",
+								"1",
+								"slot"
+							],
+							"query": [
+								{
+									"key": "startTime",
+									"value": "2025-11-20T02:00:00.000Z"
+								},
+								{
+									"key": "endTime",
+									"value": "2025-11-20T03:00:00.000Z"
+								},
+								{
+									"key": "date",
+									"value": "2025-11-20T00:00:00.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new slot for a specific plan",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"startTime\": \"2025-12-01T10:00:00Z\",\r\n  \"endTime\": \"2025-12-01T11:00:00Z\",\r\n  \"date\": \"2025-12-01\",\r\n  \"status\": \"Available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/slots/plans/35",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"slots",
+								"plans",
+								"35"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a slot for a specific plan",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"startTime\": \"2025-12-01T10:00:00Z\",\r\n  \"endTime\": \"2025-12-01T11:00:00Z\",\r\n  \"date\": \"2025-12-01\",\r\n  \"status\": \"Available\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/slots/plans/35?startTime=2025-11-20T02:00:00.000Z&endTime=2025-11-20T03:00:00.000Z&date=2025-11-20T00:00:00.000Z",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"slots",
+								"plans",
+								"35"
+							],
+							"query": [
+								{
+									"key": "startTime",
+									"value": "2025-11-20T02:00:00.000Z"
+								},
+								{
+									"key": "endTime",
+									"value": "2025-11-20T03:00:00.000Z"
+								},
+								{
+									"key": "date",
+									"value": "2025-11-20T00:00:00.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a slot for a specific plan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/slots/plans/35?startTime=2025-11-20T02:00:00.000Z&endTime=2025-11-20T03:00:00.000Z&date=2025-11-20T00:00:00.000Z",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"slots",
+								"plans",
+								"35"
+							],
+							"query": [
+								{
+									"key": "startTime",
+									"value": "2025-11-20T02:00:00.000Z"
+								},
+								{
+									"key": "endTime",
+									"value": "2025-11-20T03:00:00.000Z"
+								},
+								{
+									"key": "date",
+									"value": "2025-11-20T00:00:00.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module messages",
+			"item": [
+				{
+					"name": "Get Users for Sidebar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/messages/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"messages",
+								"users"
+							]
+						},
+						"description": "Lấy danh sách tất cả users (trừ mình) để hiển thị trong sidebar"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Conversations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/messages/conversations",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"messages",
+								"conversations"
+							]
+						},
+						"description": "Lấy danh sách tất cả conversations của user hiện tại"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Messages with User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/messages/:userId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"messages",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2",
+									"description": "ID của user muốn xem tin nhắn"
+								}
+							]
+						},
+						"description": "Lấy danh sách tin nhắn giữa user hiện tại và user có userId"
+					},
+					"response": []
+				},
+				{
+					"name": "Send Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"receiver_id\": 2,\n  \"content\": \"Hello, this is a test message!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/messages",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"messages"
+							]
+						},
+						"description": "Gửi tin nhắn mới đến một user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module payment",
+			"item": [
+				{
+					"name": "Create a Stripe checkout session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"menteeId\": 52,\r\n  \"mentorId\": 1,\r\n  \"planId\": 1,\r\n  \"slotStartTime\": \"2025-12-06T15:00:00.000Z\",\r\n  \"slotEndTime\": \"2025-12-06T15:30:00.000Z\",\r\n  \"message\": \"I would like to discuss career transition strategies.\"\r\n//   \"discountCode\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/pay/checkout-session",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"pay",
+								"checkout-session"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module admin",
+			"item": [
+				{
+					"name": "List all mentees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/admin/mentees?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentees"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get mentee by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/admin/mentees/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentees",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "31",
+									"description": "ID của mentee"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update mentee",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Updated\",\n  \"last_name\": \"Name\",\n  \"goal\": \"New learning goal\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/admin/mentees/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentees",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID của mentee cần update"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete mentee",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/admin/mentees/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentees",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID của mentee cần xóa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all mentors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/admin/mentors?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentors"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List pending mentors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/admin/mentors/pending?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentors",
+								"pending"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Lấy danh sách tất cả mentor có status Pending (chờ duyệt)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get mentor by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/admin/mentors/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID của mentor"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update mentor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Updated\",\n  \"last_name\": \"Mentor\",\n  \"bio\": \"Updated bio\",\n  \"headline\": \"Senior Developer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/admin/mentors/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID của mentor cần update"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete mentor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/admin/mentors/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID của mentor cần xóa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Review mentor - Accept",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"accept\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/admin/mentors/:id/review",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentors",
+								":id",
+								"review"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID của mentor cần duyệt"
+								}
+							]
+						},
+						"description": "Duyệt hồ sơ mentor - chấp nhận. Mentor sẽ nhận email thông báo và status chuyển thành Inactive."
+					},
+					"response": []
+				},
+				{
+					"name": "Review mentor - Reject",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"action\": \"reject\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/admin/mentors/:id/review",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"mentors",
+								":id",
+								"review"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID của mentor cần từ chối"
+								}
+							]
+						},
+						"description": "Duyệt hồ sơ mentor - từ chối. Mentor sẽ nhận email thông báo và bị xóa khỏi hệ thống."
+					},
+					"response": []
+				},
+				{
+					"name": "Get invoice stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/admin/invoices?year=2025&month=12&page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"invoices"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2025"
+								},
+								{
+									"key": "month",
+									"value": "12"
+								},
+								{
+									"key": "userId",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "userType",
+									"value": "mentor",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get stats of system",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/admin/stats",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get dashboard statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/admin/dashboard-stats",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"dashboard-stats"
+							],
+							"query": [
+								{
+									"key": "groupBy",
+									"value": "mentor",
+									"disabled": true
+								},
+								{
+									"key": "startDate",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "endDate",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "companyId",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "categoryId",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "minRevenue",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "minBookingCount",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sortOrder",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module meetings",
+			"item": [
+				{
+					"name": "Get meetings for mentee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/meetings/mentee?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								"mentee"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Lấy danh sách meetings của mentee đang đăng nhập"
+					},
+					"response": []
+				},
+				{
+					"name": "Get meetings for mentor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/meetings/mentor?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								"mentor"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Lấy danh sách meetings của mentor đang đăng nhập"
+					},
+					"response": []
+				},
+				{
+					"name": "Get meeting by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/meetings/:meetingId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								":meetingId"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "1",
+									"description": "ID của meeting"
+								}
+							]
+						},
+						"description": "Lấy thông tin chi tiết của một meeting"
+					},
+					"response": []
+				},
+				{
+					"name": "Update meeting location",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"location\": \"https://meet.google.com/abc-defg-hij\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/meetings/:meetingId/location",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								":meetingId",
+								"location"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "32",
+									"description": "ID của meeting cần update"
+								}
+							]
+						},
+						"description": "Cập nhật link meeting (Google Meet, Zoom, etc.)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update meeting status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"Completed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/meetings/:meetingId/status",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								":meetingId",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "32",
+									"description": "ID của meeting cần update"
+								}
+							]
+						},
+						"description": "Cập nhật status của meeting (Pending, Scheduled, Completed, Cancelled)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update review link",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/meetings/:meetingId/review-link",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								":meetingId",
+								"review-link"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel a meeting",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/meetings/:meetingId/cancel",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								":meetingId",
+								"cancel"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a meeting",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/meetings/:meetingId/permanent",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"meetings",
+								":meetingId",
+								"permanent"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module complaint",
+			"item": [
+				{
+					"name": "Create a new complaint",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"meeting_id\": 123,\r\n    \"content\": \"The mentor did not show up for the scheduled meeting\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/complaints",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"complaints"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all complaints",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/complaints/all?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"complaints",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my complaints",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/complaints/my?page=1&limit=5&status=Pending",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"complaints",
+								"my"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "status",
+									"value": "Pending"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get mentor complaints",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/complaints/mentor?page=1&limit=5",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"complaints",
+								"mentor"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Checks if a meeting has expired",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/complaints/check-expired/:meetingId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"complaints",
+								"check-expired",
+								":meetingId"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get complaints by meetingId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/complaints/meeting/:meetingId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"complaints",
+								"meeting",
+								":meetingId"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get complaints by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/complaints/:complaintId",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"complaints",
+								":complaintId"
+							],
+							"variable": [
+								{
+									"key": "complaintId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update complaint status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"Resolved\",\r\n    \"admin_response\": \"Meeting has been cancelled and refund will be processed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/complaints/:complaintId/status",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"complaints",
+								":complaintId",
+								"status"
+							],
+							"variable": [
+								{
+									"key": "complaintId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module oauth",
+			"item": [
+				{
+					"name": "Initial google oauth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/auth/google",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"google"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "module discount",
+			"item": [
+				{
+					"name": "Get best discount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/discount/best?mentee_id=1&plan_id=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"discount",
+								"best"
+							],
+							"query": [
+								{
+									"key": "mentee_id",
+									"value": "1"
+								},
+								{
+									"key": "plan_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all discounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/discount/all?plan_id=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"discount",
+								"all"
+							],
+							"query": [
+								{
+									"key": "plan_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

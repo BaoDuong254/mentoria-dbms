@@ -1,0 +1,284 @@
+SuperCategoryItem:
+  type: object
+  description: A super category with its ID, name, and the count of mentors who have skills in this category or its subcategories
+  properties:
+    category_id:
+      type: integer
+      description: Unique identifier for the category
+      example: 1
+    category_name:
+      type: string
+      description: Name of the super category
+      example: "Technology & Programming"
+    mentor_count:
+      type: integer
+      description: Total number of mentors who have skills in this category or any of its subcategories
+      example: 42
+  required:
+    - category_id
+    - category_name
+    - mentor_count
+
+PaginationInfo:
+  type: object
+  description: Pagination metadata for list responses
+  properties:
+    currentPage:
+      type: integer
+      description: Current page number
+      example: 1
+    totalPages:
+      type: integer
+      description: Total number of pages available
+      example: 5
+    totalItems:
+      type: integer
+      description: Total number of items across all pages
+      example: 42
+    itemsPerPage:
+      type: integer
+      description: Number of items per page
+      example: 10
+    hasNextPage:
+      type: boolean
+      description: Whether there is a next page available
+      example: true
+    hasPreviousPage:
+      type: boolean
+      description: Whether there is a previous page available
+      example: false
+  required:
+    - currentPage
+    - totalPages
+    - totalItems
+    - itemsPerPage
+    - hasNextPage
+    - hasPreviousPage
+
+SuperCategoriesData:
+  type: object
+  description: Data object containing super categories and pagination information
+  properties:
+    categories:
+      type: array
+      description: List of super categories
+      items:
+        $ref: "#/SuperCategoryItem"
+    pagination:
+      $ref: "#/PaginationInfo"
+  required:
+    - categories
+    - pagination
+
+SkillCategoryInfo:
+  type: object
+  description: Category information for a skill, including the category and its parent super category
+  properties:
+    category_id:
+      type: integer
+      description: Unique identifier for the category
+      example: 3
+    category_name:
+      type: string
+      description: Name of the category
+      example: "Web Development"
+    super_category_id:
+      type: integer
+      nullable: true
+      description: Unique identifier for the super category (parent category)
+      example: 1
+    super_category_name:
+      type: string
+      nullable: true
+      description: Name of the super category (parent category)
+      example: "Technology & Programming"
+  required:
+    - category_id
+    - category_name
+    - super_category_id
+    - super_category_name
+
+SkillItem:
+  type: object
+  description: A skill with its ID, name, and the count of mentors who possess this skill. Each skill includes an array of all categories it belongs to.
+  properties:
+    skill_id:
+      type: integer
+      description: Unique identifier for the skill
+      example: 5
+    skill_name:
+      type: string
+      description: Name of the skill
+      example: "JavaScript"
+    mentor_count:
+      type: integer
+      description: Total number of mentors who possess this skill
+      example: 28
+    categories:
+      type: array
+      description: List of categories this skill belongs to
+      items:
+        $ref: "#/SkillCategoryInfo"
+      example:
+        - category_id: 3
+          category_name: "Web Development"
+          super_category_id: 1
+          super_category_name: "Technology & Programming"
+        - category_id: 8
+          category_name: "Frontend Development"
+          super_category_id: 1
+          super_category_name: "Technology & Programming"
+  required:
+    - skill_id
+    - skill_name
+    - mentor_count
+    - categories
+
+SkillsData:
+  type: object
+  description: Data object containing skills and pagination information
+  properties:
+    skills:
+      type: array
+      description: List of skills
+      items:
+        $ref: "#/SkillItem"
+    pagination:
+      $ref: "#/PaginationInfo"
+  required:
+    - skills
+    - pagination
+
+CompanyItem:
+  type: object
+  description: A company with its ID, name, and the count of mentors who work for this company
+  properties:
+    company_id:
+      type: integer
+      description: Unique identifier for the company
+      example: 10
+    company_name:
+      type: string
+      description: Name of the company
+      example: "Google"
+    mentor_count:
+      type: integer
+      description: Total number of mentors who work for this company
+      example: 15
+  required:
+    - company_id
+    - company_name
+    - mentor_count
+
+CompaniesData:
+  type: object
+  description: Data object containing companies and pagination information
+  properties:
+    companies:
+      type: array
+      description: List of companies
+      items:
+        $ref: "#/CompanyItem"
+    pagination:
+      $ref: "#/PaginationInfo"
+  required:
+    - companies
+    - pagination
+
+JobTitleItem:
+  type: object
+  description: A job title with its ID, name, and the count of mentors who hold this job title
+  properties:
+    job_title_id:
+      type: integer
+      description: Unique identifier for the job title
+      example: 8
+    job_title_name:
+      type: string
+      description: Name of the job title
+      example: "Senior Software Engineer"
+    mentor_count:
+      type: integer
+      description: Total number of mentors who hold this job title
+      example: 12
+  required:
+    - job_title_id
+    - job_title_name
+    - mentor_count
+
+JobTitlesData:
+  type: object
+  description: Data object containing job titles and pagination information
+  properties:
+    jobTitles:
+      type: array
+      description: List of job titles
+      items:
+        $ref: "#/JobTitleItem"
+    pagination:
+      $ref: "#/PaginationInfo"
+  required:
+    - jobTitles
+    - pagination
+
+CountryItem:
+  type: object
+  description: A country with the count of mentors from that country
+  properties:
+    country:
+      type: string
+      description: Name of the country
+      example: "United States"
+    mentor_count:
+      type: integer
+      description: Total number of mentors from this country
+      example: 18
+  required:
+    - country
+    - mentor_count
+
+CountriesData:
+  type: object
+  description: Data object containing countries and pagination information
+  properties:
+    countries:
+      type: array
+      description: List of countries
+      items:
+        $ref: "#/CountryItem"
+    pagination:
+      $ref: "#/PaginationInfo"
+  required:
+    - countries
+    - pagination
+
+LanguageItem:
+  type: object
+  description: A language with the count of mentors who speak that language
+  properties:
+    language:
+      type: string
+      description: Name of the language
+      example: "English"
+    mentor_count:
+      type: integer
+      description: Total number of mentors who speak this language
+      example: 25
+  required:
+    - language
+    - mentor_count
+
+LanguagesData:
+  type: object
+  description: Data object containing languages and pagination information
+  properties:
+    languages:
+      type: array
+      description: List of languages
+      items:
+        $ref: "#/LanguageItem"
+    pagination:
+      $ref: "#/PaginationInfo"
+  required:
+    - languages
+    - pagination

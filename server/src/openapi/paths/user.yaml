@@ -1,0 +1,548 @@
+avatar:
+  put:
+    tags:
+      - user
+    summary: Update user avatar
+    description: |
+      Upload a new avatar image for the authenticated user.
+
+      **Workflow:**
+      1. Frontend: User selects image and previews it locally (no server call)
+      2. Frontend: User clicks "Save" to confirm
+      3. Backend: Validates file, uploads to Cloudinary with optimizations, saves URL to database
+      4. Backend: Automatically deletes old avatar from Cloudinary
+
+      **Image Processing:**
+      - Resized to 400x400 pixels
+      - Face detection and centering applied
+      - Automatic quality and format optimization (WebP for modern browsers)
+      - Stored in Cloudinary with secure URL
+    operationId: updateUserAvatar
+    security:
+      - cookieAuth: []
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            required:
+              - avatar
+            properties:
+              avatar:
+                type: string
+                format: binary
+                description: Avatar image file (JPEG, PNG, GIF, or WebP). Maximum size 2MB.
+    responses:
+      "200":
+        description: Avatar updated successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Avatar updated successfully"
+                data:
+                  type: object
+                  properties:
+                    avatar_url:
+                      type: string
+                      format: uri
+                      example: "https://res.cloudinary.com/demo/image/upload/v1234567890/user_avatars/avatar_123_1234567890.jpg"
+                      description: "Cloudinary URL of the uploaded avatar image"
+      "400":
+        description: Bad request - Avatar file is required or invalid file type
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            examples:
+              noFile:
+                value:
+                  success: false
+                  message: "Avatar image is required"
+              invalidType:
+                value:
+                  success: false
+                  message: "Only image files (JPEG, PNG, GIF, WebP) are allowed"
+              sizeTooLarge:
+                value:
+                  success: false
+                  message: "File size exceeds 2MB limit"
+      "401":
+        description: Unauthorized - User not authenticated
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            example:
+              success: false
+              message: "Unauthorized - User not authenticated"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            example:
+              success: false
+              message: "Internal server error"
+
+change-password:
+  put:
+    tags:
+      - user
+    summary: Change user password
+    description: |
+      Change the password for the authenticated user.
+
+      **Requirements:**
+      - User must be authenticated with a valid JWT token
+      - User must be using local authentication (not Google OAuth)
+      - Old password must be correct
+      - New password must be different from old password
+      - New password must match confirm password
+      - Password must be 8-20 characters long
+
+      **Workflow:**
+      1. User provides current password for verification
+      2. User provides new password and confirmation
+      3. Backend validates old password against database
+      4. Backend hashes new password and updates database
+      5. User can immediately login with new password
+    operationId: changeUserPassword
+    security:
+      - cookieAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/auth.yaml#/ChangePasswordRequest"
+    responses:
+      "200":
+        description: Password changed successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/SuccessResponse"
+            example:
+              success: true
+              message: "Password changed successfully"
+      "400":
+        description: Bad request - Validation errors or incorrect old password
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "../schemas/auth.yaml#/ErrorResponse"
+                - $ref: "../schemas/auth.yaml#/ValidationErrorResponse"
+            examples:
+              incorrectOldPassword:
+                value:
+                  success: false
+                  message: "Current password is incorrect"
+              googleUser:
+                value:
+                  success: false
+                  message: "Cannot change password for Google authenticated users"
+              validationErrors:
+                value:
+                  success: false
+                  message: "Validation errors"
+                  data:
+                    errors:
+                      - "New password and confirm password do not match: confirmPassword"
+                      - "New password must be different from old password: newPassword"
+              passwordTooShort:
+                value:
+                  success: false
+                  message: "Validation errors"
+                  data:
+                    errors:
+                      - "Password must be at least 8 characters long: newPassword"
+      "401":
+        description: Unauthorized - User not authenticated
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            example:
+              success: false
+              message: "Unauthorized - User not authenticated"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            example:
+              success: false
+              message: "Internal server error"
+
+mentee-invoice-stats:
+  get:
+    tags:
+      - user
+    summary: Get mentee invoice statistics
+    description: |
+      Retrieve invoice statistics and transaction history for a mentee user.
+
+      **Features:**
+      - View all payments made in a specific month
+      - Total amount spent in that month
+      - Detailed invoice information including mentor details, plan information, and payment status
+      - Invoice count for the period
+
+      **Access:**
+      - Only accessible by authenticated users with 'Mentee' role
+      - Each mentee can only view their own invoice statistics
+
+      **Use Cases:**
+      - Monthly spending summary for mentees
+      - Transaction history review
+      - Budget tracking and financial planning
+      - Receipt access for accounting purposes
+    operationId: getMenteeInvoiceStats
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: year
+        in: query
+        description: Filter by specific year (defaults to current year if not provided)
+        required: false
+        schema:
+          type: integer
+          minimum: 2000
+          maximum: 2100
+          example: 2025
+      - name: month
+        in: query
+        description: Filter by specific month 1-12 (defaults to current month if not provided)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 12
+          example: 12
+    responses:
+      "200":
+        description: Invoice statistics retrieved successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Invoice statistics retrieved successfully"
+                data:
+                  type: object
+                  properties:
+                    year:
+                      type: integer
+                      example: 2025
+                      description: "Year of the statistics"
+                    month:
+                      type: integer
+                      example: 12
+                      description: "Month of the statistics (1-12)"
+                    total_spent:
+                      type: number
+                      format: decimal
+                      example: 500.00
+                      description: "Total amount spent by the mentee in the specified month"
+                    count:
+                      type: integer
+                      example: 5
+                      description: "Number of invoices in the period"
+                    invoices:
+                      type: array
+                      description: "Array of detailed invoice records"
+                      items:
+                        type: object
+                        properties:
+                          invoice_id:
+                            type: integer
+                            example: 123
+                          method:
+                            type: string
+                            example: "card"
+                          paid_time:
+                            type: string
+                            format: date-time
+                            example: "2025-12-01T10:30:00.000Z"
+                          payment_status:
+                            type: string
+                            example: "paid"
+                          currency:
+                            type: string
+                            example: "usd"
+                          amount_subtotal:
+                            type: number
+                            format: decimal
+                            example: 100.00
+                          amount_total:
+                            type: number
+                            format: decimal
+                            example: 100.00
+                          stripe_receipt_url:
+                            type: string
+                            format: uri
+                            example: "https://stripe.com/receipt/123"
+                          plan_description:
+                            type: string
+                            example: "1-hour mentorship session"
+                          plan_type:
+                            type: string
+                            example: "session"
+                          plan_charge:
+                            type: number
+                            format: decimal
+                            example: 100.00
+                          mentor_id:
+                            type: integer
+                            example: 456
+                          mentor_first_name:
+                            type: string
+                            example: "John"
+                          mentor_last_name:
+                            type: string
+                            example: "Doe"
+                          mentor_avatar_url:
+                            type: string
+                            format: uri
+                            example: "https://cloudinary.com/avatar.jpg"
+      "400":
+        description: Bad request - Invalid year or month parameter
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            examples:
+              invalidYear:
+                value:
+                  success: false
+                  message: "Invalid year provided"
+              invalidMonth:
+                value:
+                  success: false
+                  message: "Invalid month provided (must be between 1 and 12)"
+      "401":
+        description: Unauthorized - User not authenticated
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            example:
+              success: false
+              message: "Unauthorized - User not authenticated"
+      "403":
+        description: Forbidden - Only mentees can access this resource
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            example:
+              success: false
+              message: "Forbidden - Only mentees can access this resource"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            example:
+              success: false
+              message: "Internal server error"
+
+mentor-invoice-stats:
+  get:
+    tags:
+      - user
+    summary: Get mentor invoice statistics
+    description: |
+      Retrieve invoice statistics and earnings history for a mentor user.
+
+      **Features:**
+      - View all payments received in a specific month
+      - Total amount earned in that month
+      - Detailed invoice information including mentee details, plan information, and payment status
+      - Invoice count for the period
+
+      **Access:**
+      - Only accessible by authenticated users with 'Mentor' role
+      - Each mentor can only view their own invoice statistics
+
+      **Use Cases:**
+      - Monthly earnings summary for mentors
+      - Revenue tracking and financial reporting
+      - Client transaction history
+      - Tax reporting and accounting purposes
+    operationId: getMentorInvoiceStats
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: year
+        in: query
+        description: Filter by specific year (defaults to current year if not provided)
+        required: false
+        schema:
+          type: integer
+          minimum: 2000
+          maximum: 2100
+          example: 2025
+      - name: month
+        in: query
+        description: Filter by specific month 1-12 (defaults to current month if not provided)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 12
+          example: 12
+    responses:
+      "200":
+        description: Invoice statistics retrieved successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Invoice statistics retrieved successfully"
+                data:
+                  type: object
+                  properties:
+                    year:
+                      type: integer
+                      example: 2025
+                      description: "Year of the statistics"
+                    month:
+                      type: integer
+                      example: 12
+                      description: "Month of the statistics (1-12)"
+                    total_received:
+                      type: number
+                      format: decimal
+                      example: 1500.00
+                      description: "Total amount received by the mentor in the specified month"
+                    count:
+                      type: integer
+                      example: 10
+                      description: "Number of invoices in the period"
+                    invoices:
+                      type: array
+                      description: "Array of detailed invoice records"
+                      items:
+                        type: object
+                        properties:
+                          invoice_id:
+                            type: integer
+                            example: 123
+                          method:
+                            type: string
+                            example: "card"
+                          paid_time:
+                            type: string
+                            format: date-time
+                            example: "2025-12-01T10:30:00.000Z"
+                          payment_status:
+                            type: string
+                            example: "paid"
+                          currency:
+                            type: string
+                            example: "usd"
+                          amount_subtotal:
+                            type: number
+                            format: decimal
+                            example: 150.00
+                          amount_total:
+                            type: number
+                            format: decimal
+                            example: 150.00
+                          stripe_receipt_url:
+                            type: string
+                            format: uri
+                            example: "https://stripe.com/receipt/123"
+                          plan_description:
+                            type: string
+                            example: "Monthly mentorship package"
+                          plan_type:
+                            type: string
+                            example: "mentorship"
+                          plan_charge:
+                            type: number
+                            format: decimal
+                            example: 150.00
+                          mentee_id:
+                            type: integer
+                            example: 789
+                          mentee_first_name:
+                            type: string
+                            example: "Jane"
+                          mentee_last_name:
+                            type: string
+                            example: "Smith"
+                          mentee_avatar_url:
+                            type: string
+                            format: uri
+                            example: "https://cloudinary.com/avatar.jpg"
+                          mentee_email:
+                            type: string
+                            format: email
+                            example: "jane.smith@example.com"
+      "400":
+        description: Bad request - Invalid year or month parameter
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            examples:
+              invalidYear:
+                value:
+                  success: false
+                  message: "Invalid year provided"
+              invalidMonth:
+                value:
+                  success: false
+                  message: "Invalid month provided (must be between 1 and 12)"
+      "401":
+        description: Unauthorized - User not authenticated
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            example:
+              success: false
+              message: "Unauthorized - User not authenticated"
+      "403":
+        description: Forbidden - Only mentors can access this resource
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            example:
+              success: false
+              message: "Forbidden - Only mentors can access this resource"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            example:
+              success: false
+              message: "Internal server error"

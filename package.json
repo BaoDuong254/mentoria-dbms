@@ -1,0 +1,31 @@
+{
+  "name": "mentoria",
+  "private": true,
+  "packageManager": "pnpm@10.28.2",
+  "devDependencies": {
+    "@commitlint/cli": "^20.4.1",
+    "@commitlint/config-conventional": "^20.4.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "turbo": "^2.8.3"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "preinstall": "pnpm dlx only-allow pnpm",
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "format": "turbo run format",
+    "format:fix": "turbo run format:fix",
+    "start": "turbo run start --parallel",
+    "clean": "turbo run clean"
+  },
+  "engines": {
+    "node": "24.12.0",
+    "pnpm": "10.28.2"
+  },
+  "dependencies": {
+    "pnpm": "10.28.2"
+  }
+}

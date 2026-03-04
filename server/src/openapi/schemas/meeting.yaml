@@ -1,0 +1,281 @@
+# Meeting schemas
+
+PaginationInfo:
+  type: object
+  description: Pagination metadata
+  properties:
+    currentPage:
+      type: integer
+      description: Current page number
+      example: 1
+    totalPages:
+      type: integer
+      description: Total number of pages
+      example: 5
+    totalItems:
+      type: integer
+      description: Total number of items
+      example: 48
+    itemsPerPage:
+      type: integer
+      description: Number of items per page
+      example: 10
+    hasNextPage:
+      type: boolean
+      description: Whether there is a next page
+      example: true
+    hasPreviousPage:
+      type: boolean
+      description: Whether there is a previous page
+      example: false
+  required:
+    - currentPage
+    - totalPages
+    - totalItems
+    - itemsPerPage
+    - hasNextPage
+    - hasPreviousPage
+
+MeetingListResponse:
+  type: object
+  description: Paginated list of meetings
+  properties:
+    success:
+      type: boolean
+      example: true
+    message:
+      type: string
+      example: "Meetings retrieved successfully"
+    data:
+      type: array
+      items:
+        $ref: "#/MeetingResponse"
+    pagination:
+      $ref: "#/PaginationInfo"
+  required:
+    - success
+    - message
+    - data
+    - pagination
+
+MeetingResponse:
+  type: object
+  description: Complete meeting information with mentor, mentee, and plan details
+  properties:
+    meeting_id:
+      type: integer
+      description: Unique identifier for the meeting
+      example: 1
+    invoice_id:
+      type: integer
+      description: Associated invoice ID
+      example: 1
+    plan_registerations_id:
+      type: integer
+      description: Associated plan registration ID
+      example: 1
+    status:
+      type: string
+      enum: [Pending, Scheduled, Completed, Cancelled]
+      description: |
+        Current status of the meeting:
+        - Pending: Created but no Google Meet link yet
+        - Scheduled: Google Meet link added, ready for session
+        - Completed: Session completed
+        - Cancelled: Meeting was cancelled
+      example: "Scheduled"
+    location:
+      type: string
+      description: Google Meet link or meeting location URL
+      example: "https://meet.google.com/abc-defg-hij"
+    review_link:
+      type: string
+      nullable: true
+      format: uri
+      description: |
+        URL link to the course review or learning materials.
+        This is optional and can be added by the mentor after the meeting is completed.
+        Can be null if not yet added.
+      example: "https://example-learning-platform.com/course/mentorship-review-123"
+    start_time:
+      type: string
+      format: date-time
+      description: Meeting start time in ISO 8601 format
+      example: "2025-12-01T09:00:00.000Z"
+    end_time:
+      type: string
+      format: date-time
+      description: Meeting end time in ISO 8601 format
+      example: "2025-12-01T10:00:00.000Z"
+    date:
+      type: string
+      format: date
+      description: Meeting date
+      example: "2025-12-01"
+    mentor_id:
+      type: integer
+      description: Mentor's user ID
+      example: 1
+    mentor_first_name:
+      type: string
+      description: Mentor's first name
+      example: "John"
+    mentor_last_name:
+      type: string
+      description: Mentor's last name
+      example: "Doe"
+    mentor_avatar_url:
+      type: string
+      nullable: true
+      description: Mentor's avatar URL
+      example: "https://i.pravatar.cc/150?img=1"
+    mentor_email:
+      type: string
+      format: email
+      description: Mentor's email address
+      example: "john.doe@example.com"
+    mentee_id:
+      type: integer
+      description: Mentee's user ID
+      example: 6
+    mentee_first_name:
+      type: string
+      description: Mentee's first name
+      example: "Alice"
+    mentee_last_name:
+      type: string
+      description: Mentee's last name
+      example: "Smith"
+    mentee_avatar_url:
+      type: string
+      nullable: true
+      description: Mentee's avatar URL
+      example: "https://i.pravatar.cc/150?img=20"
+    mentee_email:
+      type: string
+      format: email
+      description: Mentee's email address
+      example: "alice.smith@example.com"
+    plan_type:
+      type: string
+      description: Type of the mentorship plan
+      example: "Beginner"
+    plan_description:
+      type: string
+      description: Description of the mentorship plan
+      example: "30-minute focused mentorship session covering React, Node.js, and web development best practices"
+    plan_charge:
+      type: number
+      format: decimal
+      description: Original price of the plan
+      example: 50.00
+    amount_paid:
+      type: number
+      format: decimal
+      description: Actual amount paid (after discounts)
+      example: 45.00
+  required:
+    - meeting_id
+    - invoice_id
+    - plan_registerations_id
+    - status
+    - location
+    - start_time
+    - end_time
+    - date
+    - mentor_id
+    - mentor_first_name
+    - mentor_last_name
+    - mentor_email
+    - mentee_id
+    - mentee_first_name
+    - mentee_last_name
+    - mentee_email
+    - plan_type
+    - plan_description
+    - plan_charge
+    - amount_paid
+
+UpdateMeetingLocationRequest:
+  type: object
+  description: Request body for updating meeting location
+  properties:
+    location:
+      type: string
+      description: Google Meet link or meeting location URL
+      example: "https://meet.google.com/abc-defg-hij"
+  required:
+    - location
+
+UpdateMeetingStatusRequest:
+  type: object
+  description: Request body for updating meeting status
+  properties:
+    status:
+      type: string
+      enum: [Scheduled, Completed, Cancelled]
+      description: |
+        New status for the meeting. Valid values:
+        - Scheduled: Meeting is scheduled (use when adding location)
+        - Completed: Session has been completed
+        - Cancelled: Meeting is cancelled
+      example: "Completed"
+  required:
+    - status
+
+UpdateReviewLinkRequest:
+  type: object
+  description: Request body for updating meeting review link
+  properties:
+    reviewLink:
+      type: string
+      format: uri
+      description: |
+        URL link to the course review or learning materials.
+        This can be a link to:
+        - Course review platform (e.g., Udemy course link)
+        - Learning materials repository
+        - Video recording of the session
+        - Assessment or feedback document
+      example: "https://example-learning-platform.com/course/mentorship-review-123"
+  required:
+    - reviewLink
+
+CancelMeetingResponse:
+  type: object
+  description: Response after cancelling a meeting
+  properties:
+    success:
+      type: boolean
+      example: true
+    message:
+      type: string
+      example: "Meeting cancelled successfully"
+    data:
+      type: object
+      properties:
+        meeting_id:
+          type: integer
+          description: ID of the cancelled meeting
+          example: 123
+        status:
+          type: string
+          description: New status of the meeting
+          example: "Cancelled"
+  required:
+    - success
+    - message
+
+DeleteMeetingPermanentlyResponse:
+  type: object
+  description: Response after permanently deleting a cancelled meeting
+  properties:
+    success:
+      type: boolean
+      example: true
+    message:
+      type: string
+      example: "Meeting permanently deleted"
+  required:
+    - success
+    - message
