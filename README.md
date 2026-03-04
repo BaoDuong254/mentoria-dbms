@@ -80,14 +80,13 @@ A comprehensive mentorship platform connecting mentors and mentees through sched
     - [Development mode](#development-mode)
     - [First-time setup](#first-time-setup)
     - [Production build](#production-build)
-  - [🐋 Docker Deployment](#-docker-deployment)
-    - [Services](#services)
-    - [Quick Start with Docker](#quick-start-with-docker)
-    - [Docker Commands](#docker-commands)
-    - [Building for Production](#building-for-production)
-    - [Health Checks](#health-checks)
-  - [📊 Database Management with Adminer](#-database-management-with-adminer)
-    - [Manual Database Seeding](#manual-database-seeding)
+  - [Local Database Setup](#local-database-setup)
+    - [1. Create tables](#1-create-tables)
+    - [2. Create triggers](#2-create-triggers)
+    - [3. Create stored procedures](#3-create-stored-procedures)
+    - [4. Create functions](#4-create-functions)
+    - [5. Insert seed data](#5-insert-seed-data)
+    - [6. Seed availability slots](#6-seed-availability-slots)
   - [📚 API Documentation](#-api-documentation)
     - [Accessing API Docs](#accessing-api-docs)
     - [Updating API Documentation](#updating-api-documentation)
@@ -390,138 +389,40 @@ pnpm build
 pnpm start       # Start production server
 ```
 
-## 🐋 Docker Deployment
+## Local Database Setup
 
-The project includes full Docker support with Docker Compose for easy deployment.
+To set up the database locally using SQL Server Management Studio (SSMS), follow these steps in order:
 
-### Services
+### 1. Create tables
 
-The `docker-compose.yml` defines the following services:
+Open `server/src/database/SQL.sql` in SSMS, copy the entire content, and execute it in SQL Server to create the database schema and tables.
 
-- **db** - Microsoft SQL Server 2022
-- **server** - Node.js Express API (port 4002)
-- **client** - React frontend with Nginx (port 4003)
-- **adminer** - Database management UI (port 8083)
-- **nginx-exporter** - Prometheus metrics for monitoring (port 9114)
+### 2. Create triggers
 
-### Quick Start with Docker
+Open `server/src/database/trigger.sql`, copy and execute it in SQL Server.
 
-1. **Set up environment variables**
+### 3. Create stored procedures
 
-   Create a `.env` file in the root directory:
+Open `server/src/database/procedure.sql`, copy and execute it in SQL Server.
 
-   ```bash
-   DOCKERHUB_USERNAME=your_username
-   DB_USER=sa
-   DB_PASS=YourStrong@Password123
-   DB_NAME=mentoria
-   ```
+### 4. Create functions
 
-   Also ensure `server/.env` and `client/.env` are configured.
+Open `server/src/database/function.sql`, copy and execute it in SQL Server.
 
-2. **Build and start all services**
+### 5. Insert seed data
 
-   ```bash
-   docker-compose up --build
-   ```
+Open `server/src/database/INSERT_DATA.sql`, copy and execute it in SQL Server to populate the database with initial data.
 
-   Or run in detached mode:
+### 6. Seed availability slots
 
-   ```bash
-   docker-compose up -d --build
-   ```
-
-3. **Access the application**
-   - Frontend: `http://localhost:4003`
-   - API: `http://localhost:4002`
-   - Adminer: `http://localhost:8083`
-   - Nginx Metrics: `http://localhost:9114`
-
-### Docker Commands
-
-```bash
-# Start services
-docker-compose up -d
-
-# Stop services
-docker-compose down
-
-# Stop and remove volumes (⚠️ deletes database data)
-docker-compose down -v
-
-# View logs
-docker-compose logs -f
-
-# View logs for specific service
-docker-compose logs -f server
-
-# Rebuild specific service
-docker-compose up -d --build server
-
-# Check service health
-docker-compose ps
-```
-
-### Building for Production
-
-Build and push images to Docker Hub:
-
-```bash
-# Build images
-docker-compose build
-
-# Tag images
-docker tag your_username/mentoria-server:latest your_username/mentoria-server:1.0.0
-docker tag your_username/mentoria-client:latest your_username/mentoria-client:1.0.0
-
-# Push to Docker Hub
-docker push your_username/mentoria-server:latest
-docker push your_username/mentoria-client:latest
-```
-
-### Health Checks
-
-All services include health checks:
-
-- **Database**: Queries for `users` table
-- **Server**: HTTP check on port 4002
-- **Client**: HTTP check on Nginx
-
-Services will wait for dependencies to be healthy before starting.
-
-## 📊 Database Management with Adminer
-
-The project includes **Adminer** for easy database management through a web interface.
-
-**Access Adminer:**
-
-- URL: `http://localhost:8083` (local) or `http://your-vps-ip:8083` (production)
-
-**Login Credentials:**
-
-- System: `MS SQL`
-- Server: `db`
-- Username: `sa` (or value of `DB_USER`)
-- Password: `123456` (or value of `DB_PASS`)
-- Database: `mentoria` (or value of `DB_NAME`)
-
-**Features:**
-
-- Lightweight and fast UI
-- Run SQL queries directly
-- Browse tables and view data
-- Export/import database (SQL, CSV)
-- Edit records inline
-- View database schema and relationships
-
-### Manual Database Seeding
-
-You can seed the database with test data using:
+Finally, run the following command to generate additional mentor availability slots:
 
 ```bash
 cd server
-pnpm seed:slot     # Seed mentor availability slots
+pnpm seed:slot
 ```
+
+> **Note:** Make sure your SQL Server is running and the connection details in `server/.env` match your local SQL Server configuration before executing the SQL files.
 
 ## 📚 API Documentation
 
