@@ -1,11 +1,8 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect } from "react";
 import { useMeetingStore } from "@/store/useMeetingStore";
 import MeetingCard from "@/components/MeetingCard";
 import EmptyState from "@/components/EmptyState";
 import Calendar from "@/components/Calendar";
-import ResolvedComplaintCard from "@/components/ResolvedComplaintCard";
-import { getMyResolvedComplaints } from "@/apis/complaint.api";
-import type { ComplaintResponse } from "@/types/complaint.type";
 
 function MenteeDashboard() {
   const {
@@ -21,30 +18,9 @@ function MenteeDashboard() {
     getCancelledMeetings,
   } = useMeetingStore();
 
-  const [resolvedComplaints, setResolvedComplaints] = useState<ComplaintResponse[]>([]);
-  const [isLoadingComplaints, setIsLoadingComplaints] = useState(false);
-
   useEffect(() => {
     void fetchMeetingsForMentee();
   }, [fetchMeetingsForMentee]);
-
-  // Fetch resolved complaints
-  useEffect(() => {
-    const fetchResolvedComplaints = async () => {
-      setIsLoadingComplaints(true);
-      try {
-        const response = await getMyResolvedComplaints();
-        if (response.success) {
-          setResolvedComplaints(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching resolved complaints:", error);
-      } finally {
-        setIsLoadingComplaints(false);
-      }
-    };
-    void fetchResolvedComplaints();
-  }, []);
 
   const pendingMeetings = getPendingMeetings();
   const acceptedMeetings = getAcceptedMeetings();
@@ -52,28 +28,17 @@ function MenteeDashboard() {
   const completedMeetings = getCompletedMeetings();
   const cancelledMeetings = getCancelledMeetings();
 
-  // Filter resolved complaints by selected month
-  const filteredResolvedComplaints = useMemo(() => {
-    const selectedMonth = selectedDate.getMonth();
-    const selectedYear = selectedDate.getFullYear();
-    return resolvedComplaints.filter((complaint) => {
-      const meetingDate = new Date(complaint.meeting_date);
-      return meetingDate.getMonth() === selectedMonth && meetingDate.getFullYear() === selectedYear;
-    });
-  }, [resolvedComplaints, selectedDate]);
-
   const hasAnyMeetings =
     pendingMeetings.length > 0 ||
     acceptedMeetings.length > 0 ||
     outOfDateMeetings.length > 0 ||
     completedMeetings.length > 0 ||
-    cancelledMeetings.length > 0 ||
-    filteredResolvedComplaints.length > 0;
+    cancelledMeetings.length > 0;
 
   // Get all meeting dates for calendar highlighting
   const meetingDates = meetings.map((m) => m.date.split("T")[0]);
 
-  if (isLoading || isLoadingComplaints) {
+  if (isLoading) {
     return (
       <div className='flex min-h-screen items-center justify-center bg-gray-900'>
         <div className='text-white'>Loading...</div>
@@ -177,23 +142,6 @@ function MenteeDashboard() {
                     <div className='space-y-4'>
                       {cancelledMeetings.map((meeting) => (
                         <MeetingCard key={meeting.meeting_id} meeting={meeting} type='cancelled' />
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Resolved Complaints Section - filtered by selected month */}
-                {filteredResolvedComplaints.length > 0 && (
-                  <div>
-                    <div className='mb-4 flex items-center justify-between'>
-                      <h2 className='text-xl font-medium text-emerald-400'>Resolved Complaints</h2>
-                      <span className='flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-sm text-white'>
-                        {filteredResolvedComplaints.length}
-                      </span>
-                    </div>
-                    <div className='space-y-4'>
-                      {filteredResolvedComplaints.map((complaint) => (
-                        <ResolvedComplaintCard key={complaint.complaint_id} complaint={complaint} />
                       ))}
                     </div>
                   </div>

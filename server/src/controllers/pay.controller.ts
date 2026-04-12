@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { CreateCheckoutSessionSchema, TCreateCheckoutSessionSchema } from "@/validation/pay.schema";
-import { createCheckoutSessionService, handleCheckoutSessionCompletedService } from "@/services/pay.service";
+import {
+  createCheckoutSessionService,
+  handleCheckoutSessionCompletedService,
+  verifySessionService,
+} from "@/services/pay.service";
 import envConfig from "@/config/env";
 import Stripe from "stripe";
 
@@ -129,4 +133,21 @@ const handleWebhook = async (req: Request, res: Response) => {
   }
 };
 
-export { createCheckoutSession, handleWebhook };
+const verifySession = async (req: Request, res: Response) => {
+  try {
+    const { sessionId } = req.query as { sessionId?: string };
+
+    if (!sessionId) {
+      return res.status(400).json({ success: false, message: "Missing sessionId parameter" });
+    }
+
+    const result = await verifySessionService(sessionId);
+
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("Error in verifySession controller:", error);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+export { createCheckoutSession, handleWebhook, verifySession };

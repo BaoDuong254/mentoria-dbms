@@ -1,18 +1,42 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { CheckCircle, Home } from "lucide-react";
+import { CheckCircle, Home, Loader2 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
+import { verifyPaymentSession } from "@/apis/payment.api";
 
 function PaymentSuccessPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const sessionId = searchParams.get("session_id");
 
+  const [isVerifying, setIsVerifying] = useState(!!sessionId);
+  const [verifyError, setVerifyError] = useState<string | null>(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Các biến animation (Variants)
+  // Verify the session so the meeting is guaranteed to exist before the user
+  // navigates to the dashboard. The webhook may not have fired yet.
+  useEffect(() => {
+    if (!sessionId) return;
+
+    const verify = async () => {
+      try {
+        const result = await verifyPaymentSession(sessionId);
+        if (!result.success) {
+          setVerifyError(result.message);
+        }
+      } catch {
+        setVerifyError("Could not confirm your booking. Please contact support.");
+      } finally {
+        setIsVerifying(false);
+      }
+    };
+
+    void verify();
+  }, [sessionId]);
+
   const containerVariants: Variants = {
     hidden: { opacity: 0, scale: 0.95 },
     visible: {
@@ -21,7 +45,7 @@ function PaymentSuccessPage() {
       transition: {
         duration: 0.5,
         ease: "easeOut" as const,
-        staggerChildren: 0.15, // Thời gian trễ giữa các phần tử con
+        staggerChildren: 0.15,
       },
     },
   };
@@ -44,17 +68,28 @@ function PaymentSuccessPage() {
     },
   };
 
+  // Show loading while verifying the session with the server
+  if (isVerifying) {
+    return (
+      <div className='flex min-h-screen w-full items-center justify-center bg-(--secondary)'>
+        <div className='flex flex-col items-center gap-4 text-white'>
+          <Loader2 className='h-12 w-12 animate-spin text-(--primary)' />
+          <p className='text-lg font-medium'>Confirming your booking...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='flex min-h-screen w-full items-center justify-center bg-(--secondary) py-15'>
       <div className='w-11/12 max-w-lg'>
-        {/* Main Card Component */}
         <motion.div
           variants={containerVariants}
           initial='hidden'
           animate='visible'
           className='flex flex-col items-center rounded-xl border bg-gray-800 px-7 py-10 shadow-2xl'
         >
-          {/* Icon Success */}
+          {/* Icon */}
           <motion.div variants={iconVariants}>
             <div className='mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-(--green)/10 ring-2 ring-(--green)'>
               <CheckCircle className='h-12 w-12 text-(--green)' />
@@ -67,11 +102,12 @@ function PaymentSuccessPage() {
           </motion.h2>
 
           <motion.p variants={itemVariants} className='mb-8 text-center text-gray-300'>
-            Thank you for your booking. Your mentorship session has been confirmed and added to your schedule.
+            {verifyError ??
+              "Thank you for your booking. Your mentorship session has been confirmed and added to your schedule."}
           </motion.p>
 
-          {/* Transaction Info Box */}
-          {sessionId && (
+          {/* Transaction Info */}
+          {sessionId && !verifyError && (
             <motion.div
               variants={itemVariants}
               className='mb-8 w-full rounded-lg border border-gray-700 bg-gray-900/50 p-4'
@@ -96,7 +132,6 @@ function PaymentSuccessPage() {
             </motion.button>
           </motion.div>
 
-          {/* Additional Link */}
           <motion.div variants={itemVariants} className='mt-8 text-sm text-gray-500'>
             Need help? <span className='cursor-pointer text-(--primary) hover:underline'>Contact Support</span>
           </motion.div>

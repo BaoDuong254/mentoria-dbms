@@ -21,7 +21,7 @@ export const getMeetingsByMenteeIdService = async (
       SELECT COUNT(*) as total
       FROM meetings m
       INNER JOIN invoices i ON m.invoice_id = i.invoice_id AND m.plan_registerations_id = i.plan_registerations_id
-      WHERE i.mentee_id = @menteeId AND m.hidden_by_mentee = 0
+      WHERE i.mentee_id = @menteeId
     `);
     const totalItems = countResult.recordset[0].total;
     const totalPages = Math.ceil(totalItems / limit);
@@ -64,7 +64,7 @@ export const getMeetingsByMenteeIdService = async (
       INNER JOIN users mentee_user ON i.mentee_id = mentee_user.user_id
       INNER JOIN bookings b ON i.plan_registerations_id = b.plan_registerations_id AND i.mentee_id = b.mentee_id
       INNER JOIN plans p ON b.plan_id = p.plan_id
-      WHERE i.mentee_id = @menteeId AND m.hidden_by_mentee = 0
+      WHERE i.mentee_id = @menteeId
       ORDER BY m.date DESC, m.start_time DESC
       OFFSET @offset ROWS
       FETCH NEXT @limit ROWS ONLY
@@ -403,7 +403,7 @@ export const updateMeetingReviewLinkService = async (
       .request()
       .input("meetingId", sql.Int, meetingId)
       .input("mentorId", sql.Int, mentorId).query(`
-      SELECT meeting_id, status FROM meetings 
+      SELECT meeting_id, status FROM meetings
       WHERE meeting_id = @meetingId AND mentor_id = @mentorId
     `);
 
@@ -414,7 +414,7 @@ export const updateMeetingReviewLinkService = async (
     // Update review_link
     await pool.request().input("meetingId", sql.Int, meetingId).input("reviewLink", sql.NVarChar(500), reviewLink)
       .query(`
-      UPDATE meetings 
+      UPDATE meetings
       SET review_link = @reviewLink
       WHERE meeting_id = @meetingId
     `);
@@ -491,10 +491,9 @@ export const cancelMeetingService = async (
 };
 
 /**
- * Hide meeting from mentee's view (soft delete)
- * Only the mentee who owns the meeting can hide it
- * Meeting must be in "Cancelled" status to be hidden
- * This preserves the meeting and complaints data for admin review
+ * Permanently delete a cancelled meeting.
+ * Only the owner (mentee or mentor) can delete it.
+ * Meeting must be in "Cancelled" status.
  */
 export const deleteMeetingPermanentlyService = async (
   meetingId: number,
@@ -511,7 +510,7 @@ export const deleteMeetingPermanentlyService = async (
     if (userRole === "Mentee") {
       verifyResult = await pool.request().input("meetingId", sql.Int, meetingId).input("userId", sql.Int, userId)
         .query(`
-          SELECT m.meeting_id, m.status 
+          SELECT m.meeting_id, m.status
           FROM meetings m
           INNER JOIN invoices i ON m.invoice_id = i.invoice_id AND m.plan_registerations_id = i.plan_registerations_id
           WHERE m.meeting_id = @meetingId AND i.mentee_id = @userId
@@ -535,10 +534,9 @@ export const deleteMeetingPermanentlyService = async (
       throw new Error(`Cannot hide meeting with status: ${currentStatus}. Only cancelled meetings can be hidden.`);
     }
 
-    // Instead of deleting, just set hidden_by_mentee = 1
-    // This preserves the meeting and related complaints for admin review
     await pool.request().input("meetingId", sql.Int, meetingId).query(`
-        UPDATE meetings SET hidden_by_mentee = 1 WHERE meeting_id = @meetingId
+        DELETE FROM meetings
+        WHERE meeting_id = @meetingId
       `);
 
     return true;

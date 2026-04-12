@@ -323,7 +323,7 @@ export const useMeetingStore = create<MeetingState>((set, get) => ({
   // Get pending meetings (meetings waiting for confirmation - show all pending regardless of time)
   getPendingMeetings: () => {
     const { meetings } = get();
-    // Show ALL pending meetings - they stay pending until mentor accepts or complaint is resolved
+    // Show ALL pending meetings - they stay pending until mentor accepts
     return meetings.filter((m) => m.status === "Pending");
   },
 

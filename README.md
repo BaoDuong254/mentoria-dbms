@@ -1,4 +1,4 @@
-# Mentoria
+# Mentoria - DBMS
 
 A comprehensive mentorship platform connecting mentors and mentees through scheduled meetings, integrated payments, and real-time communication. Built as a full-stack monorepo application with modern technologies.
 
@@ -55,7 +55,7 @@ A comprehensive mentorship platform connecting mentors and mentees through sched
 
 ## 📋 Table of Contents
 
-- [Mentoria](#mentoria)
+- [Mentoria - DBM](#mentoria---dbm)
   - [✨ Features](#-features)
   - [🛠 Tech Stack](#-tech-stack)
     - [Frontend](#frontend)

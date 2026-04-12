@@ -666,10 +666,64 @@ const handleCheckoutSessionCompletedService = async (session: Stripe.Checkout.Se
   }
 };
 
+/**
+ * Verify a Stripe checkout session and ensure the meeting is created.
+ * This is idempotent — safe to call even if the webhook already fired.
+ * Used by the payment success page to guarantee the meeting exists before
+ * the user navigates to their dashboard.
+ */
+const verifySessionService = async (sessionId: string): Promise<{ success: boolean; message: string }> => {
+  const pool = await poolPromise;
+  if (!pool) throw new Error("Database connection not established");
+
+  try {
+    // Idempotency check: if invoice already exists for this session, nothing to do
+    const existing = await pool
+      .request()
+      .input("sessionId", sessionId)
+      .query(`SELECT invoice_id FROM invoices WHERE stripe_session_id = @sessionId`);
+
+    if (existing.recordset.length > 0) {
+      return { success: true, message: "Payment already processed" };
+    }
+
+    // Retrieve full session from Stripe
+    const expandedSession = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: [
+        "customer",
+        "payment_intent",
+        "payment_intent.latest_charge",
+        "payment_intent.latest_charge.balance_transaction",
+      ],
+    });
+
+    if (expandedSession.payment_status !== "paid") {
+      return { success: false, message: "Payment not completed" };
+    }
+
+    // Enrich with full payment intent if still a string reference
+    let enrichedSession = expandedSession;
+    if (typeof expandedSession.payment_intent === "string" && expandedSession.payment_intent) {
+      const paymentIntent = await stripe.paymentIntents.retrieve(expandedSession.payment_intent, {
+        expand: ["latest_charge", "latest_charge.balance_transaction"],
+      });
+      enrichedSession = { ...expandedSession, payment_intent: paymentIntent };
+    }
+
+    await handleCheckoutSessionCompletedService(enrichedSession);
+
+    return { success: true, message: "Payment processed successfully" };
+  } catch (error) {
+    console.error("Error in verifySessionService:", error);
+    throw error;
+  }
+};
+
 export {
   validateBookingService,
   createCheckoutSessionService,
   handleCheckoutSessionCompletedService,
+  verifySessionService,
   createInvoiceService,
   createPlanRegistrationService,
   createBookingService,

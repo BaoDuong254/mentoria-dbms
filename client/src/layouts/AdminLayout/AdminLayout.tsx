@@ -12,7 +12,6 @@ const AdminLayout = () => {
     { icon: LayoutDashboard, label: "Dashboard", path: "/admin/dashboard" },
     { icon: Users, label: "User Management", path: "/admin/users" },
     { icon: FileText, label: "Invoices & Revenue", path: "/admin/invoices" },
-    // { icon: AlertTriangle, label: "Complaints", path: "/admin/complaints" },
   ];
 
   return (

@@ -1,5 +1,4 @@
 -- Drop tables if they exist (in reverse order of dependencies)
-IF OBJECT_ID('dbo.complaints', 'U') IS NOT NULL DROP TABLE dbo.complaints;
 IF OBJECT_ID('dbo.meetings', 'U') IS NOT NULL DROP TABLE dbo.meetings;
 IF OBJECT_ID('dbo.invoices', 'U') IS NOT NULL DROP TABLE dbo.invoices;
 IF OBJECT_ID('dbo.slots', 'U') IS NOT NULL DROP TABLE dbo.slots;
@@ -103,7 +102,7 @@ CREATE TABLE mentors (
     bio NVARCHAR(MAX),
     headline NVARCHAR(255),
     response_time NVARCHAR(100) NOT NULL CHECK (
-        response_time IN (N'Within 1 hour', N'Within 3 hours', N'Within 6 hours', N'Within 12 hours', N'Within 24 hours', N'Within 36 hours', N'Within 48 hours')
+        response_time IN (N'Within 1 hour', N'Within 3 hours', N'Within 6 hours', N'Within 12 hours', N'Within 24 hours', N'Within 36 hours', N'Within 48 hours', N'More than 48 hours', N'No responses yet')
     ),
     cv_url NVARCHAR(255) NOT NULL CHECK (
         cv_url LIKE 'http://%' OR cv_url LIKE 'https://%'
@@ -331,7 +330,7 @@ CREATE TABLE invoices(
     invoice_id INT IDENTITY(1,1) PRIMARY KEY,
     plan_registerations_id INT NOT NULL,
     method NVARCHAR(50) NOT NULL,
-    paid_time DATETIME DEFAULT GETUTCDATE(),
+    paid_time DATETIME DEFAULT GETDATE(),
     mentee_id INT NOT NULL,
     stripe_session_id NVARCHAR(255) NULL,
     stripe_customer_id NVARCHAR(255) NULL,
@@ -365,7 +364,6 @@ CREATE TABLE meetings(
     end_time DATETIME NOT NULL,
     date DATE NOT NULL,
     mentor_id INT NOT NULL,
-    hidden_by_mentee BIT DEFAULT 0 NOT NULL,
     UNIQUE (meeting_id, invoice_id, plan_registerations_id),
     FOREIGN KEY (invoice_id, plan_registerations_id) REFERENCES invoices(invoice_id, plan_registerations_id)
         ON DELETE CASCADE

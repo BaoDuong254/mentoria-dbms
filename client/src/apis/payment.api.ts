@@ -10,3 +10,11 @@ export async function createCheckoutSession(data: CheckoutSession): Promise<Chec
   });
   return res.data;
 }
+
+export async function verifyPaymentSession(sessionId: string): Promise<{ success: boolean; message: string }> {
+  const res = await axios.get<{ success: boolean; message: string }>(
+    `${BASE_URL}/verify-session?sessionId=${encodeURIComponent(sessionId)}`,
+    { withCredentials: true }
+  );
+  return res.data;
+}
