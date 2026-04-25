@@ -5,7 +5,8 @@
 **Mục tiêu:** So sánh ánh xạ kiểu dữ liệu và phương pháp truy xuất.
 
 **MS SQL Server**  
-*Phương pháp:* Sử dụng phép `JOIN` tại thời điểm truy vấn, truy xuất dữ liệu trên hai bảng thông qua khóa ngoại.
+_Phương pháp:_ Sử dụng phép `JOIN` tại thời điểm truy vấn, truy xuất dữ liệu trên hai bảng thông qua khóa ngoại.
+
 ```sql
     USE mentoria;
     SELECT u.user_id, u.first_name, u.last_name, u.email
@@ -15,17 +16,20 @@
 ```
 
 **Apache Cassandra**  
-*Phương pháp:* Truy xuất trực tiếp dữ liệu từ bảng đã được thiết kế chuyên biệt nhờ khóa phân vùng email.
+_Phương pháp:_ Truy xuất trực tiếp dữ liệu từ bảng đã được thiết kế chuyên biệt nhờ khóa phân vùng email.
+
 ```cql
     USE mentoriadbms;
     SELECT user_id, first_name, last_name, role, status
     FROM users_by_email
-    WHERE email = 'john.doe@example.com'; 
+    WHERE email = 'john.doe@example.com';
 ```
 
 **Kết quả kiểm thử:**
+
 - Cả hai hệ thống trả về cùng một đối tượng mentor khớp giá trị `user_id`.
 - Thời gian thực thi gần như tương đương, SQL nhanh hơn vài ms do đây là phép `JOIN` cơ bản trên 2 bảng.
+
 ---
 
 ### Kịch bản 2: Lấy danh sách 10 mentor đầu tiên
@@ -34,20 +38,23 @@
 qua stored procedure và Apache Cassandra giới hạn số bản ghi bằng `LIMIT`.
 
 **MS SQL Server**  
-*Phương pháp:* Thực hiện phân trang cho stored procedure.
+_Phương pháp:_ Thực hiện phân trang cho stored procedure.
+
 ```sql
 USE mentoria;
-EXEC dbo.sp_SearchMentors @Page = 1, @Limit = 10; 
+EXEC dbo.sp_SearchMentors @Page = 1, @Limit = 10;
 ```
 
 **Apache Cassandra**  
-*Phương pháp:* Sử dụng `LIMIT` cho bảng đã phi chuẩn hóa.
+_Phương pháp:_ Sử dụng `LIMIT` cho bảng đã phi chuẩn hóa.
+
 ```cql
 USE mentoriadbms;
-SELECT * FROM mentor_profiles LIMIT 10; 
+SELECT * FROM mentor_profiles LIMIT 10;
 ```
 
 **Kết quả kiểm thử:**
+
 - Hai bảng đều trả về tập kết quả chứa 10 mentor đầu tiên tương đồng.
 - Cassandra có tốc độ phản hồi nhanh hơn khoảng 1 giây do dữ liệu đã được sắp xếp sẵn bên trong cấu trúc của nó.
 
@@ -58,7 +65,8 @@ SELECT * FROM mentor_profiles LIMIT 10;
 **Mục tiêu:** Lấy toàn bộ thông tin chi tiết của mentor qua `user_id`.
 
 **MS SQL Server**  
-*Phương pháp:* Thực hiện phép `JOIN` các bảng thành phần lại với nhau để hợp nhất các dữ liệu về mentor.
+_Phương pháp:_ Thực hiện phép `JOIN` các bảng thành phần lại với nhau để hợp nhất các dữ liệu về mentor.
+
 ```sql
 USE mentoria;
 DECLARE @MentorId INT = 1;
@@ -84,7 +92,8 @@ WHERE u.user_id = @MentorId
 ```
 
 **Apache Cassandra**  
-*Phương pháp:* Truy cập trực tiếp vào bảng gộp chứa toàn bộ dữ liệu về mentor.
+_Phương pháp:_ Truy cập trực tiếp vào bảng gộp chứa toàn bộ dữ liệu về mentor.
+
 ```cql
 USE mentoriadbms;
 SELECT * FROM mentor_profiles
@@ -92,6 +101,7 @@ WHERE mentor_id = a1000000-0000-0000-0000-000000000001;
 ```
 
 **Kết quả kiểm thử:**
+
 - MS SQL Server trả về dữ liệu tổng hợp dựa trên phép `JOIN` trích xuất thuộc tính từ 2 bảng `users` và `mentors`.
 - Apache Cassandra trả về toàn bộ dữ liệu chỉ thông qua một câu lệnh `SELECT` duy nhất trên bảng `mentor_profiles`, nhanh hơn phép JOIN của SQL vài ms.
 
@@ -102,23 +112,24 @@ WHERE mentor_id = a1000000-0000-0000-0000-000000000001;
 **Mục tiêu:** Truy xuất danh sách các mentor có kỹ năng `Docker` và điểm rating từ `4.0` trở lên.
 
 **MS SQL Server**  
-*Phương pháp:* Truyền tham số vào stored procedure để lọc dữ liệu theo điều kiện.
+_Phương pháp:_ Truyền tham số vào stored procedure để lọc dữ liệu theo điều kiện.
 
 ```sql
 EXEC dbo.sp_SearchMentors
     @SkillName = 'Docker',
-    @MinRating = 4.0; 
+    @MinRating = 4.0;
 ```
 
 **Apache Cassandra**  
-*Phương pháp:* Truy xuất trực tiếp trên bảng được thiết kế riêng cho mục đích tìm kiếm theo kỹ năng kết hợp với thứ tự rating.
+_Phương pháp:_ Truy xuất trực tiếp trên bảng được thiết kế riêng cho mục đích tìm kiếm theo kỹ năng kết hợp với thứ tự rating.
 
 ```cql
 SELECT * FROM mentors_by_skill
-WHERE skill_name = 'Docker' AND rating >= 4.0; 
+WHERE skill_name = 'Docker' AND rating >= 4.0;
 ```
 
 **Kết quả kiểm thử:**
+
 - Cả hai hệ thống đều lọc ra được danh sách mentor có kỹ năng `Docker` và rating >= `4.0`.
 - MS SQL Server dùng stored procedure mang lại sự linh hoạt cao, dễ dàng tìm kiếm tổng hợp trên nhiều bảng quan hệ.
 - Apache Cassandra tận dụng khóa phân vùng `skill_name` để định vị partition, sau đó lọc tiếp theo clustering key `rating`, nhanh hơn đáng kể so với SQL Server phải duyệt qua nhiều bảng quan hệ.
@@ -130,12 +141,12 @@ WHERE skill_name = 'Docker' AND rating >= 4.0;
 
 ### Bảng so sánh kết quả kiểm thử
 
-| Kịch bản | MS SQL Server | Apache Cassandra | Xử lí nhanh hơn |
-|---|---|---|---|
-| 1. Truy xuất người dùng qua email | `JOIN` 2 bảng tại thời điểm truy vấn| Truy xuất trực tiếp qua khóa phân vùng | SQL Server (vài ms) |
-| 2. Lấy danh sách 10 mentor đầu tiên | Phân trang qua stored procedure | Giới hạn bản ghi bằng `LIMIT` | Cassandra (~1s) |
-| 3. Truy xuất hồ sơ chi tiết theo ID | `JOIN` 2 bảng tại thời điểm truy vấn, trích xuất nhiều cột chi tiết | Truy xuất trực tiếp qua khóa phân vùng | Cassandra (vài ms) |
-| 4. Tìm kiếm và lọc theo điều kiện | Lọc linh hoạt nhiều tham số qua stored procedure | Lọc trực tiếp qua khóa phân vùng và khóa phân cụm | Cassandra (~2s) |
+| Kịch bản                            | MS SQL Server                                                       | Apache Cassandra                                  | Xử lí nhanh hơn     |
+| ----------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------- | ------------------- |
+| 1. Truy xuất người dùng qua email   | `JOIN` 2 bảng tại thời điểm truy vấn                                | Truy xuất trực tiếp qua khóa phân vùng            | SQL Server (vài ms) |
+| 2. Lấy danh sách 10 mentor đầu tiên | Phân trang qua stored procedure                                     | Giới hạn bản ghi bằng `LIMIT`                     | Cassandra (~1s)     |
+| 3. Truy xuất hồ sơ chi tiết theo ID | `JOIN` 2 bảng tại thời điểm truy vấn, trích xuất nhiều cột chi tiết | Truy xuất trực tiếp qua khóa phân vùng            | Cassandra (vài ms)  |
+| 4. Tìm kiếm và lọc theo điều kiện   | Lọc linh hoạt nhiều tham số qua stored procedure                    | Lọc trực tiếp qua khóa phân vùng và khóa phân cụm | Cassandra (~2s)     |
 
 ---
 
