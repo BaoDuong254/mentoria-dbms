@@ -8,34 +8,33 @@
 _Phương pháp:_ Sử dụng phép `JOIN` tại thời điểm truy vấn, truy xuất dữ liệu trên hai bảng thông qua khóa ngoại.
 
 ```sql
-    USE mentoria;
-    SELECT u.user_id, u.first_name, u.last_name, u.email
-    FROM users u
-    INNER JOIN mentors m ON u.user_id = m.user_id
-    WHERE u.email = 'john.doe@example.com';
+USE mentoria;
+SELECT u.user_id, u.first_name, u.last_name, u.email
+FROM users u
+INNER JOIN mentors m ON u.user_id = m.user_id
+WHERE u.email = 'john.doe@example.com';
 ```
 
 **Apache Cassandra**  
 _Phương pháp:_ Truy xuất trực tiếp dữ liệu từ bảng đã được thiết kế chuyên biệt nhờ khóa phân vùng email.
 
-```cql
-    USE mentoriadbms;
-    SELECT user_id, first_name, last_name, role, status
-    FROM users_by_email
-    WHERE email = 'john.doe@example.com';
+```sql
+USE mentoriadbms;
+SELECT user_id, first_name, last_name, role, status
+FROM users_by_email
+WHERE email = 'john.doe@example.com';
 ```
 
 **Kết quả kiểm thử:**
 
-- Cả hai hệ thống trả về cùng một đối tượng mentor khớp giá trị `user_id`.
+- Cả hai hệ thống trả về cùng một đối tượng mentor, tuy nhiên `user_id` được biểu diễn khác nhau: MS SQL Server dùng kiểu `INT` (số nguyên), Apache Cassandra dùng kiểu `UUID`
 - Thời gian thực thi gần như tương đương, SQL nhanh hơn vài ms do đây là phép `JOIN` cơ bản trên 2 bảng.
 
 ---
 
 ### Kịch bản 2: Lấy danh sách 10 mentor đầu tiên
 
-**Mục tiêu:** So sánh tập dữ liệu đầu ra và thời gian thực thi khi MS SQL Server thực hiện phân trang
-qua stored procedure và Apache Cassandra giới hạn số bản ghi bằng `LIMIT`.
+**Mục tiêu:** So sánh tập dữ liệu đầu ra với phương pháp phân trang qua stored procedure của MS SQL Server và phương pháp giới hạn số bản ghi bằng `LIMIT` trong Apache Cassandra .
 
 **MS SQL Server**  
 _Phương pháp:_ Thực hiện phân trang cho stored procedure.
@@ -48,7 +47,7 @@ EXEC dbo.sp_SearchMentors @Page = 1, @Limit = 10;
 **Apache Cassandra**  
 _Phương pháp:_ Sử dụng `LIMIT` cho bảng đã phi chuẩn hóa.
 
-```cql
+```sql
 USE mentoriadbms;
 SELECT * FROM mentor_profiles LIMIT 10;
 ```
@@ -71,7 +70,6 @@ _Phương pháp:_ Thực hiện phép `JOIN` các bảng thành phần lại v�
 USE mentoria;
 DECLARE @MentorId INT = 1;
 SELECT
-    'MENTOR_INFO' AS type,
     u.user_id,
     u.first_name,
     u.last_name,
@@ -88,13 +86,13 @@ SELECT
     m.account_number
 FROM users u
 JOIN mentors m ON m.user_id = u.user_id
-WHERE u.user_id = @MentorId
+WHERE u.user_id = @MentorId;
 ```
 
 **Apache Cassandra**  
 _Phương pháp:_ Truy cập trực tiếp vào bảng gộp chứa toàn bộ dữ liệu về mentor.
 
-```cql
+```sql
 USE mentoriadbms;
 SELECT * FROM mentor_profiles
 WHERE mentor_id = a1000000-0000-0000-0000-000000000001;
@@ -115,7 +113,8 @@ WHERE mentor_id = a1000000-0000-0000-0000-000000000001;
 _Phương pháp:_ Truyền tham số vào stored procedure để lọc dữ liệu theo điều kiện.
 
 ```sql
-EXEC dbo.sp_SearchMentors
+USE mentoria;
+EXEC dbo . sp_SearchMentors
     @SkillName = 'Docker',
     @MinRating = 4.0;
 ```
@@ -123,9 +122,11 @@ EXEC dbo.sp_SearchMentors
 **Apache Cassandra**  
 _Phương pháp:_ Truy xuất trực tiếp trên bảng được thiết kế riêng cho mục đích tìm kiếm theo kỹ năng kết hợp với thứ tự rating.
 
-```cql
+```sql
+USE mentoriadbms;
 SELECT * FROM mentors_by_skill
-WHERE skill_name = 'Docker' AND rating >= 4.0;
+WHERE skill_name = 'Docker'
+AND rating >= 4.0
 ```
 
 **Kết quả kiểm thử:**
@@ -153,7 +154,8 @@ WHERE skill_name = 'Docker' AND rating >= 4.0;
 ### Nhận xét tổng quan
 
 **MS SQL Server** phù hợp với các tác vụ cần tính linh hoạt cao trong truy vấn. Nhờ vào việc hệ thống có hỗ trợ `JOIN` và stored procedure, có khả năng tổng hợp dữ liệu từ nhiều bảng quan hệ mà không cần thiết kế lại cấu trúc. Tuy nhiên, hiệu năng phụ thuộc vào độ phức tạp của truy vấn và kích thước dữ liệu.
-**Apache Cassandra** cho thấy ưu thế rõ rệt về tốc độ đọc nhờ chiến lược phi chuẩn hóa, dữ liệu được gộp sẵn và sắp xếp theo mục đích truy vấn ngay tại thời điểm ghi, đem lại tốc độ truy vấn nhanh, ổn định, các tác vụ hầu hết đều có thể thực hiện chỉ với một câu lệnh `SELECT` duy nhất với thời gian phản hồi nhanh. Đổi lại, mỗi trường hợp truy vấn cần một bảng được thiết kế riêng, làm tăng độ phức tạp trong quản lý cấu trúc dữ liệu.
+
+**Apache Cassandra** cho thấy ưu thế rõ rệt về tốc độ đọc nhờ chiến lược phi chuẩn hóa, dữ liệu được gộp sẵn và sắp xếp theo mục đích truy vấn ngay tại thời điểm ghi, đem lại tốc độ truy vấn nhanh, ổn định, các tác vụ hầu hết đều có thể thực hiện chỉ với một câu lệnh `SELECT` duy nhất. Đổi lại, mỗi trường hợp truy vấn cần một bảng được thiết kế riêng, làm tăng độ phức tạp trong quản lý cấu trúc dữ liệu.
 
 ---
 
