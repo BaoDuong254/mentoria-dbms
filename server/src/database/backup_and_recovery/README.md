@@ -19,41 +19,53 @@ Mở theo đường link sẽ thấy file back up
 
 Bước 2: Giả lập thảm họa (Disaster)
 
-Chạy lệnh xóa "ép buộc" (bất chấp khóa ngoại):
-
 USE [mentoria];
 GO
 
--- 1. Tắt tất cả kiểm tra ràng buộc
+-- 1. Tắt tạm thời kiểm tra ràng buộc (Safety First)
 EXEC sp_MSforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all";
 
--- 2. Xóa dữ liệu theo thứ tự (Để không bị mâu thuẫn dữ liệu khi bật lại Check)
-DELETE FROM dbo.slots;
-DELETE FROM dbo.bookings;
+-- 2. NHÓM 1: Các bảng giao dịch và tương tác (Xóa đầu tiên)
+-- Đây là những bảng chứa dữ liệu phát sinh từ người dùng
 DELETE FROM dbo.feedbacks;
 DELETE FROM dbo.messages;
-DELETE FROM dbo.plan_registrations;
+DELETE FROM dbo.sended;
+DELETE FROM dbo.meetings;
+DELETE FROM dbo.invoices;
+DELETE FROM dbo.bookings;
+DELETE FROM dbo.slots;
 
--- Nhóm B: Các bảng Core chính (Mục tiêu xóa chính của bài test)
+-- 3. NHÓM 2: Các bảng chi tiết của Plan và Profile
+DELETE FROM dbo.mentorships_benefits;
+DELETE FROM dbo.plan_sessions;
+DELETE FROM dbo.plan_mentorships;
+DELETE FROM dbo.plan_registerations; -- Tên bảng theo file seed của ông
+DELETE FROM dbo.mentor_languages;
+DELETE FROM dbo.set_skill;
+DELETE FROM dbo.own_skill;
+DELETE FROM dbo.work_for;
+DELETE FROM dbo.user_social_links;
+
+-- 4. NHÓM 3: Các bảng thực thể chính (Cha của nhóm 1 & 2)
+DELETE FROM dbo.plans;
 DELETE FROM dbo.mentors;
-DELETE FROM dbo.skills;
-DELETE FROM dbo.users;
+DELETE FROM dbo.mentees;
 
--- 3. Bật lại kiểm tra ràng buộc (Lúc này data trống hết rồi nên nó sẽ KHÔNG báo lỗi)
+-- 5. NHÓM 4: Các bảng danh mục và gốc (Gốc của toàn bộ hệ thống)
+DELETE FROM dbo.users;
+DELETE FROM dbo.categories;
+DELETE FROM dbo.skills;
+DELETE FROM dbo.companies;
+DELETE FROM dbo.job_title;
+DELETE FROM dbo.discounts;
+DELETE FROM dbo.notifications;
+
+-- 6. Bật lại kiểm tra ràng buộc
 EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all";
 
--- 4. Kiểm tra xem còn gì không
-SELECT 'Kết quả' AS Status, 'Dữ liệu đã được xóa sạch, sẵn sàng Restore' AS Message;
-GO
-
-Hoặc xóa luôn database hiện tại:
-
-USE master;
-GO
-RESTORE DATABASE [mentoria]
-FROM DISK = N'D:\mentoria-dbms-main\mentoria.bak' -- Nhớ đúng đường dẫn file ông đã backup nhé
-WITH REPLACE;
-GO
+-- 7. Reset Identity (Tùy chọn)
+-- Nếu ông muốn lần sau INSERT data nó bắt đầu lại từ ID = 1
+-- EXEC sp_MSforeachtable "DBCC CHECKIDENT ('?', RESEED, 0)";
 
 Bước 3: Khôi phục (Recovery)
 Trước khi khôi phục cần tắt server đi để tránh deadlock
