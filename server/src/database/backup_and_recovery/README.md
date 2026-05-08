@@ -28,13 +28,16 @@ GO
 EXEC sp_MSforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all";
 
 -- 2. Xóa dữ liệu theo thứ tự (Để không bị mâu thuẫn dữ liệu khi bật lại Check)
-DELETE FROM dbo.meetings;
-DELETE FROM dbo.messages;
-DELETE FROM dbo.feedbacks;
+DELETE FROM dbo.slots;
 DELETE FROM dbo.bookings;
-DELETE FROM dbo.Mentors;
-DELETE FROM dbo.Skills;
-DELETE FROM dbo.Users;
+DELETE FROM dbo.feedbacks;
+DELETE FROM dbo.messages;
+DELETE FROM dbo.plan_registrations;
+
+-- Nhóm B: Các bảng Core chính (Mục tiêu xóa chính của bài test)
+DELETE FROM dbo.mentors;
+DELETE FROM dbo.skills;
+DELETE FROM dbo.users;
 
 -- 3. Bật lại kiểm tra ràng buộc (Lúc này data trống hết rồi nên nó sẽ KHÔNG báo lỗi)
 EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all";
