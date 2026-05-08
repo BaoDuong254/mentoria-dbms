@@ -68,11 +68,15 @@ GO
 
 Hoặc xóa luôn database hiện tại:
 
-USE master;
+USE master; -- Bắt buộc phải chuyển sang database master
 GO
-RESTORE DATABASE [mentoria]
-FROM DISK = N'D:\mentoria-dbms-main\mentoria.bak' -- Nhớ đúng đường dẫn file ông đã backup nhé
-WITH REPLACE;
+
+-- 1. Ngắt tất cả kết nối đang hiện có để không bị lỗi "Database is in use"
+ALTER DATABASE [mentoria] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
+
+-- 2. Lệnh xóa database
+DROP DATABASE [mentoria];
 GO
 
 Bước 3: Khôi phục (Recovery)
