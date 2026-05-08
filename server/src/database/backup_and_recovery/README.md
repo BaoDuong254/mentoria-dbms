@@ -39,7 +39,7 @@ DELETE FROM dbo.slots;
 DELETE FROM dbo.mentorships_benefits;
 DELETE FROM dbo.plan_sessions;
 DELETE FROM dbo.plan_mentorships;
-DELETE FROM dbo.plan_registerations; -- Tên bảng theo file seed của ông
+DELETE FROM dbo.plan_registerations;
 DELETE FROM dbo.mentor_languages;
 DELETE FROM dbo.set_skill;
 DELETE FROM dbo.own_skill;
@@ -63,9 +63,8 @@ DELETE FROM dbo.notifications;
 -- 6. Bật lại kiểm tra ràng buộc
 EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all";
 
--- 7. Reset Identity (Tùy chọn)
--- Nếu ông muốn lần sau INSERT data nó bắt đầu lại từ ID = 1
--- EXEC sp_MSforeachtable "DBCC CHECKIDENT ('?', RESEED, 0)";
+SELECT 'Thành công' AS Status, 'Đã xóa toàn bộ data Mentoria' AS Message;
+GO
 
 Bước 3: Khôi phục (Recovery)
 Trước khi khôi phục cần tắt server đi để tránh deadlock
