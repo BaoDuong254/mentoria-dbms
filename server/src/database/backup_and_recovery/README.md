@@ -66,6 +66,15 @@ EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all";
 SELECT 'Thành công' AS Status, 'Đã xóa toàn bộ data Mentoria' AS Message;
 GO
 
+Hoặc xóa luôn database hiện tại:
+
+USE master;
+GO
+RESTORE DATABASE [mentoria]
+FROM DISK = N'D:\mentoria-dbms-main\mentoria.bak' -- Nhớ đúng đường dẫn file ông đã backup nhé
+WITH REPLACE;
+GO
+
 Bước 3: Khôi phục (Recovery)
 Trước khi khôi phục cần tắt server đi để tránh deadlock
 Chạy lệnh Restore:
