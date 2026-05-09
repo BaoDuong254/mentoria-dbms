@@ -21,9 +21,9 @@ Thư mục này chứa hai file kịch bản kiểm thử song song nhau, mỗi 
 
 - Cassandra node đang chạy (local hoặc Docker)
 - Keyspace và các bảng đã tồn tại:
-  - `mentors_by_skill`
-  - `meetings_by_mentor`
-  - `revenue_by_mentor`
+    - `mentors_by_skill`
+    - `meetings_by_mentor`
+    - `revenue_by_mentor`
 - Dữ liệu mẫu đã được nạp vào các bảng trên
 
 ---

@@ -1,738 +1,738 @@
 # Request schemas
 UpdateMentorProfileRequest:
-  type: object
-  properties:
-    firstName:
-      type: string
-      minLength: 1
-      example: "John"
-      description: "Mentor's first name"
-    lastName:
-      type: string
-      minLength: 1
-      example: "Doe"
-      description: "Mentor's last name"
-    sex:
-      type: string
-      enum: ["Male", "Female"]
-      example: "Male"
-      description: "Mentor's gender"
-    country:
-      type: string
-      example: "USA"
-      description: "Mentor's country of residence"
-    timezone:
-      type: string
-      example: "America/New_York"
-      description: "Mentor's timezone"
-    bio:
-      type: string
-      example: "Experienced software engineer with 10+ years in web development"
-      description: "Mentor's biography"
-    headline:
-      type: string
-      example: "Senior Software Engineer at Tech Corp"
-      description: "Mentor's professional headline"
-    responseTime:
-      type: string
-      example: "Within 24 hours"
-      description: "Average response time description (e.g., 'Within 1 hour', '1-2 days')"
-    cvUrl:
-      type: string
-      format: uri
-      example: "https://cloudinary.com/cvs/mentor-john-cv.pdf"
-      description: "URL to mentor's CV (PDF)"
-    bankName:
-      type: string
-      example: "Vietcombank"
-      description: "Name of mentor's bank"
-    accountNumber:
-      type: string
-      example: "1234567890"
-      description: "Bank account number"
-    accountHolderName:
-      type: string
-      example: "John Doe"
-      description: "Name of the account holder"
-    bankBranch:
-      type: string
-      example: "Ho Chi Minh City Branch"
-      description: "Bank branch location"
-    swiftCode:
-      type: string
-      example: "BFTVVNVX"
-      description: "SWIFT/BIC code for international transfers"
-    socialLinks:
-      type: array
-      items:
-        type: object
-        required:
-          - link
-          - platform
-        properties:
-          link:
+    type: object
+    properties:
+        firstName:
+            type: string
+            minLength: 1
+            example: "John"
+            description: "Mentor's first name"
+        lastName:
+            type: string
+            minLength: 1
+            example: "Doe"
+            description: "Mentor's last name"
+        sex:
+            type: string
+            enum: ["Male", "Female"]
+            example: "Male"
+            description: "Mentor's gender"
+        country:
+            type: string
+            example: "USA"
+            description: "Mentor's country of residence"
+        timezone:
+            type: string
+            example: "America/New_York"
+            description: "Mentor's timezone"
+        bio:
+            type: string
+            example: "Experienced software engineer with 10+ years in web development"
+            description: "Mentor's biography"
+        headline:
+            type: string
+            example: "Senior Software Engineer at Tech Corp"
+            description: "Mentor's professional headline"
+        responseTime:
+            type: string
+            example: "Within 24 hours"
+            description: "Average response time description (e.g., 'Within 1 hour', '1-2 days')"
+        cvUrl:
             type: string
             format: uri
-            example: "https://linkedin.com/in/johndoe"
-          platform:
+            example: "https://cloudinary.com/cvs/mentor-john-cv.pdf"
+            description: "URL to mentor's CV (PDF)"
+        bankName:
             type: string
-            example: "LinkedIn"
-      description: "Mentor's social media links"
-    companies:
-      type: array
-      items:
-        type: object
-        required:
-          - companyName
-          - jobTitleName
-        properties:
-          companyName:
+            example: "Vietcombank"
+            description: "Name of mentor's bank"
+        accountNumber:
             type: string
-            example: "Tech Corp"
-          jobTitleName:
+            example: "1234567890"
+            description: "Bank account number"
+        accountHolderName:
             type: string
-            example: "Senior Software Engineer"
-      example:
-        - companyName: "Tech Corp"
-          jobTitleName: "Senior Software Engineer"
-        - companyName: "Web Solutions"
-          jobTitleName: "Frontend Developer"
-      description: "Companies where mentor has worked or is working"
-    languages:
-      type: array
-      items:
-        type: string
-      example: ["English", "Spanish", "French"]
-      description: "Languages spoken by mentor"
-    skillIds:
-      type: array
-      items:
-        type: integer
-      example: [1, 2, 3]
-      description: "Array of skill IDs representing areas of expertise"
+            example: "John Doe"
+            description: "Name of the account holder"
+        bankBranch:
+            type: string
+            example: "Ho Chi Minh City Branch"
+            description: "Bank branch location"
+        swiftCode:
+            type: string
+            example: "BFTVVNVX"
+            description: "SWIFT/BIC code for international transfers"
+        socialLinks:
+            type: array
+            items:
+                type: object
+                required:
+                    - link
+                    - platform
+                properties:
+                    link:
+                        type: string
+                        format: uri
+                        example: "https://linkedin.com/in/johndoe"
+                    platform:
+                        type: string
+                        example: "LinkedIn"
+            description: "Mentor's social media links"
+        companies:
+            type: array
+            items:
+                type: object
+                required:
+                    - companyName
+                    - jobTitleName
+                properties:
+                    companyName:
+                        type: string
+                        example: "Tech Corp"
+                    jobTitleName:
+                        type: string
+                        example: "Senior Software Engineer"
+            example:
+                - companyName: "Tech Corp"
+                  jobTitleName: "Senior Software Engineer"
+                - companyName: "Web Solutions"
+                  jobTitleName: "Frontend Developer"
+            description: "Companies where mentor has worked or is working"
+        languages:
+            type: array
+            items:
+                type: string
+            example: ["English", "Spanish", "French"]
+            description: "Languages spoken by mentor"
+        skillIds:
+            type: array
+            items:
+                type: integer
+            example: [1, 2, 3]
+            description: "Array of skill IDs representing areas of expertise"
 
 # Response schemas
 MentorsListResponse:
-  type: object
-  properties:
-    mentors:
-      type: array
-      items:
-        $ref: "#/MentorListItem"
-    pagination:
-      $ref: "#/PaginationInfo"
+    type: object
+    properties:
+        mentors:
+            type: array
+            items:
+                $ref: "#/MentorListItem"
+        pagination:
+            $ref: "#/PaginationInfo"
 
 MentorListItem:
-  type: object
-  properties:
-    user_id:
-      type: integer
-      example: 1
-    first_name:
-      type: string
-      example: "John"
-    last_name:
-      type: string
-      example: "Doe"
-    avatar_url:
-      type: string
-      nullable: true
-      format: uri
-      example: "https://example.com/avatars/mentor-john.jpg"
-    country:
-      type: string
-      nullable: true
-      example: "USA"
-    bio:
-      type: string
-      nullable: true
-      example: "Experienced software engineer with 10+ years"
-    headline:
-      type: string
-      nullable: true
-      example: "Senior Software Engineer at Tech Corp"
-    response_time:
-      type: string
-      example: "Within 24 hours"
-      description: "Average response time description"
-    total_feedbacks:
-      type: integer
-      example: 15
-      description: "Total number of feedback entries received"
-    average_rating:
-      type: number
-      nullable: true
-      format: float
-      example: 4.8
-      description: "Average rating calculated from all feedbacks"
-    lowest_plan_price:
-      type: number
-      nullable: true
-      format: decimal
-      example: 49.99
-      description: "Lowest price among all plans offered by the mentor"
-    skills:
-      type: array
-      items:
-        $ref: "#/Skill"
-      description: "Mentor's skills and areas of expertise"
-    languages:
-      type: array
-      items:
-        type: string
-      example: ["English", "Spanish"]
-      description: "Languages spoken by the mentor"
-    companies:
-      type: array
-      items:
-        $ref: "#/Company"
-      description: "Companies where mentor works or has worked"
-    categories:
-      type: array
-      items:
-        type: object
-        properties:
-          category_id:
+    type: object
+    properties:
+        user_id:
             type: integer
             example: 1
-            description: "Unique category identifier"
-          category_name:
+        first_name:
             type: string
-            example: "Web Development"
-            description: "Category name"
-      description: "Categories associated with the mentor's skills"
+            example: "John"
+        last_name:
+            type: string
+            example: "Doe"
+        avatar_url:
+            type: string
+            nullable: true
+            format: uri
+            example: "https://example.com/avatars/mentor-john.jpg"
+        country:
+            type: string
+            nullable: true
+            example: "USA"
+        bio:
+            type: string
+            nullable: true
+            example: "Experienced software engineer with 10+ years"
+        headline:
+            type: string
+            nullable: true
+            example: "Senior Software Engineer at Tech Corp"
+        response_time:
+            type: string
+            example: "Within 24 hours"
+            description: "Average response time description"
+        total_feedbacks:
+            type: integer
+            example: 15
+            description: "Total number of feedback entries received"
+        average_rating:
+            type: number
+            nullable: true
+            format: float
+            example: 4.8
+            description: "Average rating calculated from all feedbacks"
+        lowest_plan_price:
+            type: number
+            nullable: true
+            format: decimal
+            example: 49.99
+            description: "Lowest price among all plans offered by the mentor"
+        skills:
+            type: array
+            items:
+                $ref: "#/Skill"
+            description: "Mentor's skills and areas of expertise"
+        languages:
+            type: array
+            items:
+                type: string
+            example: ["English", "Spanish"]
+            description: "Languages spoken by the mentor"
+        companies:
+            type: array
+            items:
+                $ref: "#/Company"
+            description: "Companies where mentor works or has worked"
+        categories:
+            type: array
+            items:
+                type: object
+                properties:
+                    category_id:
+                        type: integer
+                        example: 1
+                        description: "Unique category identifier"
+                    category_name:
+                        type: string
+                        example: "Web Development"
+                        description: "Category name"
+            description: "Categories associated with the mentor's skills"
 
 PaginationInfo:
-  type: object
-  properties:
-    currentPage:
-      type: integer
-      example: 1
-    totalPages:
-      type: integer
-      example: 5
-    totalItems:
-      type: integer
-      example: 47
-    itemsPerPage:
-      type: integer
-      example: 10
-    hasNextPage:
-      type: boolean
-      example: true
-    hasPreviousPage:
-      type: boolean
-      example: false
+    type: object
+    properties:
+        currentPage:
+            type: integer
+            example: 1
+        totalPages:
+            type: integer
+            example: 5
+        totalItems:
+            type: integer
+            example: 47
+        itemsPerPage:
+            type: integer
+            example: 10
+        hasNextPage:
+            type: boolean
+            example: true
+        hasPreviousPage:
+            type: boolean
+            example: false
 
 MentorProfileResponse:
-  type: object
-  properties:
-    user_id:
-      type: integer
-      example: 1
-      description: "Unique mentor identifier"
-    first_name:
-      type: string
-      example: "John"
-      description: "Mentor's first name"
-    last_name:
-      type: string
-      example: "Doe"
-      description: "Mentor's last name"
-    email:
-      type: string
-      format: email
-      example: "john.mentor@example.com"
-      description: "Mentor's email address"
-    sex:
-      type: string
-      nullable: true
-      enum: ["Male", "Female"]
-      example: "Male"
-      description: "Mentor's gender"
-    avatar_url:
-      type: string
-      nullable: true
-      format: uri
-      example: "https://example.com/avatars/mentor-john.jpg"
-      description: "URL to mentor's avatar image"
-    country:
-      type: string
-      nullable: true
-      example: "USA"
-      description: "Mentor's country of residence"
-    timezone:
-      type: string
-      nullable: true
-      example: "America/New_York"
-      description: "Mentor's timezone"
-    bio:
-      type: string
-      nullable: true
-      example: "Experienced software engineer with 10+ years in web development"
-      description: "Mentor's biography"
-    headline:
-      type: string
-      nullable: true
-      example: "Senior Software Engineer at Tech Corp"
-      description: "Mentor's professional headline"
-    response_time:
-      type: string
-      example: "Within 24 hours"
-      description: "Average response time description"
-    cv_url:
-      type: string
-      nullable: true
-      format: uri
-      example: "https://cloudinary.com/cvs/mentor-john-cv.pdf"
-      description: "URL to mentor's CV (PDF)"
-    bank_name:
-      type: string
-      nullable: true
-      example: "Vietcombank"
-      description: "Name of mentor's bank"
-    account_number:
-      type: string
-      nullable: true
-      example: "1234567890"
-      description: "Bank account number"
-    account_holder_name:
-      type: string
-      nullable: true
-      example: "John Doe"
-      description: "Name of the account holder"
-    bank_branch:
-      type: string
-      nullable: true
-      example: "Ho Chi Minh City Branch"
-      description: "Bank branch location"
-    swift_code:
-      type: string
-      nullable: true
-      example: "BFTVVNVX"
-      description: "SWIFT/BIC code for international transfers"
-    social_links:
-      type: array
-      items:
-        $ref: "#/SocialLink"
-      description: "Mentor's social media links"
-    companies:
-      type: array
-      items:
-        $ref: "#/Company"
-      description: "Companies where mentor has worked"
-    skills:
-      type: array
-      items:
-        $ref: "#/Skill"
-      description: "Skills and areas of expertise"
-    languages:
-      type: array
-      items:
-        type: string
-      example: ["English", "Spanish", "French"]
-      description: "Languages spoken by mentor"
-    plans:
-      type: array
-      items:
-        $ref: "#/Plan"
-      description: "Mentorship plans offered by mentor"
-    total_mentees:
-      type: integer
-      example: 25
-      description: "Total number of unique mentees guided"
-    total_feedbacks:
-      type: integer
-      example: 15
-      description: "Total number of feedback entries received"
-    total_stars:
-      type: integer
-      example: 72
-      description: "Total cumulative star rating from all feedbacks"
-    average_rating:
-      type: number
-      nullable: true
-      format: float
-      example: 4.8
-      description: "Average rating calculated from feedbacks (total_stars / total_feedbacks)"
-    feedbacks:
-      type: array
-      items:
-        $ref: "#/Feedback"
-      description: "Feedback reviews from mentees with plan information"
+    type: object
+    properties:
+        user_id:
+            type: integer
+            example: 1
+            description: "Unique mentor identifier"
+        first_name:
+            type: string
+            example: "John"
+            description: "Mentor's first name"
+        last_name:
+            type: string
+            example: "Doe"
+            description: "Mentor's last name"
+        email:
+            type: string
+            format: email
+            example: "john.mentor@example.com"
+            description: "Mentor's email address"
+        sex:
+            type: string
+            nullable: true
+            enum: ["Male", "Female"]
+            example: "Male"
+            description: "Mentor's gender"
+        avatar_url:
+            type: string
+            nullable: true
+            format: uri
+            example: "https://example.com/avatars/mentor-john.jpg"
+            description: "URL to mentor's avatar image"
+        country:
+            type: string
+            nullable: true
+            example: "USA"
+            description: "Mentor's country of residence"
+        timezone:
+            type: string
+            nullable: true
+            example: "America/New_York"
+            description: "Mentor's timezone"
+        bio:
+            type: string
+            nullable: true
+            example: "Experienced software engineer with 10+ years in web development"
+            description: "Mentor's biography"
+        headline:
+            type: string
+            nullable: true
+            example: "Senior Software Engineer at Tech Corp"
+            description: "Mentor's professional headline"
+        response_time:
+            type: string
+            example: "Within 24 hours"
+            description: "Average response time description"
+        cv_url:
+            type: string
+            nullable: true
+            format: uri
+            example: "https://cloudinary.com/cvs/mentor-john-cv.pdf"
+            description: "URL to mentor's CV (PDF)"
+        bank_name:
+            type: string
+            nullable: true
+            example: "Vietcombank"
+            description: "Name of mentor's bank"
+        account_number:
+            type: string
+            nullable: true
+            example: "1234567890"
+            description: "Bank account number"
+        account_holder_name:
+            type: string
+            nullable: true
+            example: "John Doe"
+            description: "Name of the account holder"
+        bank_branch:
+            type: string
+            nullable: true
+            example: "Ho Chi Minh City Branch"
+            description: "Bank branch location"
+        swift_code:
+            type: string
+            nullable: true
+            example: "BFTVVNVX"
+            description: "SWIFT/BIC code for international transfers"
+        social_links:
+            type: array
+            items:
+                $ref: "#/SocialLink"
+            description: "Mentor's social media links"
+        companies:
+            type: array
+            items:
+                $ref: "#/Company"
+            description: "Companies where mentor has worked"
+        skills:
+            type: array
+            items:
+                $ref: "#/Skill"
+            description: "Skills and areas of expertise"
+        languages:
+            type: array
+            items:
+                type: string
+            example: ["English", "Spanish", "French"]
+            description: "Languages spoken by mentor"
+        plans:
+            type: array
+            items:
+                $ref: "#/Plan"
+            description: "Mentorship plans offered by mentor"
+        total_mentees:
+            type: integer
+            example: 25
+            description: "Total number of unique mentees guided"
+        total_feedbacks:
+            type: integer
+            example: 15
+            description: "Total number of feedback entries received"
+        total_stars:
+            type: integer
+            example: 72
+            description: "Total cumulative star rating from all feedbacks"
+        average_rating:
+            type: number
+            nullable: true
+            format: float
+            example: 4.8
+            description: "Average rating calculated from feedbacks (total_stars / total_feedbacks)"
+        feedbacks:
+            type: array
+            items:
+                $ref: "#/Feedback"
+            description: "Feedback reviews from mentees with plan information"
 
 Feedback:
-  type: object
-  properties:
-    mentee_id:
-      type: integer
-      example: 5
-      description: "Unique mentee identifier"
-    mentee_first_name:
-      type: string
-      example: "Jane"
-      description: "Mentee's first name"
-    mentee_last_name:
-      type: string
-      example: "Smith"
-      description: "Mentee's last name"
-    stars:
-      type: integer
-      minimum: 1
-      maximum: 5
-      example: 5
-      description: "Star rating given by the mentee (1-5)"
-    content:
-      type: string
-      example: "Excellent mentor! Very helpful and knowledgeable."
-      description: "Feedback content/review text"
-    sent_time:
-      type: string
-      format: date-time
-      example: "2025-11-20T14:30:00Z"
-      description: "Timestamp when feedback was submitted"
-    plan_id:
-      type: integer
-      nullable: true
-      example: 3
-      description: "ID of the plan/package the mentee registered for"
-    plan_type:
-      type: string
-      nullable: true
-      example: "Session"
-      description: "Type of plan (Session or Mentorship)"
-    plan_description:
-      type: string
-      nullable: true
-      example: "1-hour career guidance session"
-      description: "Description of the mentorship plan"
-    plan_charge:
-      type: number
-      nullable: true
-      format: decimal
-      example: 99.99
-      description: "Cost of the plan the mentee registered for"
+    type: object
+    properties:
+        mentee_id:
+            type: integer
+            example: 5
+            description: "Unique mentee identifier"
+        mentee_first_name:
+            type: string
+            example: "Jane"
+            description: "Mentee's first name"
+        mentee_last_name:
+            type: string
+            example: "Smith"
+            description: "Mentee's last name"
+        stars:
+            type: integer
+            minimum: 1
+            maximum: 5
+            example: 5
+            description: "Star rating given by the mentee (1-5)"
+        content:
+            type: string
+            example: "Excellent mentor! Very helpful and knowledgeable."
+            description: "Feedback content/review text"
+        sent_time:
+            type: string
+            format: date-time
+            example: "2025-11-20T14:30:00Z"
+            description: "Timestamp when feedback was submitted"
+        plan_id:
+            type: integer
+            nullable: true
+            example: 3
+            description: "ID of the plan/package the mentee registered for"
+        plan_type:
+            type: string
+            nullable: true
+            example: "Session"
+            description: "Type of plan (Session or Mentorship)"
+        plan_description:
+            type: string
+            nullable: true
+            example: "1-hour career guidance session"
+            description: "Description of the mentorship plan"
+        plan_charge:
+            type: number
+            nullable: true
+            format: decimal
+            example: 99.99
+            description: "Cost of the plan the mentee registered for"
 
 SocialLink:
-  type: object
-  properties:
-    link:
-      type: string
-      format: uri
-      example: "https://linkedin.com/in/johndoe"
-      description: "URL to social media profile"
-    platform:
-      type: string
-      example: "LinkedIn"
-      description: "Social media platform name"
+    type: object
+    properties:
+        link:
+            type: string
+            format: uri
+            example: "https://linkedin.com/in/johndoe"
+            description: "URL to social media profile"
+        platform:
+            type: string
+            example: "LinkedIn"
+            description: "Social media platform name"
 
 Company:
-  type: object
-  properties:
-    company_id:
-      type: integer
-      example: 1
-      description: "Unique company identifier"
-    company_name:
-      type: string
-      example: "Tech Corp"
-      description: "Company name"
-    job_title_id:
-      type: integer
-      example: 3
-      description: "Unique job title identifier"
-    job_name:
-      type: string
-      example: "Senior Software Engineer"
-      description: "Mentor's job title at the company"
+    type: object
+    properties:
+        company_id:
+            type: integer
+            example: 1
+            description: "Unique company identifier"
+        company_name:
+            type: string
+            example: "Tech Corp"
+            description: "Company name"
+        job_title_id:
+            type: integer
+            example: 3
+            description: "Unique job title identifier"
+        job_name:
+            type: string
+            example: "Senior Software Engineer"
+            description: "Mentor's job title at the company"
 
 Skill:
-  type: object
-  properties:
-    skill_id:
-      type: integer
-      example: 1
-      description: "Unique skill identifier"
-    skill_name:
-      type: string
-      example: "JavaScript"
-      description: "Skill or area of expertise"
+    type: object
+    properties:
+        skill_id:
+            type: integer
+            example: 1
+            description: "Unique skill identifier"
+        skill_name:
+            type: string
+            example: "JavaScript"
+            description: "Skill or area of expertise"
 
 Plan:
-  type: object
-  properties:
-    plan_id:
-      type: integer
-      example: 1
-      description: "Unique plan identifier"
-    plan_description:
-      type: string
-      example: "1-hour mentorship session with personalized career guidance"
-      description: "Description of the mentorship plan"
-    plan_charge:
-      type: number
-      format: decimal
-      example: 99.99
-      description: "Cost of the plan"
-    plan_type:
-      type: string
-      example: "Session"
-      description: "Type of plan (Session or Mentorship)"
-    sessions_duration:
-      type: integer
-      nullable: true
-      example: 60
-      description: "Duration of session in minutes (only for Session type plans)"
-    benefits:
-      type: array
-      nullable: true
-      items:
-        type: string
-      example:
-        - "1-on-1 video call"
-        - "Code review"
-        - "Career guidance"
-      description: "List of benefits included in the plan (only for Mentorship type plans)"
+    type: object
+    properties:
+        plan_id:
+            type: integer
+            example: 1
+            description: "Unique plan identifier"
+        plan_description:
+            type: string
+            example: "1-hour mentorship session with personalized career guidance"
+            description: "Description of the mentorship plan"
+        plan_charge:
+            type: number
+            format: decimal
+            example: 99.99
+            description: "Cost of the plan"
+        plan_type:
+            type: string
+            example: "Session"
+            description: "Type of plan (Session or Mentorship)"
+        sessions_duration:
+            type: integer
+            nullable: true
+            example: 60
+            description: "Duration of session in minutes (only for Session type plans)"
+        benefits:
+            type: array
+            nullable: true
+            items:
+                type: string
+            example:
+                - "1-on-1 video call"
+                - "Code review"
+                - "Career guidance"
+            description: "List of benefits included in the plan (only for Mentorship type plans)"
 
 MentorStatsResponse:
-  type: object
-  properties:
-    total_mentees:
-      type: integer
-      example: 25
-      description: "Total number of unique mentees guided by the mentor"
-    total_feedbacks:
-      type: integer
-      example: 15
-      description: "Total number of feedback entries received by the mentor"
-    total_stars:
-      type: integer
-      example: 72
-      description: "Total cumulative star rating from all feedbacks"
-    average_rating:
-      type: number
-      nullable: true
-      format: float
-      example: 4.8
-      description: "Average rating calculated from feedbacks (total_stars / total_feedbacks)"
+    type: object
+    properties:
+        total_mentees:
+            type: integer
+            example: 25
+            description: "Total number of unique mentees guided by the mentor"
+        total_feedbacks:
+            type: integer
+            example: 15
+            description: "Total number of feedback entries received by the mentor"
+        total_stars:
+            type: integer
+            example: 72
+            description: "Total cumulative star rating from all feedbacks"
+        average_rating:
+            type: number
+            nullable: true
+            format: float
+            example: 4.8
+            description: "Average rating calculated from feedbacks (total_stars / total_feedbacks)"
 
 # Plan Request Schemas
 CreatePlanSessionRequest:
-  type: object
-  required:
-    - planDescription
-    - planCharge
-    - planType
-    - sessionsDuration
-  properties:
-    planDescription:
-      type: string
-      example: "45-minute career coaching session"
-      description: "Description of the session plan"
-    planCharge:
-      type: number
-      format: decimal
-      minimum: 0.01
-      example: 75.00
-      description: "Price of the session plan"
-    planType:
-      type: string
-      example: "Beginner"
-      description: "Type/tier of the plan (e.g., Beginner, Introductory)"
-    sessionsDuration:
-      type: integer
-      minimum: 1
-      maximum: 120
-      example: 45
-      description: "Duration of the session in minutes (1-120)"
+    type: object
+    required:
+        - planDescription
+        - planCharge
+        - planType
+        - sessionsDuration
+    properties:
+        planDescription:
+            type: string
+            example: "45-minute career coaching session"
+            description: "Description of the session plan"
+        planCharge:
+            type: number
+            format: decimal
+            minimum: 0.01
+            example: 75.00
+            description: "Price of the session plan"
+        planType:
+            type: string
+            example: "Beginner"
+            description: "Type/tier of the plan (e.g., Beginner, Introductory)"
+        sessionsDuration:
+            type: integer
+            minimum: 1
+            maximum: 120
+            example: 45
+            description: "Duration of the session in minutes (1-120)"
 
 CreatePlanMentorshipRequest:
-  type: object
-  required:
-    - planDescription
-    - planCharge
-    - planType
-    - callsPerMonth
-    - minutesPerCall
-  properties:
-    planDescription:
-      type: string
-      example: "Standard mentorship - 4 calls per month"
-      description: "Description of the mentorship plan"
-    planCharge:
-      type: number
-      format: decimal
-      minimum: 0.01
-      example: 349.00
-      description: "Monthly price of the mentorship plan"
-    planType:
-      type: string
-      example: "Standard"
-      description: "Type/tier of the plan (e.g., Lite, Standard, Premium)"
-    callsPerMonth:
-      type: integer
-      minimum: 1
-      example: 4
-      description: "Number of calls included per month"
-    minutesPerCall:
-      type: integer
-      minimum: 1
-      maximum: 120
-      example: 60
-      description: "Duration of each call in minutes (1-120)"
-    benefits:
-      type: array
-      items:
-        type: string
-      example:
-        - "4 calls per month (60min/call)"
-        - "Unlimited chat support"
-        - "Code review"
-        - "Career guidance"
-      description: "List of benefits included in the mentorship plan"
+    type: object
+    required:
+        - planDescription
+        - planCharge
+        - planType
+        - callsPerMonth
+        - minutesPerCall
+    properties:
+        planDescription:
+            type: string
+            example: "Standard mentorship - 4 calls per month"
+            description: "Description of the mentorship plan"
+        planCharge:
+            type: number
+            format: decimal
+            minimum: 0.01
+            example: 349.00
+            description: "Monthly price of the mentorship plan"
+        planType:
+            type: string
+            example: "Standard"
+            description: "Type/tier of the plan (e.g., Lite, Standard, Premium)"
+        callsPerMonth:
+            type: integer
+            minimum: 1
+            example: 4
+            description: "Number of calls included per month"
+        minutesPerCall:
+            type: integer
+            minimum: 1
+            maximum: 120
+            example: 60
+            description: "Duration of each call in minutes (1-120)"
+        benefits:
+            type: array
+            items:
+                type: string
+            example:
+                - "4 calls per month (60min/call)"
+                - "Unlimited chat support"
+                - "Code review"
+                - "Career guidance"
+            description: "List of benefits included in the mentorship plan"
 
 UpdatePlanSessionRequest:
-  type: object
-  properties:
-    planDescription:
-      type: string
-      example: "Updated session description"
-      description: "Updated description of the session plan"
-    planCharge:
-      type: number
-      format: decimal
-      minimum: 0.01
-      example: 85.00
-      description: "Updated price of the session plan"
-    planType:
-      type: string
-      example: "Introductory"
-      description: "Updated type/tier of the plan"
-    sessionsDuration:
-      type: integer
-      minimum: 1
-      maximum: 120
-      example: 60
-      description: "Updated duration of the session in minutes (1-120)"
+    type: object
+    properties:
+        planDescription:
+            type: string
+            example: "Updated session description"
+            description: "Updated description of the session plan"
+        planCharge:
+            type: number
+            format: decimal
+            minimum: 0.01
+            example: 85.00
+            description: "Updated price of the session plan"
+        planType:
+            type: string
+            example: "Introductory"
+            description: "Updated type/tier of the plan"
+        sessionsDuration:
+            type: integer
+            minimum: 1
+            maximum: 120
+            example: 60
+            description: "Updated duration of the session in minutes (1-120)"
 
 UpdatePlanMentorshipRequest:
-  type: object
-  properties:
-    planDescription:
-      type: string
-      example: "Updated mentorship description"
-      description: "Updated description of the mentorship plan"
-    planCharge:
-      type: number
-      format: decimal
-      minimum: 0.01
-      example: 399.00
-      description: "Updated monthly price of the mentorship plan"
-    planType:
-      type: string
-      example: "Premium"
-      description: "Updated type/tier of the plan"
-    callsPerMonth:
-      type: integer
-      minimum: 1
-      example: 6
-      description: "Updated number of calls per month"
-    minutesPerCall:
-      type: integer
-      minimum: 1
-      maximum: 120
-      example: 90
-      description: "Updated duration of each call in minutes (1-120)"
-    benefits:
-      type: array
-      items:
-        type: string
-      example:
-        - "6 calls per month (90min/call)"
-        - "Priority 24/7 support"
-        - "Code review"
-        - "Career guidance"
-        - "Interview preparation"
-      description: "Updated list of benefits included in the mentorship plan"
+    type: object
+    properties:
+        planDescription:
+            type: string
+            example: "Updated mentorship description"
+            description: "Updated description of the mentorship plan"
+        planCharge:
+            type: number
+            format: decimal
+            minimum: 0.01
+            example: 399.00
+            description: "Updated monthly price of the mentorship plan"
+        planType:
+            type: string
+            example: "Premium"
+            description: "Updated type/tier of the plan"
+        callsPerMonth:
+            type: integer
+            minimum: 1
+            example: 6
+            description: "Updated number of calls per month"
+        minutesPerCall:
+            type: integer
+            minimum: 1
+            maximum: 120
+            example: 90
+            description: "Updated duration of each call in minutes (1-120)"
+        benefits:
+            type: array
+            items:
+                type: string
+            example:
+                - "6 calls per month (90min/call)"
+                - "Priority 24/7 support"
+                - "Code review"
+                - "Career guidance"
+                - "Interview preparation"
+            description: "Updated list of benefits included in the mentorship plan"
 
 # Plan Response Schemas
 PlanSessionResponse:
-  type: object
-  properties:
-    plan_id:
-      type: integer
-      example: 1
-      description: "Unique plan identifier"
-    plan_description:
-      type: string
-      example: "30-minute focused mentorship session"
-      description: "Description of the session plan"
-    plan_charge:
-      type: number
-      format: decimal
-      example: 50.00
-      description: "Price of the session plan"
-    plan_type:
-      type: string
-      example: "Beginner"
-      description: "Type/tier of the plan"
-    mentor_id:
-      type: integer
-      example: 1
-      description: "ID of the mentor offering this plan"
-    sessions_duration:
-      type: integer
-      example: 30
-      description: "Duration of the session in minutes"
-    plan_category:
-      type: string
-      enum: ["session"]
-      example: "session"
-      description: "Category of the plan (always 'session' for session plans)"
+    type: object
+    properties:
+        plan_id:
+            type: integer
+            example: 1
+            description: "Unique plan identifier"
+        plan_description:
+            type: string
+            example: "30-minute focused mentorship session"
+            description: "Description of the session plan"
+        plan_charge:
+            type: number
+            format: decimal
+            example: 50.00
+            description: "Price of the session plan"
+        plan_type:
+            type: string
+            example: "Beginner"
+            description: "Type/tier of the plan"
+        mentor_id:
+            type: integer
+            example: 1
+            description: "ID of the mentor offering this plan"
+        sessions_duration:
+            type: integer
+            example: 30
+            description: "Duration of the session in minutes"
+        plan_category:
+            type: string
+            enum: ["session"]
+            example: "session"
+            description: "Category of the plan (always 'session' for session plans)"
 
 PlanMentorshipResponse:
-  type: object
-  properties:
-    plan_id:
-      type: integer
-      example: 5
-      description: "Unique plan identifier"
-    plan_description:
-      type: string
-      example: "Monthly mentorship - 2 calls per month"
-      description: "Description of the mentorship plan"
-    plan_charge:
-      type: number
-      format: decimal
-      example: 199.00
-      description: "Monthly price of the mentorship plan"
-    plan_type:
-      type: string
-      example: "Lite"
-      description: "Type/tier of the plan"
-    mentor_id:
-      type: integer
-      example: 1
-      description: "ID of the mentor offering this plan"
-    calls_per_month:
-      type: integer
-      example: 2
-      description: "Number of calls included per month"
-    minutes_per_call:
-      type: integer
-      example: 60
-      description: "Duration of each call in minutes"
-    benefits:
-      type: array
-      items:
-        type: string
-      example:
-        - "2 calls per month (60min/call)"
-        - "Email support"
-        - "Career guidance"
-      description: "List of benefits included in the mentorship plan"
-    plan_category:
-      type: string
-      enum: ["mentorship"]
-      example: "mentorship"
-      description: "Category of the plan (always 'mentorship' for mentorship plans)"
+    type: object
+    properties:
+        plan_id:
+            type: integer
+            example: 5
+            description: "Unique plan identifier"
+        plan_description:
+            type: string
+            example: "Monthly mentorship - 2 calls per month"
+            description: "Description of the mentorship plan"
+        plan_charge:
+            type: number
+            format: decimal
+            example: 199.00
+            description: "Monthly price of the mentorship plan"
+        plan_type:
+            type: string
+            example: "Lite"
+            description: "Type/tier of the plan"
+        mentor_id:
+            type: integer
+            example: 1
+            description: "ID of the mentor offering this plan"
+        calls_per_month:
+            type: integer
+            example: 2
+            description: "Number of calls included per month"
+        minutes_per_call:
+            type: integer
+            example: 60
+            description: "Duration of each call in minutes"
+        benefits:
+            type: array
+            items:
+                type: string
+            example:
+                - "2 calls per month (60min/call)"
+                - "Email support"
+                - "Career guidance"
+            description: "List of benefits included in the mentorship plan"
+        plan_category:
+            type: string
+            enum: ["mentorship"]
+            example: "mentorship"
+            description: "Category of the plan (always 'mentorship' for mentorship plans)"

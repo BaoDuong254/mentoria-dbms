@@ -243,7 +243,8 @@ function MentorProfile() {
 
                     <div className='flex w-full flex-col items-center justify-between gap-2 border-b border-gray-700 pb-5'>
                       <span>
-                        <strong className='text-4xl text-white'>${displayPlan.plan_charge}</strong>/month
+                        <strong className='text-4xl text-white'>${displayPlan.plan_charge}</strong>
+                        /month
                       </span>
                       <span className='w-10/12 text-center text-sm italic'>{displayPlan.plan_description}</span>
                     </div>

@@ -267,14 +267,24 @@ const OverviewSection = ({ stats }: { stats: SystemStats }) => (
         </h3>
         <div className='space-y-4'>
           {[
-            { label: "Active", value: stats.mentors.active, color: "text-emerald-400", bgColor: "bg-emerald-500" },
+            {
+              label: "Active",
+              value: stats.mentors.active,
+              color: "text-emerald-400",
+              bgColor: "bg-emerald-500",
+            },
             {
               label: "Pending Approval",
               value: stats.mentors.pending,
               color: "text-amber-400",
               bgColor: "bg-amber-500",
             },
-            { label: "Inactive", value: stats.mentors.inactive, color: "text-gray-400", bgColor: "bg-gray-500" },
+            {
+              label: "Inactive",
+              value: stats.mentors.inactive,
+              color: "text-gray-400",
+              bgColor: "bg-gray-500",
+            },
             { label: "Banned", value: stats.mentors.banned, color: "text-red-400", bgColor: "bg-red-500" },
           ].map((item) => (
             <div key={item.label} className='space-y-2'>
@@ -304,9 +314,24 @@ const OverviewSection = ({ stats }: { stats: SystemStats }) => (
         </h3>
         <div className='space-y-4'>
           {[
-            { label: "Completed", value: stats.meetings.completed, color: "text-blue-400", bgColor: "bg-blue-500" },
-            { label: "Upcoming", value: stats.meetings.upcoming, color: "text-emerald-400", bgColor: "bg-emerald-500" },
-            { label: "Cancelled", value: stats.meetings.cancelled, color: "text-red-400", bgColor: "bg-red-500" },
+            {
+              label: "Completed",
+              value: stats.meetings.completed,
+              color: "text-blue-400",
+              bgColor: "bg-blue-500",
+            },
+            {
+              label: "Upcoming",
+              value: stats.meetings.upcoming,
+              color: "text-emerald-400",
+              bgColor: "bg-emerald-500",
+            },
+            {
+              label: "Cancelled",
+              value: stats.meetings.cancelled,
+              color: "text-red-400",
+              bgColor: "bg-red-500",
+            },
           ].map((item) => (
             <div key={item.label} className='space-y-2'>
               <div className='flex justify-between'>

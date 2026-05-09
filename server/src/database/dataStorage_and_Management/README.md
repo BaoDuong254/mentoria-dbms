@@ -50,26 +50,26 @@ keyspace: mentoriadbms
 table: companies
 
 table_definition: CREATE TABLE companies (
-  company_id   uuid PRIMARY KEY,
-  cname        text
-  );
+    company_id   uuid PRIMARY KEY,
+    cname        text
+    );
 
 columnspec:
-  - name: company_id
-    size: fixed(16)
-    population: seq(31..500030)
-  - name: cname
-    size: uniform(13..18)
-    population: seq(31..500030)
+    - name: company_id
+      size: fixed(16)
+      population: seq(31..500030)
+    - name: cname
+      size: uniform(13..18)
+      population: seq(31..500030)
 
 insert:
-  partitions: fixed(500)
-  batchtype: UNLOGGED
+    partitions: fixed(500)
+    batchtype: UNLOGGED
 
 queries:
-  read1:
-    cql: select * from users where companies = ? and company_id = ?
-    fields: samerow
+    read1:
+        cql: select * from users where companies = ? and company_id = ?
+        fields: samerow
 ```
 
 ```bash

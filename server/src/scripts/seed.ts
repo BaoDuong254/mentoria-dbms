@@ -1269,8 +1269,18 @@ async function seedBookings() {
   console.log(chalk.yellow("Seeding bookings..."));
 
   const bookings = [
-    { menteeEmail: "alice.smith@example.com", registrationIndex: 0, mentorEmail: "john.doe@example.com", planIndex: 0 },
-    { menteeEmail: "alice.smith@example.com", registrationIndex: 1, mentorEmail: "john.doe@example.com", planIndex: 1 },
+    {
+      menteeEmail: "alice.smith@example.com",
+      registrationIndex: 0,
+      mentorEmail: "john.doe@example.com",
+      planIndex: 0,
+    },
+    {
+      menteeEmail: "alice.smith@example.com",
+      registrationIndex: 1,
+      mentorEmail: "john.doe@example.com",
+      planIndex: 1,
+    },
     {
       menteeEmail: "bob.wilson@example.com",
       registrationIndex: 2,
@@ -1289,8 +1299,18 @@ async function seedBookings() {
       mentorEmail: "michael.chen@example.com",
       planIndex: 1,
     },
-    { menteeEmail: "emma.davis@example.com", registrationIndex: 5, mentorEmail: "david.kim@example.com", planIndex: 0 },
-    { menteeEmail: "emma.davis@example.com", registrationIndex: 6, mentorEmail: "david.kim@example.com", planIndex: 1 },
+    {
+      menteeEmail: "emma.davis@example.com",
+      registrationIndex: 5,
+      mentorEmail: "david.kim@example.com",
+      planIndex: 0,
+    },
+    {
+      menteeEmail: "emma.davis@example.com",
+      registrationIndex: 6,
+      mentorEmail: "david.kim@example.com",
+      planIndex: 1,
+    },
   ];
 
   for (const booking of bookings) {

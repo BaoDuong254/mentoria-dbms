@@ -551,7 +551,10 @@ const AdminUsers = () => {
                           type='text'
                           value={editFormData.response_time}
                           onChange={(e) => {
-                            setEditFormData({ ...editFormData, response_time: e.target.value });
+                            setEditFormData({
+                              ...editFormData,
+                              response_time: e.target.value,
+                            });
                           }}
                           className='mt-1 w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-white outline-none focus:border-(--primary)'
                         />
@@ -594,7 +597,10 @@ const AdminUsers = () => {
                           type='text'
                           value={editFormData.account_holder_name}
                           onChange={(e) => {
-                            setEditFormData({ ...editFormData, account_holder_name: e.target.value });
+                            setEditFormData({
+                              ...editFormData,
+                              account_holder_name: e.target.value,
+                            });
                           }}
                           className='mt-1 w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-white outline-none focus:border-(--primary)'
                         />
@@ -605,7 +611,10 @@ const AdminUsers = () => {
                           type='text'
                           value={editFormData.account_number}
                           onChange={(e) => {
-                            setEditFormData({ ...editFormData, account_number: e.target.value });
+                            setEditFormData({
+                              ...editFormData,
+                              account_number: e.target.value,
+                            });
                           }}
                           className='mt-1 w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-white outline-none focus:border-(--primary)'
                         />
@@ -630,7 +639,10 @@ const AdminUsers = () => {
                           type='text'
                           value={editFormData.bank_branch}
                           onChange={(e) => {
-                            setEditFormData({ ...editFormData, bank_branch: e.target.value });
+                            setEditFormData({
+                              ...editFormData,
+                              bank_branch: e.target.value,
+                            });
                           }}
                           className='mt-1 w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-white outline-none focus:border-(--primary)'
                         />

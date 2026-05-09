@@ -36,7 +36,9 @@ export const getAdminMentee = async (userId: number) => {
 
 // 3. Cập nhật thông tin Mentee (Mới thêm)
 export const updateAdminMentee = async (userId: number, data: UpdateAdminMenteeRequest) => {
-  const res = await axios.put<AdminResponse>(`${BASE_URL}/mentees/${String(userId)}`, data, { withCredentials: true });
+  const res = await axios.put<AdminResponse>(`${BASE_URL}/mentees/${String(userId)}`, data, {
+    withCredentials: true,
+  });
   return res.data;
 };
 

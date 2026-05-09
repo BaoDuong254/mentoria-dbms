@@ -29,27 +29,27 @@ DBScript/
 
 ```yaml
 services:
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sql-server-db
-    ports:
-      - "14330:1433"
-    environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=SuperStrong@Password2026
-    volumes:
-      # Đưa ra một thư mục riêng biệt ở gốc: /dataset
-      # Chỉnh lại theo đúng thư mục chứa folder này
-      - "E:/University/Thirdyear/Second_semester/DBMS/Dataset:/dataset"
+    sqlserver:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        container_name: sql-server-db
+        ports:
+            - "14330:1433"
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=SuperStrong@Password2026
+        volumes:
+            # Đưa ra một thư mục riêng biệt ở gốc: /dataset
+            # Chỉnh lại theo đúng thư mục chứa folder này
+            - "E:/University/Thirdyear/Second_semester/DBMS/Dataset:/dataset"
 
-  cassandra:
-    image: cassandra:latest
-    container_name: cassandra-db
-    ports:
-      - "9042:9042"
-    volumes:
-      # Dùng chung đường dẫn /dataset cho đồng bộ và dễ nhớ
-      - "E:/University/Thirdyear/Second_semester/DBMS/Dataset:/dataset"
+    cassandra:
+        image: cassandra:latest
+        container_name: cassandra-db
+        ports:
+            - "9042:9042"
+        volumes:
+            # Dùng chung đường dẫn /dataset cho đồng bộ và dễ nhớ
+            - "E:/University/Thirdyear/Second_semester/DBMS/Dataset:/dataset"
 ```
 
 ## 3. Quy trình kết nối database
