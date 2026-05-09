@@ -1,0 +1,37 @@
+Changed database context to 'BankDB'.
+=======================================================
+KICH BAN 1: POINT LOOKUP (CLUSTERED INDEX)
+=======================================================
+
+ SQL Server Execution Times:
+   CPU time = 5 ms,  elapsed time = 10 ms.
+=======================================================
+KICH BAN 2: FULL TABLE SCAN (NO INDEX)
+=======================================================
+
+ SQL Server Execution Times:
+   CPU time = 4 ms,  elapsed time = 12 ms.
+=======================================================
+KICH BAN 3: NONCLUSTERED INDEX (SECONDARY INDEX)
+=======================================================
+
+ SQL Server Execution Times:
+   CPU time = 4 ms,  elapsed time = 10 ms.
+=======================================================
+KICH BAN 4: RANGE QUERY VOI INDEX
+=======================================================
+
+ SQL Server Execution Times:
+   CPU time = 184 ms,  elapsed time = 185 ms.
+=======================================================
+KICH BAN 5: ANALYTICAL QUERY (GROUP BY)
+=======================================================
+
+ SQL Server Execution Times:
+   CPU time = 767 ms,  elapsed time = 183 ms.
+=======================================================
+KICH BAN 6: COLUMNSTORE INDEX (ANALYSIS OPTIMIZATION)
+=======================================================
+
+ SQL Server Execution Times:
+   CPU time = 66 ms,  elapsed time = 83 ms.
