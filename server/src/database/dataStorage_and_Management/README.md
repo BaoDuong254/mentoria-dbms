@@ -1,40 +1,8 @@
 ## 1. Các kịch bản kiểm thử (Test Cases)
 
-### Kịch bản 1: Lấy một số thông tin cơ bản về người dùng qua email
+### Kịch bản 1: Lấy danh sách 10 mentor đầu tiên
 
-**Mục tiêu:** So sánh ánh xạ kiểu dữ liệu và phương pháp truy xuất.
-
-**MS SQL Server**  
-_Phương pháp:_ Sử dụng phép `JOIN` tại thời điểm truy vấn, truy xuất dữ liệu trên hai bảng thông qua khóa ngoại.
-
-```sql
-USE mentoria;
-SELECT u.user_id, u.first_name, u.last_name, u.email
-FROM users u
-INNER JOIN mentors m ON u.user_id = m.user_id
-WHERE u.email = 'john.doe@example.com';
-```
-
-**Apache Cassandra**  
-_Phương pháp:_ Truy xuất trực tiếp dữ liệu từ bảng đã được thiết kế chuyên biệt nhờ khóa phân vùng email.
-
-```sql
-USE mentoriadbms;
-SELECT user_id, first_name, last_name, role, status
-FROM users_by_email
-WHERE email = 'john.doe@example.com';
-```
-
-**Kết quả kiểm thử:**
-
-- Cả hai hệ thống trả về cùng một đối tượng mentor, tuy nhiên `user_id` được biểu diễn khác nhau: MS SQL Server dùng kiểu `INT` (số nguyên), Apache Cassandra dùng kiểu `UUID`
-- Thời gian thực thi gần như tương đương, SQL nhanh hơn vài ms do đây là phép `JOIN` cơ bản trên 2 bảng.
-
----
-
-### Kịch bản 2: Lấy danh sách 10 mentor đầu tiên
-
-**Mục tiêu:** So sánh tập dữ liệu đầu ra với phương pháp phân trang qua stored procedure của MS SQL Server và phương pháp giới hạn số bản ghi bằng `LIMIT` trong Apache Cassandra .
+**Mục tiêu:** So sánh cơ chế sắp xếp giữa MS SQL Server và Apache Cassandra.
 
 **MS SQL Server**  
 _Phương pháp:_ Thực hiện phân trang cho stored procedure.
@@ -47,109 +15,102 @@ EXEC dbo.sp_SearchMentors @Page = 1, @Limit = 10;
 **Apache Cassandra**  
 _Phương pháp:_ Sử dụng `LIMIT` cho bảng đã phi chuẩn hóa.
 
-```sql
+```cql
 USE mentoriadbms;
 SELECT * FROM mentor_profiles LIMIT 10;
 ```
 
 **Kết quả kiểm thử:**
 
-- Hai bảng đều trả về tập kết quả chứa 10 mentor đầu tiên tương đồng.
-- Cassandra có tốc độ phản hồi nhanh hơn khoảng 1 giây do dữ liệu đã được sắp xếp sẵn bên trong cấu trúc của nó.
+- Cả hai hệ thống đều trả về 10 mentor, tuy nhiên thứ tự kết quả khác nhau:
+  MS SQL Server sắp xếp theo `user_id` tăng dần do cấu hình trong stored procedure, trong khi Cassandra trả về theo thứ tự token nội bộ của khóa phân vùng.
 
 ---
 
-### Kịch bản 3: Truy xuất hồ sơ chi tiết của mentor theo ID
-
-**Mục tiêu:** Lấy toàn bộ thông tin chi tiết của mentor qua `user_id`.
+### Kịch bản 2: So sánh hiệu suất INSERT 500.000 dòng với bảng companies
 
 **MS SQL Server**  
-_Phương pháp:_ Thực hiện phép `JOIN` các bảng thành phần lại với nhau để hợp nhất các dữ liệu về mentor.
+_Phương pháp:_ Tạo dữ liệu giả lập trực tiếp bằng SQL Script
 
 ```sql
 USE mentoria;
-DECLARE @MentorId INT = 1;
+INSERT INTO companies (cname)
+SELECT TOP 500000
+    'Company_New_' + CAST(ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS VARCHAR)
+FROM sys.all_objects a
+CROSS JOIN sys.all_objects b;
+```
+
+**Apache Cassandra**  
+_Phương pháp:_ Tạo dữ liệu giả lập và đo tốc độ trực tiếp bằng công cụ benchmark `cassandra-stress` với file mô tả yaml
+
+```yaml
+keyspace: mentoriadbms
+
+table: companies
+
+table_definition: CREATE TABLE companies (
+  company_id   uuid PRIMARY KEY,
+  cname        text
+  );
+
+columnspec:
+  - name: company_id
+    size: fixed(16)
+    population: seq(31..500030)
+  - name: cname
+    size: uniform(13..18)
+    population: seq(31..500030)
+
+insert:
+  partitions: fixed(500)
+  batchtype: UNLOGGED
+
+queries:
+  read1:
+    cql: select * from users where companies = ? and company_id = ?
+    fields: samerow
+```
+
+```bash
+docker run --rm -v "${PWD}:/data" --network host cassandra:latest /opt/cassandra/tools/bin/cassandra-stress user profile=/data/cassandra_stress.yaml n=1000 "ops(insert=1)" no-warmup cl=ONE -rate threads=1000
+```
+
+**Kết quả kiểm thử:**
+
+- Cassandra chạy nhanh hơn SQL rất nhiều do chạy nhiều luồng với kích thước batch lớn. Tuy nhiên việc chạy nhiều luồng để nạp batch với kích thước lớn thường không được khuyến khích, tuy tốc độ nhanh hơn nhưng hiệu suất không ổn định, đặc biệt là khi áp dụng cho hệ thống lớn.
+
+### Kịch bản 3: So sánh cơ chế quản lý không gian đĩa vật lý
+
+**MS SQL Server**  
+_Phương pháp:_ Truy vấn System Views (`sys.database_files`) để xem trực tiếp cấu trúc và dung lượng file vật lý của Database.
+
+```sql
+USE mentoria;
+GO
 SELECT
-    u.user_id,
-    u.first_name,
-    u.last_name,
-    u.email,
-    u.avatar_url,
-    u.country,
-    u.timezone,
-    u.status,
-    m.bio,
-    m.headline,
-    m.response_time,
-    m.cv_url,
-    m.bank_name,
-    m.account_number
-FROM users u
-JOIN mentors m ON m.user_id = u.user_id
-WHERE u.user_id = @MentorId;
+    name AS [Tên_Logic],
+    type_desc AS [Loại_File],
+    physical_name AS [Đường_dẫn_File_Vật_lý],
+    (size * 8.0 / 1024) AS [Dung_lượng_MB]
+FROM sys.database_files;
 ```
 
 **Apache Cassandra**  
-_Phương pháp:_ Truy cập trực tiếp vào bảng gộp chứa toàn bộ dữ liệu về mentor.
+_Phương pháp:_ Thống kê dung lượng lưu trữ tổng thể của toàn bộ Node bằng công cụ `nodetool`
 
-```sql
-USE mentoriadbms;
-SELECT * FROM mentor_profiles
-WHERE mentor_id = a1000000-0000-0000-0000-000000000001;
+```bash
+docker exec -it mentoria-cassandra nodetool info
 ```
 
 **Kết quả kiểm thử:**
 
-- MS SQL Server trả về dữ liệu tổng hợp dựa trên phép `JOIN` trích xuất thuộc tính từ 2 bảng `users` và `mentors`.
-- Apache Cassandra trả về toàn bộ dữ liệu chỉ thông qua một câu lệnh `SELECT` duy nhất trên bảng `mentor_profiles`, nhanh hơn phép JOIN của SQL vài ms.
-
----
-
-### Kịch bản 4: Tìm kiếm và lọc mentor theo điều kiện
-
-**Mục tiêu:** Truy xuất danh sách các mentor có kỹ năng `Docker` và điểm rating từ `4.0` trở lên.
-
-**MS SQL Server**  
-_Phương pháp:_ Truyền tham số vào stored procedure để lọc dữ liệu theo điều kiện.
-
-```sql
-USE mentoria;
-EXEC dbo . sp_SearchMentors
-    @SkillName = 'Docker',
-    @MinRating = 4.0;
-```
-
-**Apache Cassandra**  
-_Phương pháp:_ Truy xuất trực tiếp trên bảng được thiết kế riêng cho mục đích tìm kiếm theo kỹ năng kết hợp với thứ tự rating.
-
-```sql
-USE mentoriadbms;
-SELECT * FROM mentors_by_skill
-WHERE skill_name = 'Docker'
-AND rating >= 4.0
-```
-
-**Kết quả kiểm thử:**
-
-- Cả hai hệ thống đều lọc ra được danh sách mentor có kỹ năng `Docker` và rating >= `4.0`.
-- MS SQL Server dùng stored procedure mang lại sự linh hoạt cao, dễ dàng tìm kiếm tổng hợp trên nhiều bảng quan hệ.
-- Apache Cassandra tận dụng khóa phân vùng `skill_name` để định vị partition, sau đó lọc tiếp theo clustering key `rating`, nhanh hơn đáng kể so với SQL Server phải duyệt qua nhiều bảng quan hệ.
-- Cassandra có tốc độ phản hồi nhanh hơn SQL khoảng 2 giây, kiểm thử này thể hiện ưu thế của Cassandra trong tác vụ đọc khi thiết kế bảng tối ưu theo truy vấn.
+- **MS SQL Server:** Quản lý dữ liệu tập trung qua 2 file vật lý (`.mdf` và `.ldf`). Số lượng file trên hệ điều hành rất ít, thuận tiện quản lý tập trung nhưng có thể gặp hiện tượng tắc nghẽn I/O Bottleneck khi file phình quá to hoặc ghi dữ liệu liên tục. Ngoài ra hệ thống còn tốn thêm không gian và chi phí lưu trữ file log (`.ldf`)
+- **Apache Cassandra:** Lưu trữ dữ liệu theo cấu trúc LSM-Tree, liên tục sinh ra nhiều file nhỏ bất biến (SSTables) để tối ưu tốc độ ghi. Mặc dù tốc độ ghi nhanh hơn đáng kể, nhưng làm tăng số lượng file vật lý trên đĩa, tốn nhiều dung lượng tổng thể hơn và cần các tiến trình gộp file (Compaction) chạy ngầm. Tuy nhiên, do yêu cầu tối thiểu 3 node để đảm bảo tính sẵn sàng, hệ thống tốn nhiều chi phí phần cứng hơn.
 
 ---
 
 ## Tổng kết đánh giá
-
-### Bảng so sánh kết quả kiểm thử
-
-| Kịch bản                            | MS SQL Server                                                       | Apache Cassandra                                  | Xử lí nhanh hơn     |
-| ----------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------- | ------------------- |
-| 1. Truy xuất người dùng qua email   | `JOIN` 2 bảng tại thời điểm truy vấn                                | Truy xuất trực tiếp qua khóa phân vùng            | SQL Server (vài ms) |
-| 2. Lấy danh sách 10 mentor đầu tiên | Phân trang qua stored procedure                                     | Giới hạn bản ghi bằng `LIMIT`                     | Cassandra (~1s)     |
-| 3. Truy xuất hồ sơ chi tiết theo ID | `JOIN` 2 bảng tại thời điểm truy vấn, trích xuất nhiều cột chi tiết | Truy xuất trực tiếp qua khóa phân vùng            | Cassandra (vài ms)  |
-| 4. Tìm kiếm và lọc theo điều kiện   | Lọc linh hoạt nhiều tham số qua stored procedure                    | Lọc trực tiếp qua khóa phân vùng và khóa phân cụm | Cassandra (~2s)     |
-
----
 
 ### Nhận xét tổng quan
 
