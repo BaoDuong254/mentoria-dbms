@@ -54,7 +54,7 @@ services:
 
 ## 3. Quy trình kết nối database
 
-- Mở terminal tại thư mục này và chạy `docker compose up -d`
+- Mở terminal tại thư mục database và chạy `docker compose up -d`
 - Mở Docker Desktop và kiểm tra caá container có chạy chưa
 - Đối với SQL Server:
 

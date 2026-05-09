@@ -424,6 +424,14 @@ pnpm seed:slot
 
 > **Note:** Make sure your SQL Server is running and the connection details in `server/.env` match your local SQL Server configuration before executing the SQL files.
 
+## 🔬 DBMS Comparison (SQL Server vs Cassandra)
+
+This project includes a research component comparing **Microsoft SQL Server 2022** and **Apache Cassandra** in terms of query processing, optimization, and data storage mechanisms. If you are interested in this part, see the setup guide and test scenarios at:
+
+**[`server/src/database/README.md`](server/src/database/README.md)**
+
+That document covers how to start both systems via Docker, how to initialize the schema and seed data, and links to the specific benchmark query scripts.
+
 ## 📚 API Documentation
 
 The server includes comprehensive API documentation using OpenAPI/Swagger.

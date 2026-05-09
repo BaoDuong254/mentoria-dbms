@@ -8,8 +8,8 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=SuperStrong@Password2026
     volumes:
-      # Đưa ra một thư mục riêng biệt ở gốc: /dataset
-      - "E:/University/Thirdyear/Second_semester/DBMS/Dataset:/dataset"
+      - sqlserver-data:/var/opt/mssql
+
 
   cassandra:
     image: cassandra:latest
@@ -17,5 +17,8 @@ services:
     ports:
       - "9042:9042"
     volumes:
-      # Dùng chung đường dẫn /dataset cho đồng bộ và dễ nhớ
-      - "E:/University/Thirdyear/Second_semester/DBMS/Dataset:/dataset"
+      - cassandra-data:/var/lib/cassandra
+
+volumes:
+  sqlserver-data:
+  cassandra-data:

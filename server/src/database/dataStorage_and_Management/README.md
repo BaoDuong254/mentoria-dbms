@@ -4,7 +4,7 @@
 
 **Mục tiêu:** So sánh cơ chế sắp xếp giữa MS SQL Server và Apache Cassandra.
 
-**MS SQL Server**  
+**MS SQL Server**
 _Phương pháp:_ Thực hiện phân trang cho stored procedure.
 
 ```sql
@@ -12,7 +12,7 @@ USE mentoria;
 EXEC dbo.sp_SearchMentors @Page = 1, @Limit = 10;
 ```
 
-**Apache Cassandra**  
+**Apache Cassandra**
 _Phương pháp:_ Sử dụng `LIMIT` cho bảng đã phi chuẩn hóa.
 
 ```cql
@@ -29,7 +29,7 @@ SELECT * FROM mentor_profiles LIMIT 10;
 
 ### Kịch bản 2: So sánh hiệu suất INSERT 500.000 dòng với bảng companies
 
-**MS SQL Server**  
+**MS SQL Server**
 _Phương pháp:_ Tạo dữ liệu giả lập trực tiếp bằng SQL Script
 
 ```sql
@@ -41,7 +41,7 @@ FROM sys.all_objects a
 CROSS JOIN sys.all_objects b;
 ```
 
-**Apache Cassandra**  
+**Apache Cassandra**
 _Phương pháp:_ Tạo dữ liệu giả lập và đo tốc độ trực tiếp bằng công cụ benchmark `cassandra-stress` với file mô tả yaml
 
 ```yaml
@@ -82,7 +82,7 @@ docker run --rm -v "${PWD}:/data" --network host cassandra:latest /opt/cassandra
 
 ### Kịch bản 3: So sánh cơ chế quản lý không gian đĩa vật lý
 
-**MS SQL Server**  
+**MS SQL Server**
 _Phương pháp:_ Truy vấn System Views (`sys.database_files`) để xem trực tiếp cấu trúc và dung lượng file vật lý của Database.
 
 ```sql
@@ -96,7 +96,7 @@ SELECT
 FROM sys.database_files;
 ```
 
-**Apache Cassandra**  
+**Apache Cassandra**
 _Phương pháp:_ Thống kê dung lượng lưu trữ tổng thể của toàn bộ Node bằng công cụ `nodetool`
 
 ```bash
