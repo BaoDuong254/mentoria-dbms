@@ -5,8 +5,10 @@ Tài liệu này tổng hợp toàn bộ quy trình thiết lập Docker, cấu 
 ---
 
 ## 1. Cấu Trúc Project
+
 - Cấu trúc hệ thống test
-```text
+
+```bash
 DBScript/
 |__ bank_transactions.csv           # chứa dữ liệu thô
 |__ bank_transactions_clean.csv     # chứa dữ liệu đã được làm sạch
@@ -22,8 +24,10 @@ DBScript/
 |__ Run.bat                         # script chạy các kịch bản test
 |__ txt files                       # các file kết quả sau khi chaỵ
 ```
+
 ## 2. Cấu Hình Docker (docker-compose.yml)
-```text
+
+```yaml
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -47,20 +51,31 @@ services:
       # Dùng chung đường dẫn /dataset cho đồng bộ và dễ nhớ
       - "E:/University/Thirdyear/Second_semester/DBMS/Dataset:/dataset"
 ```
+
 ## 3. Quy trình kết nối database
-- Mở Docker và kiểm tra container dbscript có chạy chưa
+
+- Mở terminal tại thư mục này và chạy `docker compose up -d`
+- Mở Docker Desktop và kiểm tra caá container có chạy chưa
 - Đối với SQL Server:
+
 ```text
-1. Mở IntelliJ kết nối tới localhost cổng 14330
-2. Bật tùy chọn Trust Server Certificate trong Advanced/General
-3. Chọn test connection và OK nếu thành công
+1. Mở DataGrip chọn Data source => Chọn Microsoft SQL Server
+2. Kết nối tới localhost cổng 14430
+3. Tải driver Microsoft SQL Server về (nếu chưa có)
+4. Bật tùy chọn Trust Server Certificate thành true trong Advanced/General
+5. Ở input User nhập `sa`, input Password nhập `SuperStrong@Password2026`
+6. Chọn Test connection, nếu trả về status OK thì click Apply và click OK
 ```
-- Đối với Cassandra:
+
+- Đối với Cassandra, cũng làm tương tự như cách setup SQL Server:
+
 ```text
-1. Mở IntelliJ kết nối tới localhost cổng mặc định
+1. Mở DataGrip kết nối tới localhost cổng mặc định
 2. Chọn test connection rồi Ok nếu thành công
 ```
+
 ## 4. Quy trình chạy sau khi đã setup
-1. Chạy load_data.bat với quyền admin 
+
+1. Chạy load_data.bat với quyền admin
 2. Chạy run.bat với quyền admin
 3. Mở 2 file Result_Cassandra.txt và Result_SQLServer.txt ra và xem kết quả

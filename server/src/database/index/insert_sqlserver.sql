@@ -1,3 +1,6 @@
+CREATE DATABASE BankDB;
+GO
+
 USE BankDB;
 GO
 
