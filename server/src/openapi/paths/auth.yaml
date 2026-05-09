@@ -1,436 +1,436 @@
 register:
-    post:
-        tags:
-            - authentication
-        summary: Register a new user
-        description: Register a new user account. After registration, an OTP will be sent to the provided email for verification.
-        operationId: registerUser
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/auth.yaml#/RegisterRequest"
-        responses:
-            "201":
-                description: User registered successfully. OTP sent to email.
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/SuccessResponse"
-            "400":
-                description: Validation errors or email already exists
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ValidationErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  post:
+    tags:
+      - authentication
+    summary: Register a new user
+    description: Register a new user account. After registration, an OTP will be sent to the provided email for verification.
+    operationId: registerUser
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/auth.yaml#/RegisterRequest"
+    responses:
+      "201":
+        description: User registered successfully. OTP sent to email.
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/SuccessResponse"
+      "400":
+        description: Validation errors or email already exists
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ValidationErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 mentor-register:
-    post:
-        tags:
-            - authentication
-        summary: Register a new mentor
-        description: Register a new mentor account with CV upload. After registration, an OTP will be sent to the provided email for verification. The account will be reviewed by the admin team before approval.
-        operationId: registerMentor
-        requestBody:
-            required: true
-            content:
-                multipart/form-data:
-                    schema:
-                        type: object
-                        required:
-                            - firstName
-                            - lastName
-                            - email
-                            - password
-                            - cv
-                        properties:
-                            firstName:
-                                type: string
-                                description: Mentor's first name
-                                example: "John"
-                            lastName:
-                                type: string
-                                description: Mentor's last name
-                                example: "Doe"
-                            email:
-                                type: string
-                                format: email
-                                description: Mentor's email address (must be unique)
-                                example: "john.doe@example.com"
-                            password:
-                                type: string
-                                format: password
-                                minLength: 8
-                                maxLength: 20
-                                description: Password (8-20 characters)
-                                example: "SecurePass123"
-                            cv:
-                                type: string
-                                format: binary
-                                description: Mentor's CV in PDF format
-        responses:
-            "201":
-                description: Mentor registered successfully. OTP sent to email and account pending review.
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                success:
-                                    type: boolean
-                                    example: true
-                                message:
-                                    type: string
-                                    example: "Mentor registered successfully. Please verify your email. Your account will be reviewed by our team."
-            "400":
-                description: Validation errors, email already exists, CV missing, or invalid file format
-                content:
-                    application/json:
-                        schema:
-                            oneOf:
-                                - $ref: "../schemas/auth.yaml#/ValidationErrorResponse"
-                                - $ref: "../schemas/auth.yaml#/ErrorResponse"
-                        examples:
-                            validationError:
-                                value:
-                                    success: false
-                                    message: "Validation errors"
-                                    data:
-                                        errors:
-                                            - "Email is invalid: email"
-                                        oldData:
-                                            firstName: "John"
-                                            lastName: "Doe"
-                                            email: "invalid-email"
-                                            password: "password123"
-                            missingCV:
-                                value:
-                                    success: false
-                                    message: "CV file is required"
-                            invalidFileType:
-                                value:
-                                    success: false
-                                    message: "Only PDF files are allowed for CV"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  post:
+    tags:
+      - authentication
+    summary: Register a new mentor
+    description: Register a new mentor account with CV upload. After registration, an OTP will be sent to the provided email for verification. The account will be reviewed by the admin team before approval.
+    operationId: registerMentor
+    requestBody:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            required:
+              - firstName
+              - lastName
+              - email
+              - password
+              - cv
+            properties:
+              firstName:
+                type: string
+                description: Mentor's first name
+                example: "John"
+              lastName:
+                type: string
+                description: Mentor's last name
+                example: "Doe"
+              email:
+                type: string
+                format: email
+                description: Mentor's email address (must be unique)
+                example: "john.doe@example.com"
+              password:
+                type: string
+                format: password
+                minLength: 8
+                maxLength: 20
+                description: Password (8-20 characters)
+                example: "SecurePass123"
+              cv:
+                type: string
+                format: binary
+                description: Mentor's CV in PDF format
+    responses:
+      "201":
+        description: Mentor registered successfully. OTP sent to email and account pending review.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Mentor registered successfully. Please verify your email. Your account will be reviewed by our team."
+      "400":
+        description: Validation errors, email already exists, CV missing, or invalid file format
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "../schemas/auth.yaml#/ValidationErrorResponse"
+                - $ref: "../schemas/auth.yaml#/ErrorResponse"
+            examples:
+              validationError:
+                value:
+                  success: false
+                  message: "Validation errors"
+                  data:
+                    errors:
+                      - "Email is invalid: email"
+                    oldData:
+                      firstName: "John"
+                      lastName: "Doe"
+                      email: "invalid-email"
+                      password: "password123"
+              missingCV:
+                value:
+                  success: false
+                  message: "CV file is required"
+              invalidFileType:
+                value:
+                  success: false
+                  message: "Only PDF files are allowed for CV"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 verify-otp:
-    post:
-        tags:
-            - authentication
-        summary: Verify OTP
-        description: Verify the OTP sent to user's email after registration. Upon successful verification, user will be logged in automatically.
-        operationId: verifyOTP
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/auth.yaml#/OTPRequest"
-        responses:
-            "200":
-                description: OTP verified successfully. User is now logged in.
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/SuccessResponse"
-                headers:
-                    Set-Cookie:
-                        description: JWT token set as HTTP-only cookie
-                        schema:
-                            type: string
-            "400":
-                description: Invalid or expired OTP
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  post:
+    tags:
+      - authentication
+    summary: Verify OTP
+    description: Verify the OTP sent to user's email after registration. Upon successful verification, user will be logged in automatically.
+    operationId: verifyOTP
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/auth.yaml#/OTPRequest"
+    responses:
+      "200":
+        description: OTP verified successfully. User is now logged in.
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/SuccessResponse"
+        headers:
+          Set-Cookie:
+            description: JWT token set as HTTP-only cookie
+            schema:
+              type: string
+      "400":
+        description: Invalid or expired OTP
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 resend-otp:
-    post:
-        tags:
-            - authentication
-        summary: Resend OTP
-        description: Request a new OTP to be sent to the user's email address. This is useful when the previous OTP has expired or was not received.
-        operationId: resendOTP
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/auth.yaml#/ResendOTPRequest"
-        responses:
-            "200":
-                description: New OTP sent successfully to the email address
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/SuccessResponse"
-                        example:
-                            success: true
-                            message: "A new OTP has been sent to your email"
-            "400":
-                description: Email not found or email already verified
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-                        examples:
-                            emailNotFound:
-                                value:
-                                    success: false
-                                    message: "Email not found"
-                            alreadyVerified:
-                                value:
-                                    success: false
-                                    message: "Email is already verified"
-                            missingEmail:
-                                value:
-                                    success: false
-                                    message: "Email is required"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  post:
+    tags:
+      - authentication
+    summary: Resend OTP
+    description: Request a new OTP to be sent to the user's email address. This is useful when the previous OTP has expired or was not received.
+    operationId: resendOTP
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/auth.yaml#/ResendOTPRequest"
+    responses:
+      "200":
+        description: New OTP sent successfully to the email address
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/SuccessResponse"
+            example:
+              success: true
+              message: "A new OTP has been sent to your email"
+      "400":
+        description: Email not found or email already verified
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            examples:
+              emailNotFound:
+                value:
+                  success: false
+                  message: "Email not found"
+              alreadyVerified:
+                value:
+                  success: false
+                  message: "Email is already verified"
+              missingEmail:
+                value:
+                  success: false
+                  message: "Email is required"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 login:
-    post:
-        tags:
-            - authentication
-        summary: User login
-        description: Authenticate user with email and password. Returns JWT token as HTTP-only cookie.
-        operationId: loginUser
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/auth.yaml#/LoginRequest"
-        responses:
-            "200":
-                description: Login successful
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/SuccessResponse"
-                headers:
-                    Set-Cookie:
-                        description: JWT token set as HTTP-only cookie
-                        schema:
-                            type: string
-            "400":
-                description: Invalid credentials or validation errors
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ValidationErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  post:
+    tags:
+      - authentication
+    summary: User login
+    description: Authenticate user with email and password. Returns JWT token as HTTP-only cookie.
+    operationId: loginUser
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/auth.yaml#/LoginRequest"
+    responses:
+      "200":
+        description: Login successful
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/SuccessResponse"
+        headers:
+          Set-Cookie:
+            description: JWT token set as HTTP-only cookie
+            schema:
+              type: string
+      "400":
+        description: Invalid credentials or validation errors
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ValidationErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 logout:
-    post:
-        tags:
-            - authentication
-        summary: User logout
-        description: Logout user and clear authentication cookie
-        operationId: logoutUser
-        security:
-            - cookieAuth: []
-        responses:
-            "200":
-                description: Logout successful
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/SuccessResponse"
-            "401":
-                description: Unauthorized - user not logged in
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  post:
+    tags:
+      - authentication
+    summary: User logout
+    description: Logout user and clear authentication cookie
+    operationId: logoutUser
+    security:
+      - cookieAuth: []
+    responses:
+      "200":
+        description: Logout successful
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/SuccessResponse"
+      "401":
+        description: Unauthorized - user not logged in
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 forgot-password:
-    post:
-        tags:
-            - authentication
-        summary: Request password reset
-        description: Send password reset email to user's registered email address
-        operationId: forgotPassword
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/auth.yaml#/ForgotPasswordRequest"
-        responses:
-            "200":
-                description: Reset password email sent successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/SuccessResponse"
-            "404":
-                description: Email not found
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  post:
+    tags:
+      - authentication
+    summary: Request password reset
+    description: Send password reset email to user's registered email address
+    operationId: forgotPassword
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/auth.yaml#/ForgotPasswordRequest"
+    responses:
+      "200":
+        description: Reset password email sent successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/SuccessResponse"
+      "404":
+        description: Email not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 reset-password/{token}:
-    post:
-        tags:
-            - authentication
-        summary: Reset password
-        description: Reset password using the token received in email
-        operationId: resetPassword
-        parameters:
-            - name: token
-              in: path
-              required: true
-              description: Password reset token from email
-              schema:
-                  type: string
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/auth.yaml#/ResetPasswordRequest"
-        responses:
-            "200":
-                description: Password reset successful
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/SuccessResponse"
-            "400":
-                description: Invalid token or validation errors
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ValidationErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  post:
+    tags:
+      - authentication
+    summary: Reset password
+    description: Reset password using the token received in email
+    operationId: resetPassword
+    parameters:
+      - name: token
+        in: path
+        required: true
+        description: Password reset token from email
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/auth.yaml#/ResetPasswordRequest"
+    responses:
+      "200":
+        description: Password reset successful
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/SuccessResponse"
+      "400":
+        description: Invalid token or validation errors
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ValidationErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 me:
-    get:
-        tags:
-            - authentication
-        summary: Get current user info
-        description: Get information about the currently authenticated user
-        operationId: getMe
-        security:
-            - cookieAuth: []
-        responses:
-            "200":
-                description: User information retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                success:
-                                    type: boolean
-                                    example: true
-                                message:
-                                    type: string
-                                    example: "User info retrieved successfully"
-                                data:
-                                    type: object
-                                    properties:
-                                        user:
-                                            $ref: "../schemas/auth.yaml#/User"
-            "401":
-                description: Unauthorized - user not logged in
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  get:
+    tags:
+      - authentication
+    summary: Get current user info
+    description: Get information about the currently authenticated user
+    operationId: getMe
+    security:
+      - cookieAuth: []
+    responses:
+      "200":
+        description: User information retrieved successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "User info retrieved successfully"
+                data:
+                  type: object
+                  properties:
+                    user:
+                      $ref: "../schemas/auth.yaml#/User"
+      "401":
+        description: Unauthorized - user not logged in
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 google:
-    get:
-        tags:
-            - oauth
-        summary: Initiate Google OAuth
-        description: Redirect to Google OAuth consent screen
-        operationId: googleAuth
-        responses:
-            "302":
-                description: Redirect to Google OAuth
-            "500":
-                description: OAuth configuration error
+  get:
+    tags:
+      - oauth
+    summary: Initiate Google OAuth
+    description: Redirect to Google OAuth consent screen
+    operationId: googleAuth
+    responses:
+      "302":
+        description: Redirect to Google OAuth
+      "500":
+        description: OAuth configuration error
 
 google/callback:
-    get:
-        tags:
-            - oauth
-        summary: Google OAuth callback
-        description: Handle Google OAuth callback and authenticate user
-        operationId: googleCallback
-        parameters:
-            - name: code
-              in: query
-              description: Authorization code from Google
-              schema:
-                  type: string
-            - name: state
-              in: query
-              description: State parameter for CSRF protection
-              schema:
-                  type: string
-        responses:
-            "302":
-                description: Redirect to client with authentication status
-                headers:
-                    Set-Cookie:
-                        description: JWT token set as HTTP-only cookie (on success)
-                        schema:
-                            type: string
-            "400":
-                description: OAuth authentication failed
+  get:
+    tags:
+      - oauth
+    summary: Google OAuth callback
+    description: Handle Google OAuth callback and authenticate user
+    operationId: googleCallback
+    parameters:
+      - name: code
+        in: query
+        description: Authorization code from Google
+        schema:
+          type: string
+      - name: state
+        in: query
+        description: State parameter for CSRF protection
+        schema:
+          type: string
+    responses:
+      "302":
+        description: Redirect to client with authentication status
+        headers:
+          Set-Cookie:
+            description: JWT token set as HTTP-only cookie (on success)
+            schema:
+              type: string
+      "400":
+        description: OAuth authentication failed

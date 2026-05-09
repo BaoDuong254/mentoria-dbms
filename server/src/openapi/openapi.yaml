@@ -1,216 +1,216 @@
 openapi: 3.0.0
 info:
-    title: Mentoria API
-    description: |-
-        This is the API documentation for the Mentoria platform - a mentorship platform connecting mentors and mentees.
+  title: Mentoria API
+  description: |-
+    This is the API documentation for the Mentoria platform - a mentorship platform connecting mentors and mentees.
 
-    termsOfService: https://mentoria.ticklab.site/terms/
-    contact:
-        email: duonggiabao254@gmail.com
-    license:
-        name: MIT
-        url: https://opensource.org/licenses/MIT
-    version: 1.0.0
+  termsOfService: https://mentoria.ticklab.site/terms/
+  contact:
+    email: duonggiabao254@gmail.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 1.0.0
 servers:
-    - url: http://localhost:3000
-      description: Development server
-    - url: https://mentoria.ticklab.site
-      description: Production server
+  - url: http://localhost:3000
+    description: Development server
+  - url: https://mentoria.ticklab.site
+    description: Production server
 tags:
-    - name: authentication
-      description: User authentication and account management
-    - name: oauth
-      description: OAuth integration with third-party providers
-    - name: mentor
-      description: Mentor profile and mentorship services
-    - name: mentee
-      description: Mentee profile and mentorship management
-    - name: user
-      description: User profile and settings management
-    - name: search
-      description: Search functionality for mentors and content
-    - name: catalog
-      description: Category catalog and taxonomy management
-    - name: slot
-      description: Mentor availability slots management
-    - name: payment
-      description: Payment processing with Stripe integration
-    - name: messages
-      description: Real-time messaging between users with WebSocket integration
-    - name: meeting
-      description: Meeting management for mentors and mentees
-    - name: complaint
-      description: Complaint management for mentees to report issues with meetings
-    - name: discount
-      description: Discount and promotion management for plans
-    - name: admin
-      description: Admin management for mentees and mentors (Admin only)
-    - name: chatbot
-      description: AI-powered chatbot assistant using Google Gemini for finding mentors and managing meetings
+  - name: authentication
+    description: User authentication and account management
+  - name: oauth
+    description: OAuth integration with third-party providers
+  - name: mentor
+    description: Mentor profile and mentorship services
+  - name: mentee
+    description: Mentee profile and mentorship management
+  - name: user
+    description: User profile and settings management
+  - name: search
+    description: Search functionality for mentors and content
+  - name: catalog
+    description: Category catalog and taxonomy management
+  - name: slot
+    description: Mentor availability slots management
+  - name: payment
+    description: Payment processing with Stripe integration
+  - name: messages
+    description: Real-time messaging between users with WebSocket integration
+  - name: meeting
+    description: Meeting management for mentors and mentees
+  - name: complaint
+    description: Complaint management for mentees to report issues with meetings
+  - name: discount
+    description: Discount and promotion management for plans
+  - name: admin
+    description: Admin management for mentees and mentors (Admin only)
+  - name: chatbot
+    description: AI-powered chatbot assistant using Google Gemini for finding mentors and managing meetings
 paths:
-    # Authentication Endpoints
-    /api/auth/register:
-        $ref: "./paths/auth.yaml#/register"
-    /api/auth/mentor-register:
-        $ref: "./paths/auth.yaml#/mentor-register"
-    /api/auth/verify-otp:
-        $ref: "./paths/auth.yaml#/verify-otp"
-    /api/auth/resend-otp:
-        $ref: "./paths/auth.yaml#/resend-otp"
-    /api/auth/login:
-        $ref: "./paths/auth.yaml#/login"
-    /api/auth/logout:
-        $ref: "./paths/auth.yaml#/logout"
-    /api/auth/forgot-password:
-        $ref: "./paths/auth.yaml#/forgot-password"
-    /api/auth/reset-password/{token}:
-        $ref: "./paths/auth.yaml#/reset-password~1{token}"
-    /api/auth/me:
-        $ref: "./paths/auth.yaml#/me"
-    /api/auth/google:
-        $ref: "./paths/auth.yaml#/google"
-    /api/auth/google/callback:
-        $ref: "./paths/auth.yaml#/google~1callback"
-    # Mentor Endpoints
-    /api/mentors:
-        $ref: "./paths/mentor.yaml#/mentorsList"
-    /api/mentors/{mentorId}/stats:
-        $ref: "./paths/mentor.yaml#/mentorStats"
-    /api/mentors/{mentorId}/plans:
-        $ref: "./paths/mentor.yaml#/mentorPlans"
-    /api/mentors/{mentorId}/plans/{planId}:
-        $ref: "./paths/mentor.yaml#/mentorPlanDetails"
-    /api/mentors/{mentorId}:
-        $ref: "./paths/mentor.yaml#/mentorProfile"
-    # Mentee Endpoints
-    /api/mentees:
-        $ref: "./paths/mentee.yaml#/menteesList"
-    /api/mentees/{menteeId}:
-        $ref: "./paths/mentee.yaml#/mentee"
-    # User Endpoints
-    /api/users/avatar:
-        $ref: "./paths/user.yaml#/avatar"
-    /api/users/change-password:
-        $ref: "./paths/user.yaml#/change-password"
-    /api/users/mentee/invoice-stats:
-        $ref: "./paths/user.yaml#/mentee-invoice-stats"
-    /api/users/mentor/invoice-stats:
-        $ref: "./paths/user.yaml#/mentor-invoice-stats"
-    # Search Endpoints
-    /api/search/mentors:
-        $ref: "./paths/search.yaml#/searchMentors"
-    /api/search/skills:
-        $ref: "./paths/search.yaml#/searchSkills"
-    /api/search/companies:
-        $ref: "./paths/search.yaml#/searchCompanies"
-    /api/search/jobtitles:
-        $ref: "./paths/search.yaml#/searchJobTitles"
-    # Catalog Endpoints
-    /api/catalog/supercategories:
-        $ref: "./paths/catalog.yaml#/supercategories"
-    /api/catalog/skills:
-        $ref: "./paths/catalog.yaml#/skills"
-    /api/catalog/companies:
-        $ref: "./paths/catalog.yaml#/companies"
-    /api/catalog/jobtitles:
-        $ref: "./paths/catalog.yaml#/jobtitles"
-    /api/catalog/countries:
-        $ref: "./paths/catalog.yaml#/countries"
-    /api/catalog/languages:
-        $ref: "./paths/catalog.yaml#/languages"
-    # Filter Endpoints
-    /api/filter/mentors:
-        $ref: "./paths/filter.yaml#/filterMentors"
-    /api/filter/available:
-        $ref: "./paths/filter.yaml#/getAvailableFilters"
-    # Slot Endpoints
-    /api/slots/plans/{planId}:
-        $ref: "./paths/slot.yaml#/slotsList"
-    /api/slots/plans/{planId}/slot:
-        $ref: "./paths/slot.yaml#/slotDetail"
-    # Payment Endpoints
-    /api/pay/checkout-session:
-        $ref: "./paths/pay.yaml#/checkout-session"
-    /api/pay/webhook:
-        $ref: "./paths/pay.yaml#/webhook"
-    # Messages Endpoints
-    /api/messages/users:
-        $ref: "./paths/message.yaml#/getUsersForSidebar"
-    /api/messages/conversations:
-        $ref: "./paths/message.yaml#/getConversations"
-    /api/messages/{userId}:
-        $ref: "./paths/message.yaml#/messagesByUserId"
-    /api/messages:
-        $ref: "./paths/message.yaml#/sendMessage"
-    # Meeting Endpoints
-    /api/meetings/mentee:
-        $ref: "./paths/meeting.yaml#/getMeetingsForMentee"
-    /api/meetings/mentor:
-        $ref: "./paths/meeting.yaml#/getMeetingsForMentor"
-    /api/meetings/{meetingId}:
-        $ref: "./paths/meeting.yaml#/getMeetingById"
-    /api/meetings/{meetingId}/location:
-        $ref: "./paths/meeting.yaml#/updateMeetingLocation"
-    /api/meetings/{meetingId}/status:
-        $ref: "./paths/meeting.yaml#/updateMeetingStatus"
-    /api/meetings/{meetingId}/review-link:
-        $ref: "./paths/meeting.yaml#/updateMeetingReviewLink"
-    /api/meetings/{meetingId}/cancel:
-        $ref: "./paths/meeting.yaml#/cancelMeeting"
-    /api/meetings/{meetingId}/permanent:
-        $ref: "./paths/meeting.yaml#/deleteMeetingPermanently"
-    # Discount Endpoints
-    /api/discount/best:
-        $ref: "./paths/discount.yaml#/getBestDiscount"
-    /api/discount/all:
-        $ref: "./paths/discount.yaml#/getAllDiscounts"
-    # Complaint Endpoints
-    /api/complaints:
-        $ref: "./paths/complaint.yaml#/createComplaint"
-    /api/complaints/all:
-        $ref: "./paths/complaint.yaml#/getAllComplaints"
-    /api/complaints/my:
-        $ref: "./paths/complaint.yaml#/getMyComplaints"
-    /api/complaints/mentor:
-        $ref: "./paths/complaint.yaml#/getComplaintsForMentor"
-    /api/complaints/check-expired/{meetingId}:
-        $ref: "./paths/complaint.yaml#/checkMeetingExpiredPending"
-    /api/complaints/meeting/{meetingId}:
-        $ref: "./paths/complaint.yaml#/getComplaintByMeetingId"
-    /api/complaints/{complaintId}:
-        $ref: "./paths/complaint.yaml#/getComplaintById"
-    /api/complaints/{complaintId}/status:
-        $ref: "./paths/complaint.yaml#/updateComplaintStatus"
-    # Chatbot Endpoints
-    /api/chatbot/chat:
-        $ref: "./paths/chatbot.yaml#/chat"
-    /api/chatbot/health:
-        $ref: "./paths/chatbot.yaml#/health"
-    # Admin Endpoints
-    /api/admin/mentees:
-        $ref: "./paths/admin.yaml#/menteesList"
-    /api/admin/mentees/{id}:
-        $ref: "./paths/admin.yaml#/mentee"
-    /api/admin/mentors:
-        $ref: "./paths/admin.yaml#/mentorsList"
-    /api/admin/mentors/pending:
-        $ref: "./paths/admin.yaml#/mentorsPending"
-    /api/admin/mentors/{id}:
-        $ref: "./paths/admin.yaml#/mentor"
-    /api/admin/mentors/{id}/review:
-        $ref: "./paths/admin.yaml#/mentorReview"
-    /api/admin/invoices:
-        $ref: "./paths/admin.yaml#/invoiceStats"
-    /api/admin/stats:
-        $ref: "./paths/admin.yaml#/systemStats"
-    /api/admin/dashboard-stats:
-        $ref: "./paths/admin.yaml#/dashboardStats"
+  # Authentication Endpoints
+  /api/auth/register:
+    $ref: "./paths/auth.yaml#/register"
+  /api/auth/mentor-register:
+    $ref: "./paths/auth.yaml#/mentor-register"
+  /api/auth/verify-otp:
+    $ref: "./paths/auth.yaml#/verify-otp"
+  /api/auth/resend-otp:
+    $ref: "./paths/auth.yaml#/resend-otp"
+  /api/auth/login:
+    $ref: "./paths/auth.yaml#/login"
+  /api/auth/logout:
+    $ref: "./paths/auth.yaml#/logout"
+  /api/auth/forgot-password:
+    $ref: "./paths/auth.yaml#/forgot-password"
+  /api/auth/reset-password/{token}:
+    $ref: "./paths/auth.yaml#/reset-password~1{token}"
+  /api/auth/me:
+    $ref: "./paths/auth.yaml#/me"
+  /api/auth/google:
+    $ref: "./paths/auth.yaml#/google"
+  /api/auth/google/callback:
+    $ref: "./paths/auth.yaml#/google~1callback"
+  # Mentor Endpoints
+  /api/mentors:
+    $ref: "./paths/mentor.yaml#/mentorsList"
+  /api/mentors/{mentorId}/stats:
+    $ref: "./paths/mentor.yaml#/mentorStats"
+  /api/mentors/{mentorId}/plans:
+    $ref: "./paths/mentor.yaml#/mentorPlans"
+  /api/mentors/{mentorId}/plans/{planId}:
+    $ref: "./paths/mentor.yaml#/mentorPlanDetails"
+  /api/mentors/{mentorId}:
+    $ref: "./paths/mentor.yaml#/mentorProfile"
+  # Mentee Endpoints
+  /api/mentees:
+    $ref: "./paths/mentee.yaml#/menteesList"
+  /api/mentees/{menteeId}:
+    $ref: "./paths/mentee.yaml#/mentee"
+  # User Endpoints
+  /api/users/avatar:
+    $ref: "./paths/user.yaml#/avatar"
+  /api/users/change-password:
+    $ref: "./paths/user.yaml#/change-password"
+  /api/users/mentee/invoice-stats:
+    $ref: "./paths/user.yaml#/mentee-invoice-stats"
+  /api/users/mentor/invoice-stats:
+    $ref: "./paths/user.yaml#/mentor-invoice-stats"
+  # Search Endpoints
+  /api/search/mentors:
+    $ref: "./paths/search.yaml#/searchMentors"
+  /api/search/skills:
+    $ref: "./paths/search.yaml#/searchSkills"
+  /api/search/companies:
+    $ref: "./paths/search.yaml#/searchCompanies"
+  /api/search/jobtitles:
+    $ref: "./paths/search.yaml#/searchJobTitles"
+  # Catalog Endpoints
+  /api/catalog/supercategories:
+    $ref: "./paths/catalog.yaml#/supercategories"
+  /api/catalog/skills:
+    $ref: "./paths/catalog.yaml#/skills"
+  /api/catalog/companies:
+    $ref: "./paths/catalog.yaml#/companies"
+  /api/catalog/jobtitles:
+    $ref: "./paths/catalog.yaml#/jobtitles"
+  /api/catalog/countries:
+    $ref: "./paths/catalog.yaml#/countries"
+  /api/catalog/languages:
+    $ref: "./paths/catalog.yaml#/languages"
+  # Filter Endpoints
+  /api/filter/mentors:
+    $ref: "./paths/filter.yaml#/filterMentors"
+  /api/filter/available:
+    $ref: "./paths/filter.yaml#/getAvailableFilters"
+  # Slot Endpoints
+  /api/slots/plans/{planId}:
+    $ref: "./paths/slot.yaml#/slotsList"
+  /api/slots/plans/{planId}/slot:
+    $ref: "./paths/slot.yaml#/slotDetail"
+  # Payment Endpoints
+  /api/pay/checkout-session:
+    $ref: "./paths/pay.yaml#/checkout-session"
+  /api/pay/webhook:
+    $ref: "./paths/pay.yaml#/webhook"
+  # Messages Endpoints
+  /api/messages/users:
+    $ref: "./paths/message.yaml#/getUsersForSidebar"
+  /api/messages/conversations:
+    $ref: "./paths/message.yaml#/getConversations"
+  /api/messages/{userId}:
+    $ref: "./paths/message.yaml#/messagesByUserId"
+  /api/messages:
+    $ref: "./paths/message.yaml#/sendMessage"
+  # Meeting Endpoints
+  /api/meetings/mentee:
+    $ref: "./paths/meeting.yaml#/getMeetingsForMentee"
+  /api/meetings/mentor:
+    $ref: "./paths/meeting.yaml#/getMeetingsForMentor"
+  /api/meetings/{meetingId}:
+    $ref: "./paths/meeting.yaml#/getMeetingById"
+  /api/meetings/{meetingId}/location:
+    $ref: "./paths/meeting.yaml#/updateMeetingLocation"
+  /api/meetings/{meetingId}/status:
+    $ref: "./paths/meeting.yaml#/updateMeetingStatus"
+  /api/meetings/{meetingId}/review-link:
+    $ref: "./paths/meeting.yaml#/updateMeetingReviewLink"
+  /api/meetings/{meetingId}/cancel:
+    $ref: "./paths/meeting.yaml#/cancelMeeting"
+  /api/meetings/{meetingId}/permanent:
+    $ref: "./paths/meeting.yaml#/deleteMeetingPermanently"
+  # Discount Endpoints
+  /api/discount/best:
+    $ref: "./paths/discount.yaml#/getBestDiscount"
+  /api/discount/all:
+    $ref: "./paths/discount.yaml#/getAllDiscounts"
+  # Complaint Endpoints
+  /api/complaints:
+    $ref: "./paths/complaint.yaml#/createComplaint"
+  /api/complaints/all:
+    $ref: "./paths/complaint.yaml#/getAllComplaints"
+  /api/complaints/my:
+    $ref: "./paths/complaint.yaml#/getMyComplaints"
+  /api/complaints/mentor:
+    $ref: "./paths/complaint.yaml#/getComplaintsForMentor"
+  /api/complaints/check-expired/{meetingId}:
+    $ref: "./paths/complaint.yaml#/checkMeetingExpiredPending"
+  /api/complaints/meeting/{meetingId}:
+    $ref: "./paths/complaint.yaml#/getComplaintByMeetingId"
+  /api/complaints/{complaintId}:
+    $ref: "./paths/complaint.yaml#/getComplaintById"
+  /api/complaints/{complaintId}/status:
+    $ref: "./paths/complaint.yaml#/updateComplaintStatus"
+  # Chatbot Endpoints
+  /api/chatbot/chat:
+    $ref: "./paths/chatbot.yaml#/chat"
+  /api/chatbot/health:
+    $ref: "./paths/chatbot.yaml#/health"
+  # Admin Endpoints
+  /api/admin/mentees:
+    $ref: "./paths/admin.yaml#/menteesList"
+  /api/admin/mentees/{id}:
+    $ref: "./paths/admin.yaml#/mentee"
+  /api/admin/mentors:
+    $ref: "./paths/admin.yaml#/mentorsList"
+  /api/admin/mentors/pending:
+    $ref: "./paths/admin.yaml#/mentorsPending"
+  /api/admin/mentors/{id}:
+    $ref: "./paths/admin.yaml#/mentor"
+  /api/admin/mentors/{id}/review:
+    $ref: "./paths/admin.yaml#/mentorReview"
+  /api/admin/invoices:
+    $ref: "./paths/admin.yaml#/invoiceStats"
+  /api/admin/stats:
+    $ref: "./paths/admin.yaml#/systemStats"
+  /api/admin/dashboard-stats:
+    $ref: "./paths/admin.yaml#/dashboardStats"
 components:
-    schemas:
-        $ref: "./schemas/_index.yaml"
-    securitySchemes:
-        cookieAuth:
-            type: apiKey
-            in: cookie
-            name: token
-            description: "JWT token obtained from login or OAuth. Token is automatically sent as HTTP-only cookie named 'token'."
+  schemas:
+    $ref: "./schemas/_index.yaml"
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+      description: "JWT token obtained from login or OAuth. Token is automatically sent as HTTP-only cookie named 'token'."

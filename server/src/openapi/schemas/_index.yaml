@@ -1,152 +1,152 @@
 # Authentication schemas
 RegisterRequest:
-    $ref: "./auth.yaml#/RegisterRequest"
+  $ref: "./auth.yaml#/RegisterRequest"
 LoginRequest:
-    $ref: "./auth.yaml#/LoginRequest"
+  $ref: "./auth.yaml#/LoginRequest"
 OTPRequest:
-    $ref: "./auth.yaml#/OTPRequest"
+  $ref: "./auth.yaml#/OTPRequest"
 ResendOTPRequest:
-    $ref: "./auth.yaml#/ResendOTPRequest"
+  $ref: "./auth.yaml#/ResendOTPRequest"
 ForgotPasswordRequest:
-    $ref: "./auth.yaml#/ForgotPasswordRequest"
+  $ref: "./auth.yaml#/ForgotPasswordRequest"
 ResetPasswordRequest:
-    $ref: "./auth.yaml#/ResetPasswordRequest"
+  $ref: "./auth.yaml#/ResetPasswordRequest"
 ChangePasswordRequest:
-    $ref: "./auth.yaml#/ChangePasswordRequest"
+  $ref: "./auth.yaml#/ChangePasswordRequest"
 SuccessResponse:
-    $ref: "./auth.yaml#/SuccessResponse"
+  $ref: "./auth.yaml#/SuccessResponse"
 ErrorResponse:
-    $ref: "./auth.yaml#/ErrorResponse"
+  $ref: "./auth.yaml#/ErrorResponse"
 ValidationErrorResponse:
-    $ref: "./auth.yaml#/ValidationErrorResponse"
+  $ref: "./auth.yaml#/ValidationErrorResponse"
 User:
-    $ref: "./auth.yaml#/User"
+  $ref: "./auth.yaml#/User"
 
 # Mentor schemas
 MentorProfileResponse:
-    $ref: "./mentor.yaml#/MentorProfileResponse"
+  $ref: "./mentor.yaml#/MentorProfileResponse"
 MentorStatsResponse:
-    $ref: "./mentor.yaml#/MentorStatsResponse"
+  $ref: "./mentor.yaml#/MentorStatsResponse"
 SocialLink:
-    $ref: "./mentor.yaml#/SocialLink"
+  $ref: "./mentor.yaml#/SocialLink"
 Company:
-    $ref: "./mentor.yaml#/Company"
+  $ref: "./mentor.yaml#/Company"
 Skill:
-    $ref: "./mentor.yaml#/Skill"
+  $ref: "./mentor.yaml#/Skill"
 Plan:
-    $ref: "./mentor.yaml#/Plan"
+  $ref: "./mentor.yaml#/Plan"
 UpdateMentorProfileRequest:
-    $ref: "./mentor.yaml#/UpdateMentorProfileRequest"
+  $ref: "./mentor.yaml#/UpdateMentorProfileRequest"
 MentorListItem:
-    $ref: "./mentor.yaml#/MentorListItem"
+  $ref: "./mentor.yaml#/MentorListItem"
 MentorsListResponse:
-    $ref: "./mentor.yaml#/MentorsListResponse"
+  $ref: "./mentor.yaml#/MentorsListResponse"
 PaginationInfo:
-    $ref: "./mentor.yaml#/PaginationInfo"
+  $ref: "./mentor.yaml#/PaginationInfo"
 
 # Mentee schemas
 MenteeProfile:
-    $ref: "./mentee.yaml#/MenteeProfile"
+  $ref: "./mentee.yaml#/MenteeProfile"
 UpdateMenteeProfileRequest:
-    $ref: "./mentee.yaml#/UpdateMenteeProfileRequest"
+  $ref: "./mentee.yaml#/UpdateMenteeProfileRequest"
 MenteeListItem:
-    $ref: "./mentee.yaml#/MenteeListItem"
+  $ref: "./mentee.yaml#/MenteeListItem"
 
 # Search schemas
 SearchMentorsResponse:
-    $ref: "./search.yaml#/SearchMentorsResponse"
+  $ref: "./search.yaml#/SearchMentorsResponse"
 SearchMentorListItem:
-    $ref: "./search.yaml#/SearchMentorListItem"
+  $ref: "./search.yaml#/SearchMentorListItem"
 Category:
-    $ref: "./search.yaml#/Category"
+  $ref: "./search.yaml#/Category"
 
 # Catalog schemas
 SuperCategoryItem:
-    $ref: "./catalog.yaml#/SuperCategoryItem"
+  $ref: "./catalog.yaml#/SuperCategoryItem"
 SuperCategoriesData:
-    $ref: "./catalog.yaml#/SuperCategoriesData"
+  $ref: "./catalog.yaml#/SuperCategoriesData"
 # Filter schemas
 FilterMentorsData:
-    $ref: "./filter.yaml#/FilterMentorsData"
+  $ref: "./filter.yaml#/FilterMentorsData"
 FilterMentorsResponse:
-    $ref: "./filter.yaml#/FilterMentorsResponse"
+  $ref: "./filter.yaml#/FilterMentorsResponse"
 
 # Slot schemas
 CreateSlotRequest:
-    $ref: "./slot.yaml#/CreateSlotRequest"
+  $ref: "./slot.yaml#/CreateSlotRequest"
 UpdateSlotRequest:
-    $ref: "./slot.yaml#/UpdateSlotRequest"
+  $ref: "./slot.yaml#/UpdateSlotRequest"
 SlotWithPlanDetails:
-    $ref: "./slot.yaml#/SlotWithPlanDetails"
+  $ref: "./slot.yaml#/SlotWithPlanDetails"
 SlotsListResponse:
-    $ref: "./slot.yaml#/SlotsListResponse"
+  $ref: "./slot.yaml#/SlotsListResponse"
 
 # Meeting schemas
 MeetingResponse:
-    $ref: "./meeting.yaml#/MeetingResponse"
+  $ref: "./meeting.yaml#/MeetingResponse"
 UpdateMeetingLocationRequest:
-    $ref: "./meeting.yaml#/UpdateMeetingLocationRequest"
+  $ref: "./meeting.yaml#/UpdateMeetingLocationRequest"
 UpdateMeetingStatusRequest:
-    $ref: "./meeting.yaml#/UpdateMeetingStatusRequest"
+  $ref: "./meeting.yaml#/UpdateMeetingStatusRequest"
 CancelMeetingResponse:
-    $ref: "./meeting.yaml#/CancelMeetingResponse"
+  $ref: "./meeting.yaml#/CancelMeetingResponse"
 DeleteMeetingPermanentlyResponse:
-    $ref: "./meeting.yaml#/DeleteMeetingPermanentlyResponse"
+  $ref: "./meeting.yaml#/DeleteMeetingPermanentlyResponse"
 
 # Complaint schemas
 Complaint:
-    $ref: "./complaint.yaml#/Complaint"
+  $ref: "./complaint.yaml#/Complaint"
 ComplaintWithDetails:
-    $ref: "./complaint.yaml#/ComplaintWithDetails"
+  $ref: "./complaint.yaml#/ComplaintWithDetails"
 ComplaintResponse:
-    $ref: "./complaint.yaml#/ComplaintResponse"
+  $ref: "./complaint.yaml#/ComplaintResponse"
 ComplaintListResponse:
-    $ref: "./complaint.yaml#/ComplaintListResponse"
+  $ref: "./complaint.yaml#/ComplaintListResponse"
 ComplaintUpdateResponse:
-    $ref: "./complaint.yaml#/ComplaintUpdateResponse"
+  $ref: "./complaint.yaml#/ComplaintUpdateResponse"
 ComplaintByMeetingResponse:
-    $ref: "./complaint.yaml#/ComplaintByMeetingResponse"
+  $ref: "./complaint.yaml#/ComplaintByMeetingResponse"
 MeetingExpiredCheckResponse:
-    $ref: "./complaint.yaml#/MeetingExpiredCheckResponse"
+  $ref: "./complaint.yaml#/MeetingExpiredCheckResponse"
 
 # Admin schemas
 AdminMenteeItem:
-    $ref: "./admin.yaml#/AdminMenteeItem"
+  $ref: "./admin.yaml#/AdminMenteeItem"
 AdminMenteeListResponse:
-    $ref: "./admin.yaml#/AdminMenteeListResponse"
+  $ref: "./admin.yaml#/AdminMenteeListResponse"
 AdminMenteeDetailResponse:
-    $ref: "./admin.yaml#/AdminMenteeDetailResponse"
+  $ref: "./admin.yaml#/AdminMenteeDetailResponse"
 UpdateAdminMenteeRequest:
-    $ref: "./admin.yaml#/UpdateAdminMenteeRequest"
+  $ref: "./admin.yaml#/UpdateAdminMenteeRequest"
 AdminMentorItem:
-    $ref: "./admin.yaml#/AdminMentorItem"
+  $ref: "./admin.yaml#/AdminMentorItem"
 AdminMentorPendingItem:
-    $ref: "./admin.yaml#/AdminMentorPendingItem"
+  $ref: "./admin.yaml#/AdminMentorPendingItem"
 AdminMentorListResponse:
-    $ref: "./admin.yaml#/AdminMentorListResponse"
+  $ref: "./admin.yaml#/AdminMentorListResponse"
 AdminMentorPendingListResponse:
-    $ref: "./admin.yaml#/AdminMentorPendingListResponse"
+  $ref: "./admin.yaml#/AdminMentorPendingListResponse"
 AdminMentorDetailResponse:
-    $ref: "./admin.yaml#/AdminMentorDetailResponse"
+  $ref: "./admin.yaml#/AdminMentorDetailResponse"
 UpdateAdminMentorRequest:
-    $ref: "./admin.yaml#/UpdateAdminMentorRequest"
+  $ref: "./admin.yaml#/UpdateAdminMentorRequest"
 ReviewMentorRequest:
-    $ref: "./admin.yaml#/ReviewMentorRequest"
+  $ref: "./admin.yaml#/ReviewMentorRequest"
 ReviewMentorResponse:
-    $ref: "./admin.yaml#/ReviewMentorResponse"
+  $ref: "./admin.yaml#/ReviewMentorResponse"
 AdminSuccessResponse:
-    $ref: "./admin.yaml#/AdminSuccessResponse"
+  $ref: "./admin.yaml#/AdminSuccessResponse"
 
 # Chatbot schemas
 ChatRequest:
-    $ref: "./chatbot.yaml#/ChatRequest"
+  $ref: "./chatbot.yaml#/ChatRequest"
 ChatMessage:
-    $ref: "./chatbot.yaml#/ChatMessage"
+  $ref: "./chatbot.yaml#/ChatMessage"
 ChatResponse:
-    $ref: "./chatbot.yaml#/ChatResponse"
+  $ref: "./chatbot.yaml#/ChatResponse"
 FunctionCall:
-    $ref: "./chatbot.yaml#/FunctionCall"
+  $ref: "./chatbot.yaml#/FunctionCall"
 ChatbotErrorResponse:
-    $ref: "./chatbot.yaml#/ErrorResponse"
+  $ref: "./chatbot.yaml#/ErrorResponse"
 HealthCheckResponse:
-    $ref: "./chatbot.yaml#/HealthCheckResponse"
+  $ref: "./chatbot.yaml#/HealthCheckResponse"

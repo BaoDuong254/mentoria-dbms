@@ -1,23 +1,23 @@
 services:
-    sqlserver:
-        image: mcr.microsoft.com/mssql/server:2022-latest
-        container_name: sql-server-db
-        ports:
-            - "14330:1433"
-        environment:
-            - ACCEPT_EULA=Y
-            - MSSQL_SA_PASSWORD=SuperStrong@Password2026
-        volumes:
-            - sqlserver-data:/var/opt/mssql
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sql-server-db
+    ports:
+      - "14330:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=SuperStrong@Password2026
+    volumes:
+      - sqlserver-data:/var/opt/mssql
 
-    cassandra:
-        image: cassandra:latest
-        container_name: cassandra-db
-        ports:
-            - "9042:9042"
-        volumes:
-            - cassandra-data:/var/lib/cassandra
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra-db
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra-data:/var/lib/cassandra
 
 volumes:
-    sqlserver-data:
-    cassandra-data:
+  sqlserver-data:
+  cassandra-data:

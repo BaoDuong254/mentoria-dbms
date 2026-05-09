@@ -1,68 +1,68 @@
 FilterMentorsData:
-    type: object
-    description: Data payload for filtered mentors list
-    properties:
-        mentors:
-            type: array
-            description: List of mentors matching the filter criteria
-            items:
-                $ref: "./mentor.yaml#/MentorListItem"
-        pagination:
-            description: Pagination information for the result set
-            $ref: "./mentor.yaml#/PaginationInfo"
-    required:
-        - mentors
-        - pagination
+  type: object
+  description: Data payload for filtered mentors list
+  properties:
+    mentors:
+      type: array
+      description: List of mentors matching the filter criteria
+      items:
+        $ref: "./mentor.yaml#/MentorListItem"
+    pagination:
+      description: Pagination information for the result set
+      $ref: "./mentor.yaml#/PaginationInfo"
+  required:
+    - mentors
+    - pagination
 
 FilterMentorsResponse:
-    type: object
-    description: Response object for mentors filter API
-    properties:
-        success:
-            type: boolean
-            example: true
-        message:
-            type: string
-            example: "Found 3 mentor(s)"
-        data:
-            $ref: "#/FilterMentorsData"
-    required:
-        - success
-        - message
-        - data
+  type: object
+  description: Response object for mentors filter API
+  properties:
+    success:
+      type: boolean
+      example: true
+    message:
+      type: string
+      example: "Found 3 mentor(s)"
+    data:
+      $ref: "#/FilterMentorsData"
+  required:
+    - success
+    - message
+    - data
 
 AvailableFiltersData:
-    type: object
-    description: Available filter options data
-    properties:
-        countries:
-            type: array
-            description: List of countries where mentors are available
-            items:
-                type: string
-            example: ["United States", "Viet Nam", "United Kingdom", "Canada"]
-        languages:
-            type: array
-            description: List of languages that mentors speak
-            items:
-                type: string
-            example: ["English", "Vietnamese", "Spanish", "French"]
-    required:
-        - countries
-        - languages
+  type: object
+  description: Available filter options data
+  properties:
+    countries:
+      type: array
+      description: List of countries where mentors are available
+      items:
+        type: string
+      example: ["United States", "Viet Nam", "United Kingdom", "Canada"]
+    languages:
+      type: array
+      description: List of languages that mentors speak
+      items:
+        type: string
+      example: ["English", "Vietnamese", "Spanish", "French"]
+  required:
+    - countries
+    - languages
 
 AvailableFiltersResponse:
-    type: object
-    description: Response object for available filters API
-    properties:
-        success:
-            type: boolean
-            example: true
-        data:
-            $ref: "#/AvailableFiltersData"
-        message:
-            type: string
-            nullable: true
-            example: null
-    required:
-        - success
+  type: object
+  description: Response object for available filters API
+  properties:
+    success:
+      type: boolean
+      example: true
+    data:
+      $ref: "#/AvailableFiltersData"
+    message:
+      type: string
+      nullable: true
+      example: null
+  required:
+    - success

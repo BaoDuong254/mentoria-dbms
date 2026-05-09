@@ -1,750 +1,750 @@
 # ===== MENTEE ENDPOINTS =====
 menteesList:
-    get:
-        tags:
-            - admin
-        summary: List all mentees
-        description: Retrieve a paginated list of all mentees with their user info and goal. Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: page
-              in: query
-              description: Page number for pagination (default is 1)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  example: 1
-            - name: limit
-              in: query
-              description: Number of items per page (1-100, default is 10)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  maximum: 100
-                  example: 10
-        responses:
-            "200":
-                description: List of mentees retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/AdminMenteeListResponse"
-            "401":
-                description: Unauthorized - Invalid or missing authentication
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  get:
+    tags:
+      - admin
+    summary: List all mentees
+    description: Retrieve a paginated list of all mentees with their user info and goal. Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: page
+        in: query
+        description: Page number for pagination (default is 1)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          example: 1
+      - name: limit
+        in: query
+        description: Number of items per page (1-100, default is 10)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          example: 10
+    responses:
+      "200":
+        description: List of mentees retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/AdminMenteeListResponse"
+      "401":
+        description: Unauthorized - Invalid or missing authentication
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 mentee:
-    get:
-        tags:
-            - admin
-        summary: Get mentee by ID
-        description: Retrieve detailed information about a specific mentee by user_id. Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: id
-              in: path
-              description: User ID of the mentee
-              required: true
-              schema:
-                  type: integer
-                  example: 1
-        responses:
-            "200":
-                description: Mentee details retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/AdminMenteeDetailResponse"
-            "400":
-                description: Invalid id
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "404":
-                description: Mentee not found
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-    put:
-        tags:
-            - admin
-        summary: Update mentee by ID
-        description: Update mentee's user info (first_name, last_name, email) and/or goal. Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: id
-              in: path
-              description: User ID of the mentee
-              required: true
-              schema:
-                  type: integer
-                  example: 1
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/admin.yaml#/UpdateAdminMenteeRequest"
-        responses:
-            "200":
-                description: Mentee updated successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/AdminSuccessResponse"
-                        example:
-                            success: true
-                            message: "Mentee updated"
-            "400":
-                description: Invalid id
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-    delete:
-        tags:
-            - admin
-        summary: Delete mentee by ID
-        description: Delete a mentee from the system. This will delete the user record (CASCADE deletes mentee record). Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: id
-              in: path
-              description: User ID of the mentee
-              required: true
-              schema:
-                  type: integer
-                  example: 1
-        responses:
-            "200":
-                description: Mentee deleted successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/AdminSuccessResponse"
-                        example:
-                            success: true
-                            message: "Mentee deleted"
-            "400":
-                description: Invalid id
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "404":
-                description: Mentee not found
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  get:
+    tags:
+      - admin
+    summary: Get mentee by ID
+    description: Retrieve detailed information about a specific mentee by user_id. Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: User ID of the mentee
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      "200":
+        description: Mentee details retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/AdminMenteeDetailResponse"
+      "400":
+        description: Invalid id
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "404":
+        description: Mentee not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+  put:
+    tags:
+      - admin
+    summary: Update mentee by ID
+    description: Update mentee's user info (first_name, last_name, email) and/or goal. Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: User ID of the mentee
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/admin.yaml#/UpdateAdminMenteeRequest"
+    responses:
+      "200":
+        description: Mentee updated successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/AdminSuccessResponse"
+            example:
+              success: true
+              message: "Mentee updated"
+      "400":
+        description: Invalid id
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+  delete:
+    tags:
+      - admin
+    summary: Delete mentee by ID
+    description: Delete a mentee from the system. This will delete the user record (CASCADE deletes mentee record). Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: User ID of the mentee
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      "200":
+        description: Mentee deleted successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/AdminSuccessResponse"
+            example:
+              success: true
+              message: "Mentee deleted"
+      "400":
+        description: Invalid id
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "404":
+        description: Mentee not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 # ===== MENTOR ENDPOINTS =====
 mentorsList:
-    get:
-        tags:
-            - admin
-        summary: List all mentors
-        description: Retrieve a paginated list of all mentors with their user info, bio, cv_url, headline, and response_time. Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: page
-              in: query
-              description: Page number for pagination (default is 1)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  example: 1
-            - name: limit
-              in: query
-              description: Number of items per page (1-100, default is 10)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  maximum: 100
-                  example: 10
-        responses:
-            "200":
-                description: List of mentors retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/AdminMentorListResponse"
-            "401":
-                description: Unauthorized
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  get:
+    tags:
+      - admin
+    summary: List all mentors
+    description: Retrieve a paginated list of all mentors with their user info, bio, cv_url, headline, and response_time. Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: page
+        in: query
+        description: Page number for pagination (default is 1)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          example: 1
+      - name: limit
+        in: query
+        description: Number of items per page (1-100, default is 10)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          example: 10
+    responses:
+      "200":
+        description: List of mentors retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/AdminMentorListResponse"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 mentorsPending:
-    get:
-        tags:
-            - admin
-        summary: List pending mentors
-        description: Retrieve a paginated list of mentors with status "Pending" awaiting review, ordered by created_at DESC. Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: page
-              in: query
-              description: Page number for pagination (default is 1)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  example: 1
-            - name: limit
-              in: query
-              description: Number of items per page (1-100, default is 10)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  maximum: 100
-                  example: 10
-        responses:
-            "200":
-                description: List of pending mentors retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/AdminMentorPendingListResponse"
-            "401":
-                description: Unauthorized
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  get:
+    tags:
+      - admin
+    summary: List pending mentors
+    description: Retrieve a paginated list of mentors with status "Pending" awaiting review, ordered by created_at DESC. Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: page
+        in: query
+        description: Page number for pagination (default is 1)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          example: 1
+      - name: limit
+        in: query
+        description: Number of items per page (1-100, default is 10)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          example: 10
+    responses:
+      "200":
+        description: List of pending mentors retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/AdminMentorPendingListResponse"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 mentor:
-    get:
-        tags:
-            - admin
-        summary: Get mentor by ID
-        description: Retrieve detailed information about a specific mentor by user_id. Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: id
-              in: path
-              description: User ID of the mentor
-              required: true
-              schema:
-                  type: integer
-                  example: 1
-        responses:
-            "200":
-                description: Mentor details retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/AdminMentorDetailResponse"
-            "400":
-                description: Invalid id
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "404":
-                description: Mentor not found
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-    put:
-        tags:
-            - admin
-        summary: Update mentor by ID
-        description: Update mentor's user info (first_name, last_name, email) and/or mentor-specific fields (bio, headline, response_time, cv_url). Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: id
-              in: path
-              description: User ID of the mentor
-              required: true
-              schema:
-                  type: integer
-                  example: 1
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/admin.yaml#/UpdateAdminMentorRequest"
-        responses:
-            "200":
-                description: Mentor updated successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/AdminSuccessResponse"
-                        example:
-                            success: true
-                            message: "Mentor updated"
-            "400":
-                description: Invalid id
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-    delete:
-        tags:
-            - admin
-        summary: Delete mentor by ID
-        description: Delete a mentor from the system. This will delete the user record (CASCADE deletes mentor record). Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: id
-              in: path
-              description: User ID of the mentor
-              required: true
-              schema:
-                  type: integer
-                  example: 1
-        responses:
-            "200":
-                description: Mentor deleted successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/AdminSuccessResponse"
-                        example:
-                            success: true
-                            message: "Mentor deleted"
-            "400":
-                description: Invalid id
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "404":
-                description: Mentor not found
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  get:
+    tags:
+      - admin
+    summary: Get mentor by ID
+    description: Retrieve detailed information about a specific mentor by user_id. Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: User ID of the mentor
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      "200":
+        description: Mentor details retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/AdminMentorDetailResponse"
+      "400":
+        description: Invalid id
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "404":
+        description: Mentor not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+  put:
+    tags:
+      - admin
+    summary: Update mentor by ID
+    description: Update mentor's user info (first_name, last_name, email) and/or mentor-specific fields (bio, headline, response_time, cv_url). Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: User ID of the mentor
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/admin.yaml#/UpdateAdminMentorRequest"
+    responses:
+      "200":
+        description: Mentor updated successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/AdminSuccessResponse"
+            example:
+              success: true
+              message: "Mentor updated"
+      "400":
+        description: Invalid id
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+  delete:
+    tags:
+      - admin
+    summary: Delete mentor by ID
+    description: Delete a mentor from the system. This will delete the user record (CASCADE deletes mentor record). Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: User ID of the mentor
+        required: true
+        schema:
+          type: integer
+          example: 1
+    responses:
+      "200":
+        description: Mentor deleted successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/AdminSuccessResponse"
+            example:
+              success: true
+              message: "Mentor deleted"
+      "400":
+        description: Invalid id
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "404":
+        description: Mentor not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 # ===== REVIEW MENTOR ENDPOINT =====
 mentorReview:
-    post:
-        tags:
-            - admin
-        summary: Review mentor profile (accept/reject)
-        description: |
-            Accept or reject a pending mentor profile.
-            - **accept**: Set mentor status to "Inactive" and send approval email notification.
-            - **reject**: Delete the mentor user record and send rejection email notification.
-            Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: id
-              in: path
-              description: User ID of the mentor to review
-              required: true
-              schema:
-                  type: integer
-                  example: 1
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/admin.yaml#/ReviewMentorRequest"
-        responses:
-            "200":
-                description: Mentor reviewed successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/ReviewMentorResponse"
-                        examples:
-                            accepted:
-                                summary: Mentor accepted
-                                value:
-                                    success: true
-                                    message: "Mentor accepted"
-                            rejected:
-                                summary: Mentor rejected
-                                value:
-                                    success: true
-                                    message: "Mentor rejected and removed"
-            "400":
-                description: Invalid id or invalid action
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-                        examples:
-                            invalidId:
-                                summary: Invalid ID
-                                value:
-                                    success: false
-                                    message: "Invalid id"
-                            invalidAction:
-                                summary: Invalid action
-                                value:
-                                    success: false
-                                    message: "Invalid action"
-            "401":
-                description: Unauthorized
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "404":
-                description: Mentor not found
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  post:
+    tags:
+      - admin
+    summary: Review mentor profile (accept/reject)
+    description: |
+      Accept or reject a pending mentor profile.
+      - **accept**: Set mentor status to "Inactive" and send approval email notification.
+      - **reject**: Delete the mentor user record and send rejection email notification.
+      Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: id
+        in: path
+        description: User ID of the mentor to review
+        required: true
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/admin.yaml#/ReviewMentorRequest"
+    responses:
+      "200":
+        description: Mentor reviewed successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/ReviewMentorResponse"
+            examples:
+              accepted:
+                summary: Mentor accepted
+                value:
+                  success: true
+                  message: "Mentor accepted"
+              rejected:
+                summary: Mentor rejected
+                value:
+                  success: true
+                  message: "Mentor rejected and removed"
+      "400":
+        description: Invalid id or invalid action
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+            examples:
+              invalidId:
+                summary: Invalid ID
+                value:
+                  success: false
+                  message: "Invalid id"
+              invalidAction:
+                summary: Invalid action
+                value:
+                  success: false
+                  message: "Invalid action"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "404":
+        description: Mentor not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 # ===== INVOICE STATS ENDPOINT =====
 invoiceStats:
-    get:
-        tags:
-            - admin
-        summary: Get invoice statistics
-        description: |-
-            Retrieve paginated invoice statistics with optional filters.
-            Can filter by year, month, specific user (mentee or mentor).
-            Returns invoice details with mentee and mentor information.
-            Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: year
-              in: query
-              description: Filter by year (2000-2100)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 2000
-                  maximum: 2100
-                  example: 2024
-            - name: month
-              in: query
-              description: Filter by month (1-12)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  maximum: 12
-                  example: 12
-            - name: userId
-              in: query
-              description: Filter by specific user ID (requires userType)
-              required: false
-              schema:
-                  type: integer
-                  example: 1
-            - name: userType
-              in: query
-              description: Type of user when filtering by userId (required if userId is provided)
-              required: false
-              schema:
-                  type: string
-                  enum: [mentee, mentor]
-                  example: "mentor"
-            - name: page
-              in: query
-              description: Page number for pagination (default is 1)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  example: 1
-            - name: limit
-              in: query
-              description: Number of items per page (1-100, default is 10)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  maximum: 100
-                  example: 10
-        responses:
-            "200":
-                description: Invoice statistics retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/InvoiceStatsResponse"
-            "400":
-                description: Invalid parameters
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  get:
+    tags:
+      - admin
+    summary: Get invoice statistics
+    description: |-
+      Retrieve paginated invoice statistics with optional filters.
+      Can filter by year, month, specific user (mentee or mentor).
+      Returns invoice details with mentee and mentor information.
+      Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: year
+        in: query
+        description: Filter by year (2000-2100)
+        required: false
+        schema:
+          type: integer
+          minimum: 2000
+          maximum: 2100
+          example: 2024
+      - name: month
+        in: query
+        description: Filter by month (1-12)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 12
+          example: 12
+      - name: userId
+        in: query
+        description: Filter by specific user ID (requires userType)
+        required: false
+        schema:
+          type: integer
+          example: 1
+      - name: userType
+        in: query
+        description: Type of user when filtering by userId (required if userId is provided)
+        required: false
+        schema:
+          type: string
+          enum: [mentee, mentor]
+          example: "mentor"
+      - name: page
+        in: query
+        description: Page number for pagination (default is 1)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          example: 1
+      - name: limit
+        in: query
+        description: Number of items per page (1-100, default is 10)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          example: 10
+    responses:
+      "200":
+        description: Invoice statistics retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/InvoiceStatsResponse"
+      "400":
+        description: Invalid parameters
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 systemStats:
-    get:
-        tags:
-            - admin
-        summary: Get system statistics
-        description: |-
-            Retrieve comprehensive system statistics including:
-            - Total users breakdown (mentors, mentees, admins)
-            - Mentor status distribution (active, pending, inactive, banned)
-            - Mentee status distribution (active, inactive, banned)
-            - Booking statistics (total, this month, last month)
-            - Invoice and revenue statistics
-            - Plan statistics (sessions vs mentorships)
-            - Meeting statistics (completed, upcoming, cancelled)
-            Requires admin authentication.
-        security:
-            - cookieAuth: []
-        responses:
-            "200":
-                description: System statistics retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/SystemStatsResponse"
-            "401":
-                description: Unauthorized - Invalid or missing authentication
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  get:
+    tags:
+      - admin
+    summary: Get system statistics
+    description: |-
+      Retrieve comprehensive system statistics including:
+      - Total users breakdown (mentors, mentees, admins)
+      - Mentor status distribution (active, pending, inactive, banned)
+      - Mentee status distribution (active, inactive, banned)
+      - Booking statistics (total, this month, last month)
+      - Invoice and revenue statistics
+      - Plan statistics (sessions vs mentorships)
+      - Meeting statistics (completed, upcoming, cancelled)
+      Requires admin authentication.
+    security:
+      - cookieAuth: []
+    responses:
+      "200":
+        description: System statistics retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/SystemStatsResponse"
+      "401":
+        description: Unauthorized - Invalid or missing authentication
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
 
 dashboardStats:
-    get:
-        tags:
-            - admin
-        summary: Get dashboard statistics
-        description: |-
-            Retrieve flexible dashboard statistics that can be grouped by mentor, month, or category.
-            Supports filtering by date range, company, category, and minimum thresholds.
-            Results can be sorted by various metrics like revenue, booking count, or average session price.
-            Requires admin authentication.
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: groupBy
-              in: query
-              description: Group results by mentor, month, or category (default is mentor)
-              required: false
-              schema:
-                  type: string
-                  enum: [mentor, month, category]
-                  default: mentor
-                  example: mentor
-            - name: startDate
-              in: query
-              description: Start date for filtering (ISO 8601 format)
-              required: false
-              schema:
-                  type: string
-                  format: date
-                  example: "2024-01-01"
-            - name: endDate
-              in: query
-              description: End date for filtering (ISO 8601 format)
-              required: false
-              schema:
-                  type: string
-                  format: date
-                  example: "2024-12-31"
-            - name: companyId
-              in: query
-              description: Filter by company ID
-              required: false
-              schema:
-                  type: integer
-                  example: 1
-            - name: categoryId
-              in: query
-              description: Filter by category ID
-              required: false
-              schema:
-                  type: integer
-                  example: 5
-            - name: minRevenue
-              in: query
-              description: Minimum revenue threshold for filtering results
-              required: false
-              schema:
-                  type: number
-                  format: float
-                  example: 1000
-            - name: minBookingCount
-              in: query
-              description: Minimum number of bookings for filtering results
-              required: false
-              schema:
-                  type: integer
-                  example: 10
-            - name: sortBy
-              in: query
-              description: Field to sort by (default is total_revenue)
-              required: false
-              schema:
-                  type: string
-                  enum: [total_revenue, booking_count, average_session_price, mentor_id, category_id, month]
-                  default: total_revenue
-                  example: total_revenue
-            - name: sortOrder
-              in: query
-              description: Sort order (default is DESC)
-              required: false
-              schema:
-                  type: string
-                  enum: [ASC, DESC]
-                  default: DESC
-                  example: DESC
-        responses:
-            "200":
-                description: Dashboard statistics retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/admin.yaml#/DashboardStatsResponse"
-            "400":
-                description: Invalid parameters
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized - Invalid or missing authentication
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/auth.yaml#/ErrorResponse"
+  get:
+    tags:
+      - admin
+    summary: Get dashboard statistics
+    description: |-
+      Retrieve flexible dashboard statistics that can be grouped by mentor, month, or category.
+      Supports filtering by date range, company, category, and minimum thresholds.
+      Results can be sorted by various metrics like revenue, booking count, or average session price.
+      Requires admin authentication.
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: groupBy
+        in: query
+        description: Group results by mentor, month, or category (default is mentor)
+        required: false
+        schema:
+          type: string
+          enum: [mentor, month, category]
+          default: mentor
+          example: mentor
+      - name: startDate
+        in: query
+        description: Start date for filtering (ISO 8601 format)
+        required: false
+        schema:
+          type: string
+          format: date
+          example: "2024-01-01"
+      - name: endDate
+        in: query
+        description: End date for filtering (ISO 8601 format)
+        required: false
+        schema:
+          type: string
+          format: date
+          example: "2024-12-31"
+      - name: companyId
+        in: query
+        description: Filter by company ID
+        required: false
+        schema:
+          type: integer
+          example: 1
+      - name: categoryId
+        in: query
+        description: Filter by category ID
+        required: false
+        schema:
+          type: integer
+          example: 5
+      - name: minRevenue
+        in: query
+        description: Minimum revenue threshold for filtering results
+        required: false
+        schema:
+          type: number
+          format: float
+          example: 1000
+      - name: minBookingCount
+        in: query
+        description: Minimum number of bookings for filtering results
+        required: false
+        schema:
+          type: integer
+          example: 10
+      - name: sortBy
+        in: query
+        description: Field to sort by (default is total_revenue)
+        required: false
+        schema:
+          type: string
+          enum: [total_revenue, booking_count, average_session_price, mentor_id, category_id, month]
+          default: total_revenue
+          example: total_revenue
+      - name: sortOrder
+        in: query
+        description: Sort order (default is DESC)
+        required: false
+        schema:
+          type: string
+          enum: [ASC, DESC]
+          default: DESC
+          example: DESC
+    responses:
+      "200":
+        description: Dashboard statistics retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/admin.yaml#/DashboardStatsResponse"
+      "400":
+        description: Invalid parameters
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized - Invalid or missing authentication
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/auth.yaml#/ErrorResponse"

@@ -1,49 +1,49 @@
 {
-    // Visit https://aka.ms/tsconfig to read more about this file
-    "compilerOptions": {
-        // File Layout
-        "rootDir": "./src",
-        "outDir": "./dist",
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    "rootDir": "./src",
+    "outDir": "./dist",
 
-        // Environment Settings
-        // See also https://aka.ms/tsconfig/module
-        "module": "commonjs",
-        "target": "ES6",
-        // For nodejs:
-        "lib": ["esnext"],
-        "types": ["node"],
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    "module": "commonjs",
+    "target": "ES6",
+    // For nodejs:
+    "lib": ["esnext"],
+    "types": ["node"],
 
-        // Other Outputs
-        "sourceMap": true,
-        "declaration": true,
-        "declarationMap": true,
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
 
-        // Stricter Typechecking Options
-        "noUncheckedIndexedAccess": true,
-        "exactOptionalPropertyTypes": true,
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
 
-        // Style Options
-        // "noImplicitReturns": true,
-        // "noImplicitOverride": true,
-        // "noUnusedLocals": true,
-        // "noUnusedParameters": true,
-        // "noFallthroughCasesInSwitch": true,
-        // "noPropertyAccessFromIndexSignature": true,
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
 
-        // Recommended Options
-        "esModuleInterop": true,
-        "strict": true,
-        "jsx": "react-jsx",
-        "verbatimModuleSyntax": false,
-        "isolatedModules": true,
-        "noUncheckedSideEffectImports": true,
-        "moduleDetection": "force",
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "@/*": ["./src/*"]
-        }
-    },
-    "files": ["./src/types/global.d.ts"], // Path to global type definitions
-    "include": ["./src/**/*"] // Path to source code
+    // Recommended Options
+    "esModuleInterop": true,
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": false,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "files": ["./src/types/global.d.ts"], // Path to global type definitions
+  "include": ["./src/**/*"] // Path to source code
 }

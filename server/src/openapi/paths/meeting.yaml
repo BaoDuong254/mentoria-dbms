@@ -1,602 +1,602 @@
 # Meeting API endpoints
 
 getMeetingsForMentee:
-    get:
-        tags:
-            - meeting
-        summary: Get meetings for mentee
-        description: |
-            Retrieve all meetings for the currently authenticated mentee with pagination support.
-            Returns meetings with full details including mentor info, plan details, and payment info.
-            Results are ordered by date (descending) and start time (descending).
-        operationId: getMeetingsForMentee
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: page
-              in: query
-              description: Page number for pagination (default 1)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  default: 1
-                  example: 1
-            - name: limit
-              in: query
-              description: Number of items per page (default 10, max 100)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  maximum: 100
-                  default: 10
-                  example: 10
-        responses:
-            "200":
-                description: Meetings retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/meeting.yaml#/MeetingListResponse"
-            "400":
-                description: Invalid pagination parameters
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized - user not logged in
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "403":
-                description: Forbidden - only mentees can access this resource
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
+  get:
+    tags:
+      - meeting
+    summary: Get meetings for mentee
+    description: |
+      Retrieve all meetings for the currently authenticated mentee with pagination support.
+      Returns meetings with full details including mentor info, plan details, and payment info.
+      Results are ordered by date (descending) and start time (descending).
+    operationId: getMeetingsForMentee
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: page
+        in: query
+        description: Page number for pagination (default 1)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+          example: 1
+      - name: limit
+        in: query
+        description: Number of items per page (default 10, max 100)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+          example: 10
+    responses:
+      "200":
+        description: Meetings retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/meeting.yaml#/MeetingListResponse"
+      "400":
+        description: Invalid pagination parameters
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized - user not logged in
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "403":
+        description: Forbidden - only mentees can access this resource
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
 
 getMeetingsForMentor:
-    get:
-        tags:
-            - meeting
-        summary: Get meetings for mentor
-        description: |
-            Retrieve all meetings for the currently authenticated mentor with pagination support.
-            Returns meetings with full details including mentee info, plan details, and payment info.
-            Results are ordered by date (descending) and start time (descending).
-        operationId: getMeetingsForMentor
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: page
-              in: query
-              description: Page number for pagination (default 1)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  default: 1
-                  example: 1
-            - name: limit
-              in: query
-              description: Number of items per page (default 10, max 100)
-              required: false
-              schema:
-                  type: integer
-                  minimum: 1
-                  maximum: 100
-                  default: 10
-                  example: 10
-        responses:
-            "200":
-                description: Meetings retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/meeting.yaml#/MeetingListResponse"
-            "400":
-                description: Invalid pagination parameters
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized - user not logged in
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "403":
-                description: Forbidden - only mentors can access this resource
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
+  get:
+    tags:
+      - meeting
+    summary: Get meetings for mentor
+    description: |
+      Retrieve all meetings for the currently authenticated mentor with pagination support.
+      Returns meetings with full details including mentee info, plan details, and payment info.
+      Results are ordered by date (descending) and start time (descending).
+    operationId: getMeetingsForMentor
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: page
+        in: query
+        description: Page number for pagination (default 1)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+          example: 1
+      - name: limit
+        in: query
+        description: Number of items per page (default 10, max 100)
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+          example: 10
+    responses:
+      "200":
+        description: Meetings retrieved successfully
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/meeting.yaml#/MeetingListResponse"
+      "400":
+        description: Invalid pagination parameters
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized - user not logged in
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "403":
+        description: Forbidden - only mentors can access this resource
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
 
 getMeetingById:
-    get:
-        tags:
-            - meeting
-        summary: Get meeting by ID
-        description: |
-            Retrieve details of a specific meeting by its ID.
-            Only the mentor or mentee who is part of the meeting can access this endpoint.
-        operationId: getMeetingById
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: meetingId
-              in: path
-              required: true
-              description: The unique identifier of the meeting
-              schema:
-                  type: integer
-                  example: 1
-        responses:
-            "200":
-                description: Meeting retrieved successfully
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                success:
-                                    type: boolean
-                                    example: true
-                                data:
-                                    $ref: "../schemas/meeting.yaml#/MeetingResponse"
-            "400":
-                description: Invalid meeting ID
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized - user not logged in
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "403":
-                description: Forbidden - user is not part of this meeting
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "404":
-                description: Meeting not found
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
+  get:
+    tags:
+      - meeting
+    summary: Get meeting by ID
+    description: |
+      Retrieve details of a specific meeting by its ID.
+      Only the mentor or mentee who is part of the meeting can access this endpoint.
+    operationId: getMeetingById
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: meetingId
+        in: path
+        required: true
+        description: The unique identifier of the meeting
+        schema:
+          type: integer
+          example: 1
+    responses:
+      "200":
+        description: Meeting retrieved successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                data:
+                  $ref: "../schemas/meeting.yaml#/MeetingResponse"
+      "400":
+        description: Invalid meeting ID
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized - user not logged in
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "403":
+        description: Forbidden - user is not part of this meeting
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "404":
+        description: Meeting not found
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
 
 updateMeetingLocation:
-    put:
-        tags:
-            - meeting
-        summary: Update meeting location
-        description: |
-            Update the location (Google Meet link) of a meeting.
-            Only the mentor who owns the meeting can update the location.
-            After updating, the meeting status will automatically change from 'Pending' to 'Scheduled'.
+  put:
+    tags:
+      - meeting
+    summary: Update meeting location
+    description: |
+      Update the location (Google Meet link) of a meeting.
+      Only the mentor who owns the meeting can update the location.
+      After updating, the meeting status will automatically change from 'Pending' to 'Scheduled'.
 
-            **Workflow:**
-            1. After payment, meeting is created with status 'Pending' and empty location
-            2. Mentor adds Google Meet link using this endpoint
-            3. Status automatically changes to 'Scheduled'
-            4. Mentee can see the meeting link in their meetings list
-        operationId: updateMeetingLocation
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: meetingId
-              in: path
-              required: true
-              description: The unique identifier of the meeting
-              schema:
-                  type: integer
-                  example: 1
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/meeting.yaml#/UpdateMeetingLocationRequest"
-        responses:
-            "200":
-                description: Meeting location updated successfully
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                success:
-                                    type: boolean
-                                    example: true
-                                message:
-                                    type: string
-                                    example: "Meeting location updated successfully. Status changed to Scheduled."
-                                data:
-                                    $ref: "../schemas/meeting.yaml#/MeetingResponse"
-            "400":
-                description: Invalid meeting ID or missing location
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized - user not logged in
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "403":
-                description: Forbidden - only mentors can update meeting location
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "404":
-                description: Meeting not found or user does not have permission
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
+      **Workflow:**
+      1. After payment, meeting is created with status 'Pending' and empty location
+      2. Mentor adds Google Meet link using this endpoint
+      3. Status automatically changes to 'Scheduled'
+      4. Mentee can see the meeting link in their meetings list
+    operationId: updateMeetingLocation
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: meetingId
+        in: path
+        required: true
+        description: The unique identifier of the meeting
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/meeting.yaml#/UpdateMeetingLocationRequest"
+    responses:
+      "200":
+        description: Meeting location updated successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Meeting location updated successfully. Status changed to Scheduled."
+                data:
+                  $ref: "../schemas/meeting.yaml#/MeetingResponse"
+      "400":
+        description: Invalid meeting ID or missing location
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized - user not logged in
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "403":
+        description: Forbidden - only mentors can update meeting location
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "404":
+        description: Meeting not found or user does not have permission
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
 
 updateMeetingStatus:
-    put:
-        tags:
-            - meeting
-        summary: Update meeting status
-        description: |
-            Update the status of a meeting.
-            Only the mentor who owns the meeting can update the status.
+  put:
+    tags:
+      - meeting
+    summary: Update meeting status
+    description: |
+      Update the status of a meeting.
+      Only the mentor who owns the meeting can update the status.
 
-            **Valid status transitions:**
-            - 'Scheduled' → 'Completed' (after session ends)
-            - 'Scheduled' → 'Cancelled' (if cancelled)
-            - 'Pending' → 'Cancelled' (if cancelled before scheduling)
+      **Valid status transitions:**
+      - 'Scheduled' → 'Completed' (after session ends)
+      - 'Scheduled' → 'Cancelled' (if cancelled)
+      - 'Pending' → 'Cancelled' (if cancelled before scheduling)
 
-            **Status values:**
-            - `Pending`: Meeting created but no Google Meet link added yet
-            - `Scheduled`: Google Meet link added, ready for session
-            - `Completed`: Session has been completed
-            - `Cancelled`: Meeting was cancelled
-        operationId: updateMeetingStatus
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: meetingId
-              in: path
-              required: true
-              description: The unique identifier of the meeting
-              schema:
-                  type: integer
-                  example: 1
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/meeting.yaml#/UpdateMeetingStatusRequest"
-        responses:
-            "200":
-                description: Meeting status updated successfully
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                success:
-                                    type: boolean
-                                    example: true
-                                message:
-                                    type: string
-                                    example: "Meeting status updated to Completed"
-                                data:
-                                    $ref: "../schemas/meeting.yaml#/MeetingResponse"
-            "400":
-                description: Invalid meeting ID or invalid status value
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized - user not logged in
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "403":
-                description: Forbidden - only mentors can update meeting status
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "404":
-                description: Meeting not found or user does not have permission
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
+      **Status values:**
+      - `Pending`: Meeting created but no Google Meet link added yet
+      - `Scheduled`: Google Meet link added, ready for session
+      - `Completed`: Session has been completed
+      - `Cancelled`: Meeting was cancelled
+    operationId: updateMeetingStatus
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: meetingId
+        in: path
+        required: true
+        description: The unique identifier of the meeting
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/meeting.yaml#/UpdateMeetingStatusRequest"
+    responses:
+      "200":
+        description: Meeting status updated successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Meeting status updated to Completed"
+                data:
+                  $ref: "../schemas/meeting.yaml#/MeetingResponse"
+      "400":
+        description: Invalid meeting ID or invalid status value
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized - user not logged in
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "403":
+        description: Forbidden - only mentors can update meeting status
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "404":
+        description: Meeting not found or user does not have permission
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
 
 updateMeetingReviewLink:
-    put:
-        tags:
-            - meeting
-        summary: Update meeting review link
-        description: |
-            Add or update the review link for a completed meeting.
-            Only the mentor who owns the meeting can update the review link.
-            This endpoint is typically used after a meeting is marked as completed.
+  put:
+    tags:
+      - meeting
+    summary: Update meeting review link
+    description: |
+      Add or update the review link for a completed meeting.
+      Only the mentor who owns the meeting can update the review link.
+      This endpoint is typically used after a meeting is marked as completed.
 
-            **Workflow:**
-            1. Mentor marks a meeting as 'Completed' using the status update endpoint
-            2. Mentor adds a review/course link using this endpoint (optional)
-            3. Mentee can access the review link from the completed meeting card
-            4. The review link can be updated multiple times until the mentor decides
+      **Workflow:**
+      1. Mentor marks a meeting as 'Completed' using the status update endpoint
+      2. Mentor adds a review/course link using this endpoint (optional)
+      3. Mentee can access the review link from the completed meeting card
+      4. The review link can be updated multiple times until the mentor decides
 
-            **Note:**
-            - Review link should be a valid URL (e.g., course platform link, learning materials link)
-            - This is optional and can be added/updated at any time after meeting is created
-        operationId: updateMeetingReviewLink
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: meetingId
-              in: path
-              required: true
-              description: The unique identifier of the meeting
-              schema:
-                  type: integer
-                  example: 1
-        requestBody:
-            required: true
-            content:
-                application/json:
-                    schema:
-                        $ref: "../schemas/meeting.yaml#/UpdateReviewLinkRequest"
-        responses:
-            "200":
-                description: Review link updated successfully
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                success:
-                                    type: boolean
-                                    example: true
-                                message:
-                                    type: string
-                                    example: "Review link updated successfully"
-                                data:
-                                    $ref: "../schemas/meeting.yaml#/MeetingResponse"
-            "400":
-                description: Invalid meeting ID or missing review link
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized - user not logged in
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "403":
-                description: Forbidden - only mentors can update review link
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "404":
-                description: Meeting not found or user does not have permission
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
+      **Note:**
+      - Review link should be a valid URL (e.g., course platform link, learning materials link)
+      - This is optional and can be added/updated at any time after meeting is created
+    operationId: updateMeetingReviewLink
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: meetingId
+        in: path
+        required: true
+        description: The unique identifier of the meeting
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/meeting.yaml#/UpdateReviewLinkRequest"
+    responses:
+      "200":
+        description: Review link updated successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Review link updated successfully"
+                data:
+                  $ref: "../schemas/meeting.yaml#/MeetingResponse"
+      "400":
+        description: Invalid meeting ID or missing review link
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized - user not logged in
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "403":
+        description: Forbidden - only mentors can update review link
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "404":
+        description: Meeting not found or user does not have permission
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
 
 cancelMeeting:
-    delete:
-        tags:
-            - meeting
-        summary: Cancel a meeting
-        description: |
-            Cancel a meeting by changing its status to 'Cancelled'.
-            Both mentees and mentors can cancel their own meetings.
+  delete:
+    tags:
+      - meeting
+    summary: Cancel a meeting
+    description: |
+      Cancel a meeting by changing its status to 'Cancelled'.
+      Both mentees and mentors can cancel their own meetings.
 
-            **Access Control:**
-            - Mentee: Can cancel meetings where they are the mentee
-            - Mentor: Can cancel meetings where they are the mentor
+      **Access Control:**
+      - Mentee: Can cancel meetings where they are the mentee
+      - Mentor: Can cancel meetings where they are the mentor
 
-            **Status Restrictions:**
-            - Only meetings with status 'Pending' or 'Scheduled' can be cancelled
-            - Already completed or cancelled meetings cannot be cancelled again
+      **Status Restrictions:**
+      - Only meetings with status 'Pending' or 'Scheduled' can be cancelled
+      - Already completed or cancelled meetings cannot be cancelled again
 
-            **Workflow:**
-            1. User requests to cancel a meeting
-            2. System verifies the user owns the meeting (either as mentee or mentor)
-            3. System verifies the meeting is in a cancellable state
-            4. Meeting status is updated to 'Cancelled'
-            5. Meeting remains in database for record-keeping
-        operationId: cancelMeeting
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: meetingId
-              in: path
-              required: true
-              description: The unique identifier of the meeting to cancel
-              schema:
-                  type: integer
-                  example: 1
-        responses:
-            "200":
-                description: Meeting cancelled successfully
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                success:
-                                    type: boolean
-                                    example: true
-                                message:
-                                    type: string
-                                    example: "Meeting cancelled successfully"
-                                data:
-                                    $ref: "../schemas/meeting.yaml#/MeetingResponse"
-            "400":
-                description: Invalid meeting ID
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized - user not logged in
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "403":
-                description: Forbidden - only mentees and mentors can cancel meetings
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "404":
-                description: Meeting not found or user does not have permission to cancel it
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error (includes status restriction errors)
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
+      **Workflow:**
+      1. User requests to cancel a meeting
+      2. System verifies the user owns the meeting (either as mentee or mentor)
+      3. System verifies the meeting is in a cancellable state
+      4. Meeting status is updated to 'Cancelled'
+      5. Meeting remains in database for record-keeping
+    operationId: cancelMeeting
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: meetingId
+        in: path
+        required: true
+        description: The unique identifier of the meeting to cancel
+        schema:
+          type: integer
+          example: 1
+    responses:
+      "200":
+        description: Meeting cancelled successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Meeting cancelled successfully"
+                data:
+                  $ref: "../schemas/meeting.yaml#/MeetingResponse"
+      "400":
+        description: Invalid meeting ID
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized - user not logged in
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "403":
+        description: Forbidden - only mentees and mentors can cancel meetings
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "404":
+        description: Meeting not found or user does not have permission to cancel it
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error (includes status restriction errors)
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
 
 deleteMeetingPermanently:
-    delete:
-        tags:
-            - meeting
-        summary: Permanently delete a cancelled meeting
-        description: |
-            Permanently delete a meeting from the database.
-            This action is irreversible and should only be used for cancelled meetings.
+  delete:
+    tags:
+      - meeting
+    summary: Permanently delete a cancelled meeting
+    description: |
+      Permanently delete a meeting from the database.
+      This action is irreversible and should only be used for cancelled meetings.
 
-            **Access Control:**
-            - Mentee: Can delete meetings where they are the mentee
-            - Mentor: Can delete meetings where they are the mentor
+      **Access Control:**
+      - Mentee: Can delete meetings where they are the mentee
+      - Mentor: Can delete meetings where they are the mentor
 
-            **Status Restrictions:**
-            - Only meetings with status 'Cancelled' can be permanently deleted
-            - Pending, Scheduled, or Completed meetings cannot be deleted
+      **Status Restrictions:**
+      - Only meetings with status 'Cancelled' can be permanently deleted
+      - Pending, Scheduled, or Completed meetings cannot be deleted
 
-            **Important Notes:**
-            - This will also delete any associated complaints for the meeting
-            - This action cannot be undone
-            - Use this to clean up cancelled meetings from the user's dashboard
+      **Important Notes:**
+      - This will also delete any associated complaints for the meeting
+      - This action cannot be undone
+      - Use this to clean up cancelled meetings from the user's dashboard
 
-            **Workflow:**
-            1. User requests to permanently delete a cancelled meeting
-            2. System verifies the user owns the meeting
-            3. System verifies the meeting status is 'Cancelled'
-            4. System deletes related complaints (if any)
-            5. System permanently deletes the meeting from database
-        operationId: deleteMeetingPermanently
-        security:
-            - cookieAuth: []
-        parameters:
-            - name: meetingId
-              in: path
-              required: true
-              description: The unique identifier of the meeting to permanently delete
-              schema:
-                  type: integer
-                  example: 1
-        responses:
-            "200":
-                description: Meeting deleted permanently
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                success:
-                                    type: boolean
-                                    example: true
-                                message:
-                                    type: string
-                                    example: "Meeting deleted permanently"
-            "400":
-                description: Invalid meeting ID
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "401":
-                description: Unauthorized - user not logged in
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "403":
-                description: Forbidden - only mentees and mentors can delete meetings
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "404":
-                description: Meeting not found or user does not have permission to delete it
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
-            "500":
-                description: Internal server error (includes status restriction errors)
-                content:
-                    application/json:
-                        schema:
-                            $ref: "../schemas/_index.yaml#/ErrorResponse"
+      **Workflow:**
+      1. User requests to permanently delete a cancelled meeting
+      2. System verifies the user owns the meeting
+      3. System verifies the meeting status is 'Cancelled'
+      4. System deletes related complaints (if any)
+      5. System permanently deletes the meeting from database
+    operationId: deleteMeetingPermanently
+    security:
+      - cookieAuth: []
+    parameters:
+      - name: meetingId
+        in: path
+        required: true
+        description: The unique identifier of the meeting to permanently delete
+        schema:
+          type: integer
+          example: 1
+    responses:
+      "200":
+        description: Meeting deleted permanently
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: "Meeting deleted permanently"
+      "400":
+        description: Invalid meeting ID
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "401":
+        description: Unauthorized - user not logged in
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "403":
+        description: Forbidden - only mentees and mentors can delete meetings
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "404":
+        description: Meeting not found or user does not have permission to delete it
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"
+      "500":
+        description: Internal server error (includes status restriction errors)
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/_index.yaml#/ErrorResponse"

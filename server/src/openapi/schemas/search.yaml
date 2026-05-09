@@ -1,271 +1,271 @@
 # Search response schemas
 SearchMentorsResponse:
-    type: object
-    properties:
-        mentors:
-            type: array
-            items:
-                $ref: "#/SearchMentorListItem"
-            description: "Array of mentors matching the search criteria"
-        pagination:
-            $ref: "./mentor.yaml#/PaginationInfo"
-            description: "Pagination information for the search results"
-        searchInfo:
-            type: object
-            properties:
-                keyword:
-                    type: string
-                    example: "google senior javascript"
-                    description: "The original keyword string used for searching"
-                keywords:
-                    type: array
-                    items:
-                        type: string
-                    example: ["google", "senior", "javascript"]
-                    description: "Array of individual keywords parsed from the keyword string (space-separated)"
-                searchedFields:
-                    type: array
-                    items:
-                        type: string
-                    example:
-                        - "first_name"
-                        - "last_name"
-                        - "full_name"
-                        - "bio"
-                        - "headline"
-                        - "skills"
-                        - "categories"
-                        - "companies"
-                        - "job_titles"
-                        - "languages"
-                    description: "List of fields that were searched"
-            description: "Information about the search query and scope"
+  type: object
+  properties:
+    mentors:
+      type: array
+      items:
+        $ref: "#/SearchMentorListItem"
+      description: "Array of mentors matching the search criteria"
+    pagination:
+      $ref: "./mentor.yaml#/PaginationInfo"
+      description: "Pagination information for the search results"
+    searchInfo:
+      type: object
+      properties:
+        keyword:
+          type: string
+          example: "google senior javascript"
+          description: "The original keyword string used for searching"
+        keywords:
+          type: array
+          items:
+            type: string
+          example: ["google", "senior", "javascript"]
+          description: "Array of individual keywords parsed from the keyword string (space-separated)"
+        searchedFields:
+          type: array
+          items:
+            type: string
+          example:
+            - "first_name"
+            - "last_name"
+            - "full_name"
+            - "bio"
+            - "headline"
+            - "skills"
+            - "categories"
+            - "companies"
+            - "job_titles"
+            - "languages"
+          description: "List of fields that were searched"
+      description: "Information about the search query and scope"
 
 SearchMentorListItem:
-    type: object
-    properties:
-        user_id:
-            type: integer
-            example: 1
-            description: "Unique mentor identifier"
-        first_name:
-            type: string
-            example: "John"
-            description: "Mentor's first name"
-        last_name:
-            type: string
-            example: "Doe"
-            description: "Mentor's last name"
-        avatar_url:
-            type: string
-            nullable: true
-            format: uri
-            example: "https://example.com/avatars/mentor-john.jpg"
-            description: "URL to mentor's avatar image"
-        country:
-            type: string
-            nullable: true
-            example: "USA"
-            description: "Mentor's country of residence"
-        bio:
-            type: string
-            nullable: true
-            example: "Experienced JavaScript developer with 10+ years"
-            description: "Mentor's biography"
-        headline:
-            type: string
-            nullable: true
-            example: "Senior JavaScript Engineer at Tech Corp"
-            description: "Mentor's professional headline"
-        response_time:
-            type: string
-            example: "Within 24 hours"
-            description: "Average response time description"
-        total_feedbacks:
-            type: integer
-            example: 15
-            description: "Total number of feedback entries received"
-        average_rating:
-            type: number
-            nullable: true
-            format: float
-            example: 4.8
-            description: "Average rating calculated from all feedbacks"
-        lowest_plan_price:
-            type: number
-            nullable: true
-            format: decimal
-            example: 49.99
-            description: "Lowest price among all plans offered by the mentor"
-        skills:
-            type: array
-            items:
-                $ref: "./mentor.yaml#/Skill"
-            description: "Mentor's skills and areas of expertise"
-        languages:
-            type: array
-            items:
-                type: string
-            example: ["English", "Spanish"]
-            description: "Languages spoken by the mentor"
-        companies:
-            type: array
-            items:
-                $ref: "./mentor.yaml#/Company"
-            description: "Companies where mentor works or has worked"
-        categories:
-            type: array
-            items:
-                $ref: "#/Category"
-            description: "Categories associated with the mentor's skills"
+  type: object
+  properties:
+    user_id:
+      type: integer
+      example: 1
+      description: "Unique mentor identifier"
+    first_name:
+      type: string
+      example: "John"
+      description: "Mentor's first name"
+    last_name:
+      type: string
+      example: "Doe"
+      description: "Mentor's last name"
+    avatar_url:
+      type: string
+      nullable: true
+      format: uri
+      example: "https://example.com/avatars/mentor-john.jpg"
+      description: "URL to mentor's avatar image"
+    country:
+      type: string
+      nullable: true
+      example: "USA"
+      description: "Mentor's country of residence"
+    bio:
+      type: string
+      nullable: true
+      example: "Experienced JavaScript developer with 10+ years"
+      description: "Mentor's biography"
+    headline:
+      type: string
+      nullable: true
+      example: "Senior JavaScript Engineer at Tech Corp"
+      description: "Mentor's professional headline"
+    response_time:
+      type: string
+      example: "Within 24 hours"
+      description: "Average response time description"
+    total_feedbacks:
+      type: integer
+      example: 15
+      description: "Total number of feedback entries received"
+    average_rating:
+      type: number
+      nullable: true
+      format: float
+      example: 4.8
+      description: "Average rating calculated from all feedbacks"
+    lowest_plan_price:
+      type: number
+      nullable: true
+      format: decimal
+      example: 49.99
+      description: "Lowest price among all plans offered by the mentor"
+    skills:
+      type: array
+      items:
+        $ref: "./mentor.yaml#/Skill"
+      description: "Mentor's skills and areas of expertise"
+    languages:
+      type: array
+      items:
+        type: string
+      example: ["English", "Spanish"]
+      description: "Languages spoken by the mentor"
+    companies:
+      type: array
+      items:
+        $ref: "./mentor.yaml#/Company"
+      description: "Companies where mentor works or has worked"
+    categories:
+      type: array
+      items:
+        $ref: "#/Category"
+      description: "Categories associated with the mentor's skills"
 
 Category:
-    type: object
-    properties:
-        category_id:
-            type: integer
-            example: 1
-            description: "Unique category identifier"
-        category_name:
-            type: string
-            example: "Web Development"
-            description: "Category name"
+  type: object
+  properties:
+    category_id:
+      type: integer
+      example: 1
+      description: "Unique category identifier"
+    category_name:
+      type: string
+      example: "Web Development"
+      description: "Category name"
 
 # Search Skills Response schemas
 SearchSkillsResponse:
-    type: object
-    properties:
-        results:
-            type: array
-            items:
-                $ref: "#/SkillCategoryItem"
-            description: "Array of skills and categories matching the search criteria"
-        pagination:
-            $ref: "./mentor.yaml#/PaginationInfo"
-            description: "Pagination information for the search results"
-        searchInfo:
-            type: object
-            properties:
-                keyword:
-                    type: string
-                    example: "Sales"
-                    description: "The original keyword string used for searching"
-                keywords:
-                    type: array
-                    items:
-                        type: string
-                    example: ["Sales"]
-                    description: "Array of individual keywords parsed from the keyword string"
-            description: "Information about the search query"
+  type: object
+  properties:
+    results:
+      type: array
+      items:
+        $ref: "#/SkillCategoryItem"
+      description: "Array of skills and categories matching the search criteria"
+    pagination:
+      $ref: "./mentor.yaml#/PaginationInfo"
+      description: "Pagination information for the search results"
+    searchInfo:
+      type: object
+      properties:
+        keyword:
+          type: string
+          example: "Sales"
+          description: "The original keyword string used for searching"
+        keywords:
+          type: array
+          items:
+            type: string
+          example: ["Sales"]
+          description: "Array of individual keywords parsed from the keyword string"
+      description: "Information about the search query"
 
 SkillCategoryItem:
-    type: object
-    properties:
-        id:
-            type: integer
-            example: 49
-            description: "Unique identifier for the skill or category"
-        name:
-            type: string
-            example: "Sales"
-            description: "Name of the skill or category"
-        type:
-            type: string
-            enum: ["skill", "category"]
-            example: "category"
-            description: "Type indicating whether this is a skill or a category"
-        super_category_id:
-            type: integer
-            nullable: true
-            example: 38
-            description: "ID of the parent category (null for skills or top-level categories)"
-        mentor_count:
-            type: integer
-            example: 5
-            description: "Number of mentors who have this skill or teach in this category"
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 49
+      description: "Unique identifier for the skill or category"
+    name:
+      type: string
+      example: "Sales"
+      description: "Name of the skill or category"
+    type:
+      type: string
+      enum: ["skill", "category"]
+      example: "category"
+      description: "Type indicating whether this is a skill or a category"
+    super_category_id:
+      type: integer
+      nullable: true
+      example: 38
+      description: "ID of the parent category (null for skills or top-level categories)"
+    mentor_count:
+      type: integer
+      example: 5
+      description: "Number of mentors who have this skill or teach in this category"
 
 # Search Companies Response schemas
 SearchCompaniesResponse:
-    type: object
-    properties:
-        results:
-            type: array
-            items:
-                $ref: "#/CompanyItem"
-            description: "Array of companies matching the search criteria"
-        pagination:
-            $ref: "./mentor.yaml#/PaginationInfo"
-            description: "Pagination information for the search results"
-        searchInfo:
-            type: object
-            properties:
-                keyword:
-                    type: string
-                    example: "Google"
-                    description: "The original keyword string used for searching"
-                keywords:
-                    type: array
-                    items:
-                        type: string
-                    example: ["Google"]
-                    description: "Array of individual keywords parsed from the keyword string"
-            description: "Information about the search query"
+  type: object
+  properties:
+    results:
+      type: array
+      items:
+        $ref: "#/CompanyItem"
+      description: "Array of companies matching the search criteria"
+    pagination:
+      $ref: "./mentor.yaml#/PaginationInfo"
+      description: "Pagination information for the search results"
+    searchInfo:
+      type: object
+      properties:
+        keyword:
+          type: string
+          example: "Google"
+          description: "The original keyword string used for searching"
+        keywords:
+          type: array
+          items:
+            type: string
+          example: ["Google"]
+          description: "Array of individual keywords parsed from the keyword string"
+      description: "Information about the search query"
 
 CompanyItem:
-    type: object
-    properties:
-        id:
-            type: integer
-            example: 1
-            description: "Unique identifier for the company"
-        name:
-            type: string
-            example: "Google"
-            description: "Name of the company"
-        mentor_count:
-            type: integer
-            example: 12
-            description: "Number of mentors who work or have worked at this company"
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+      description: "Unique identifier for the company"
+    name:
+      type: string
+      example: "Google"
+      description: "Name of the company"
+    mentor_count:
+      type: integer
+      example: 12
+      description: "Number of mentors who work or have worked at this company"
 
 # Search Job Titles Response schemas
 SearchJobTitlesResponse:
-    type: object
-    properties:
-        results:
-            type: array
-            items:
-                $ref: "#/JobTitleItem"
-            description: "Array of job titles matching the search criteria"
-        pagination:
-            $ref: "./mentor.yaml#/PaginationInfo"
-            description: "Pagination information for the search results"
-        searchInfo:
-            type: object
-            properties:
-                keyword:
-                    type: string
-                    example: "Engineer"
-                    description: "The original keyword string used for searching"
-                keywords:
-                    type: array
-                    items:
-                        type: string
-                    example: ["Engineer"]
-                    description: "Array of individual keywords parsed from the keyword string"
-            description: "Information about the search query"
+  type: object
+  properties:
+    results:
+      type: array
+      items:
+        $ref: "#/JobTitleItem"
+      description: "Array of job titles matching the search criteria"
+    pagination:
+      $ref: "./mentor.yaml#/PaginationInfo"
+      description: "Pagination information for the search results"
+    searchInfo:
+      type: object
+      properties:
+        keyword:
+          type: string
+          example: "Engineer"
+          description: "The original keyword string used for searching"
+        keywords:
+          type: array
+          items:
+            type: string
+          example: ["Engineer"]
+          description: "Array of individual keywords parsed from the keyword string"
+      description: "Information about the search query"
 
 JobTitleItem:
-    type: object
-    properties:
-        id:
-            type: integer
-            example: 3
-            description: "Unique identifier for the job title"
-        name:
-            type: string
-            example: "Software Engineer"
-            description: "Name of the job title"
-        mentor_count:
-            type: integer
-            example: 8
-            description: "Number of mentors who hold or have held this job title"
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 3
+      description: "Unique identifier for the job title"
+    name:
+      type: string
+      example: "Software Engineer"
+      description: "Name of the job title"
+    mentor_count:
+      type: integer
+      example: 8
+      description: "Number of mentors who hold or have held this job title"
