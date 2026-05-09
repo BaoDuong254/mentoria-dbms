@@ -10,7 +10,6 @@ services:
     volumes:
       - sqlserver-data:/var/opt/mssql
 
-
   cassandra:
     image: cassandra:latest
     container_name: cassandra-db

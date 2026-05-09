@@ -1,4 +1,2 @@
 node_modules/
 dist/
-src/database/index/docker-compose.yml
-src/database/index/**/*.md
