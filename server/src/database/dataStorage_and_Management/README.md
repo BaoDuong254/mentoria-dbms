@@ -73,7 +73,7 @@ queries:
 ```
 
 ```bash
-docker run --rm -v "${PWD}:/data" --network host cassandra:latest /opt/cassandra/tools/bin/cassandra-stress user profile=/data/cassandra_stress.yaml n=1000 "ops(insert=1)" no-warmup cl=ONE -rate threads=1000
+docker run --rm -v "${PWD}:/data" --network host cassandra:latest /opt/cassandra/tools/bin/cassandra-stress user profile=/data/server/src/database/dataStorage_and_Management/cassandra_stress.yaml n=1000 "ops(insert=1)" no-warmup cl=ONE -rate threads=1000
 ```
 
 **Kết quả kiểm thử:**
@@ -100,7 +100,7 @@ FROM sys.database_files;
 _Phương pháp:_ Thống kê dung lượng lưu trữ tổng thể của toàn bộ Node bằng công cụ `nodetool`
 
 ```bash
-docker exec -it mentoria-cassandra nodetool info
+docker exec -it mentoriadbms nodetool info
 ```
 
 **Kết quả kiểm thử:**
