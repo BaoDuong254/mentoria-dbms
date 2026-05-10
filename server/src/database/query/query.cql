@@ -2,18 +2,12 @@
 
 -- Lần 1
 TRACING ON;
-SELECT mentor_id, first_name, last_name, rating
-FROM mentors_by_skill
-WHERE skill_name = 'React'
-LIMIT 10;
+SELECT mentor_id, first_name, last_name, rating FROM mentors_by_skill WHERE skill_name = 'React' LIMIT 10;
 TRACING OFF;
 
 -- Lần 2: cùng cấu trúc query, param khác — Cassandra vẫn parse lại (không có plan cache)
 TRACING ON;
-SELECT mentor_id, first_name, last_name, rating
-FROM mentors_by_skill
-WHERE skill_name = 'Python'
-LIMIT 10;
+SELECT mentor_id, first_name, last_name, rating FROM mentors_by_skill WHERE skill_name = 'Python' LIMIT 10;
 TRACING OFF;
 
 -- Testcase 2: Query Translation Pipeline
@@ -65,11 +59,7 @@ LIMIT 50;
 
 -- Lần 1 — Tương đương SQL Server lần 1 (12 tháng): đọc toàn bộ partition 'all'
 TRACING ON;
-SELECT mentor_id, mentor_name, total_revenue, completed_meetings
-FROM revenue_by_mentor
-WHERE bucket = 'all'
-ORDER BY total_revenue DESC
-LIMIT 50;
+SELECT mentor_id, mentor_name, total_revenue, completed_meetings FROM revenue_by_mentor WHERE bucket = 'all' ORDER BY total_revenue DESC LIMIT 50;
 TRACING OFF;
 
 -- Lần 2 — Tương đương SQL Server lần 2 (3 tháng): query buộc phải giống hệt lần 1
@@ -78,11 +68,7 @@ TRACING OFF;
 -- Đây chính là điểm tương phản: SQL Server logical reads giảm từ lần 1 → lần 2;
 -- Cassandra không có gì thay đổi.
 TRACING ON;
-SELECT mentor_id, mentor_name, total_revenue, completed_meetings
-FROM revenue_by_mentor
-WHERE bucket = 'all'
-ORDER BY total_revenue DESC
-LIMIT 50;
+SELECT mentor_id, mentor_name, total_revenue, completed_meetings FROM revenue_by_mentor WHERE bucket = 'all' ORDER BY total_revenue DESC LIMIT 50;
 TRACING OFF;
 
 -- Kết luận: SQL Server tự động điều chỉnh execution plan theo date range tại runtime
