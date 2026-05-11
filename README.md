@@ -55,7 +55,7 @@ A comprehensive mentorship platform connecting mentors and mentees through sched
 
 ## 📋 Table of Contents
 
-- [Mentoria - DBM](#mentoria---dbm)
+- [Mentoria - DBMS](#mentoria---dbms)
   - [✨ Features](#-features)
   - [🛠 Tech Stack](#-tech-stack)
     - [Frontend](#frontend)
@@ -85,8 +85,10 @@ A comprehensive mentorship platform connecting mentors and mentees through sched
     - [2. Create triggers](#2-create-triggers)
     - [3. Create stored procedures](#3-create-stored-procedures)
     - [4. Create functions](#4-create-functions)
-    - [5. Insert seed data](#5-insert-seed-data)
-    - [6. Seed availability slots](#6-seed-availability-slots)
+    - [5. Create Nonclustered Index](#5-create-nonclustered-index)
+    - [6. Insert seed data](#6-insert-seed-data)
+    - [7. Seed availability slots](#7-seed-availability-slots)
+  - [🔬 DBMS Comparison (SQL Server vs Cassandra)](#-dbms-comparison-sql-server-vs-cassandra)
   - [📚 API Documentation](#-api-documentation)
     - [Accessing API Docs](#accessing-api-docs)
     - [Updating API Documentation](#updating-api-documentation)
@@ -409,11 +411,15 @@ Open `server/src/database/procedure.sql`, copy and execute it in SQL Server.
 
 Open `server/src/database/function.sql`, copy and execute it in SQL Server.
 
-### 5. Insert seed data
+### 5. Create Nonclustered Index
+
+Open `server/src/database/create_indexes.sql`, copy and execute it in SQL Server.
+
+### 6. Insert seed data
 
 Open `server/src/database/INSERT_DATA.sql`, copy and execute it in SQL Server to populate the database with initial data.
 
-### 6. Seed availability slots
+### 7. Seed availability slots
 
 Finally, run the following command to generate additional mentor availability slots:
 
@@ -426,11 +432,16 @@ pnpm seed:slot
 
 ## 🔬 DBMS Comparison (SQL Server vs Cassandra)
 
-This project includes a research component comparing **Microsoft SQL Server 2022** and **Apache Cassandra** in terms of query processing, optimization, and data storage mechanisms. If you are interested in this part, see the setup guide and test scenarios at:
+This project includes a research component comparing **Microsoft SQL Server 2022** and **Apache Cassandra** in terms of query processing, optimization, and data storage mechanisms.
 
-**[`server/src/database/README.md`](server/src/database/README.md)**
+| Resource | Link |
+|---|---|
+| 📄 Report | [`docs/`](docs/) folder in this repository |
+| 🎞 Slides | [View on Canva](https://canva.link/tr8fi7a1q236k6b) |
+| 🎬 Video Demo | [View on Google Drive](https://drive.google.com/drive/folders/1zgW1HSQ9wrPqLVsXKHWNWb5J2xXHqXAX?usp=sharing) |
+| ⚙️ Setup & Benchmarks | [`server/src/database/README.md`](server/src/database/README.md) |
 
-That document covers how to start both systems via Docker, how to initialize the schema and seed data, and links to the specific benchmark query scripts.
+The setup guide covers how to start both systems via Docker, how to initialize the schema and seed data, and links to the specific benchmark query scripts.
 
 ## 📚 API Documentation
 

@@ -15,6 +15,7 @@ server/src/database/
 ├── procedure.sql               ← Stored procedures
 ├── function.sql                ← User-defined functions
 ├── INSERT_DATA.sql             ← Dữ liệu mẫu SQL Server
+├── create_indexes.sql          ← Nonclustered Index
 │
 ├── cassandra_schema.cql        ← Schema Cassandra (keyspace + tables)
 ├── cassandra_insert_data.cql   ← Dữ liệu mẫu Cassandra
@@ -85,6 +86,7 @@ Chạy các file sau theo đúng thứ tự trong SSMS hoặc `sqlcmd`. Nếu d�
 3. procedure.sql    ← Tạo stored procedures
 4. function.sql     ← Tạo functions
 5. INSERT_DATA.sql  ← Nạp dữ liệu mẫu
+6. create_indexes.sql ← Tạo nonclustered index
 ```
 
 **Dùng SSMS:** mở từng file, chọn đúng database, nhấn **F5**.
@@ -102,6 +104,7 @@ sqlcmd -S $server -U $user -P $pass -d $db -i trigger.sql
 sqlcmd -S $server -U $user -P $pass -d $db -i procedure.sql
 sqlcmd -S $server -U $user -P $pass -d $db -i function.sql
 sqlcmd -S $server -U $user -P $pass -d $db -i INSERT_DATA.sql
+sqlcmd -S $server -U $user -P $pass -d $db -i create_indexes.sql
 ```
 
 ---
